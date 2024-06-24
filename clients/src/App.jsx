@@ -18,8 +18,7 @@ import UnautorizedAdmin from './components/admin/unautorizedAdmin';
 const LocationMap = React.lazy(() => import('./components/location/location'));
 
 function App() {
-  
-  const role = useSelector(state => state.user.role)
+  const role = useSelector(store => store.user.role)
   return (
     <>
       <Routes>

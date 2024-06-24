@@ -1,3 +1,4 @@
+import axios from "axios";
 import { actionTypes } from "./actionTypes";
 
 export function getAllUser() {
@@ -26,5 +27,15 @@ export function userRole(role) {
   return {
     type: actionTypes.USER_ROLE,
     payload: role
+  }
+}
+
+export function getExchange(){
+  return (dispatch) =>{
+    axios.get(import.meta.env.VITE_API_EXCHANGE)
+    .then(response => response.data)
+    .then(response => response.status < 300 && response.message)
+    .then(response => dispatch({type:actionTypes.SET_EXCHANGE, payload:response}))
+    .catch(error => console.error(error))
   }
 }
