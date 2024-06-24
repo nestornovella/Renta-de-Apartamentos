@@ -30,6 +30,10 @@ module.exports = {
     data
   ) => {
     const res = getGlobalRes(); // {res}
+    if (!res || res.headersSent) {
+      return; // Si res no está definido o los encabezados ya se enviaron, salir
+    }
+    
     const response =
       data == null
         ? {
@@ -40,8 +44,10 @@ module.exports = {
             status: statusCode,
             data: data,
           };
+
     res.status(statusCode).json(response);
   },
+
   rejectSender: (message, statusCode = HttpStatusCodes.errorServidor) => {
     throw { message: message, status: statusCode };
   },

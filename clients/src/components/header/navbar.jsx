@@ -7,6 +7,8 @@ import LoginButton from "../Auth0Buttons/LoginButton";
 import LogoutButton from "../Auth0Buttons/LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import AdminLink from "./adminLink";
+import { useDispatch, useSelector } from "react-redux";
+import { getExchange } from "../../redux/actions/userActions";
 
 const animationNavBar = {
   initial: {
@@ -31,6 +33,12 @@ const animationNavBar = {
 function NavBar({ openStatus, main = true }) {
   const { scrolling } = useHandleScroll();
   const { isAuthenticated, user } = useAuth0();
+  const exchange = useSelector(store => store.user.exchange)
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getExchange())
+  },[])
 
   function handleSetActive() {}
 
@@ -92,11 +100,7 @@ function NavBar({ openStatus, main = true }) {
                );
              })}
              <div className="text-center text-[18px]">
-               <AdminLink
-                 className={
-                   "block border-b-[1px] border-white md:mb-0 mb-4 cursor-pointer"
-                 }
-               />
+               <span>{exchange && exchange.value}</span>
              </div>
            </div>
          )}
