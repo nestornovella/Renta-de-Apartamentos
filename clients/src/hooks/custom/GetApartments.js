@@ -1,10 +1,37 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getApatments, filterSelectedCity, getAllRentApartments } from "../../redux/actions/apartmentActions";
+import axios from "axios";
+import { useState } from "react";
 
 function useGetApartments() {
   const dispatch = useDispatch();
   const apartments = useSelector((state) => state.apartment.apartments);
+  const [sliderData, setSliderData] = useState([])
 
+
+  async function reIntent(callback, data, setState, intents = 5) {
+    try {
+      const data = await callback()
+      console.log('intento de ejecucion:', intents)
+      setState(data)
+
+      setTimeout(() => {
+        if (!data.length && intents > 0) {
+          reIntent(callback, setState, data, intents - 1)
+        }
+      }, 1000)
+
+    } catch (error) {
+      console.error(error)
+      setTimeout(() => {
+        if (intents > 0) {
+          reIntent(callback, setState, data, intents - 1)
+          console.log('intento de ejecucion:', intents)
+        }
+      }, 1000)
+      
+    }
+  }
 
   function resetApartmentsList() {
     dispatch(getApatments());
@@ -15,22 +42,23 @@ function useGetApartments() {
     dispatch(filterSelectedCity(cityId))
   }
 
-  function filterByRent(){
+  function filterByRent() {
     dispatch(getAllRentApartments())
   }
 
-  function getApartments(){
+  function getApartments() {
     dispatch(getApatments())
   }
 
   //slider
-  function getapartmentsToSlider(){
-    return fetch(import.meta.env.VITE_API_USER_APARTMENT)
-    .then(response => response.json())
-    .then(response => response.status < 300 && response.data)
-    
+  function getapartmentsToSlider() {
+    return axios(import.meta.env.VITE_API_USER_APARTMENT)
+      .then(response => response.data)
+      .then(response => response.status < 300 && response.data)
   }
-  
+
+  const setSlide =()=> reIntent(getapartmentsToSlider, sliderData, setSliderData)
+
 
   return {
     apartments,
@@ -39,7 +67,9 @@ function useGetApartments() {
     filterByCity,
     getApartments,
     filterByRent,
-    getapartmentsToSlider
+    getapartmentsToSlider,
+    setSlide,
+    sliderData
   };
 }
 

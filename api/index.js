@@ -6,8 +6,10 @@ const router = require("./src/routes/index.routes.js");
 const { resSender} = require('./src/helpers/resSender.helper.js');
 const { captureRes } = require("./src/helpers/midlewareRes.helper.js");
 const { startCron } = require("./src/helpers/cronSchudelizer.helper.js");
+const {hourLimit100} = require('./src/middleware/rateLimited.js')
 
 const port = process.env.PORT || 3000
+
 
 startCron()
 
@@ -25,8 +27,10 @@ app.use(cors({
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
-app.use(captureRes);
 
+app.set('trust proxy', true);
+app.use(captureRes);
+app.use(hourLimit100)
 app.use("/", router);
 
 //manejo de errores
