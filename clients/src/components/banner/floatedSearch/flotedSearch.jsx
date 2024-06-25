@@ -8,9 +8,9 @@ import useGetAllCities from "../../../hooks/custom/getAllCities";
 
 function FlotedSearch() {
   const {dispatchCities} = useGetAllCities()
-  useEffect(()=>{
-    dispatchCities()
-  },[])
+  // useEffect(()=>{
+  //   dispatchCities()
+  // },[])
 
   return (
     <Transition className="absolute  z-[10] md:bottom-[0] left-0 right-0 md:w-[90%] xl:w-[75%] mx-auto">

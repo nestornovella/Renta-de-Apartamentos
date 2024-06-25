@@ -1,14 +1,15 @@
 import { actionTypes } from "./actionTypes";
 import axios from "axios";
 
-const VITE_API_USER_CITIES = import.meta.env.VITE_API_USER_CITIES
-const VITE_API_USER_APARTMENT = import.meta.env.VITE_API_USER_APARTMENT
-const VITE_API_RENT = import.meta.env.VITE_API_RENT
+const VITE_API_USER_CITIES = import.meta.env.VITE_API_USER_CITIES //cities 
+const VITE_API_USER_APARTMENT = import.meta.env.VITE_API_USER_APARTMENT //apartments
+const VITE_API_RENT = import.meta.env.VITE_API_RENT // api backend
 const productionHandler = {
   urlProduction: VITE_API_USER_APARTMENT,
   urlDevelopment: "http://localhost:3000/apartment",
 };
 
+//funcion apartamentos
 export function getApatments() {
   return async (dispatch) => {
     try {
