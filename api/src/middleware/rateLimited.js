@@ -1,3 +1,5 @@
+const  { resSender } = require( '../helpers/resSender.helper') 
+
 const rateLimiter = require('express-rate-limit')
 
 const hourLimit100 = rateLimiter(
@@ -8,7 +10,6 @@ const hourLimit100 = rateLimiter(
         
     }
 )
-
 
 module.exports = {
     hourLimit100
