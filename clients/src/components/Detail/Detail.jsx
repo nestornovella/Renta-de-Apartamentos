@@ -33,7 +33,6 @@ function CardDetail() {
           apartment &&
           <Property apartment={apartment} />
         }
-
         <Footer />
       </Transition>
     </>

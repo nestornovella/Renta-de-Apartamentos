@@ -21,12 +21,15 @@ function Property({ apartment }) {
       if (apartment.images.length > imagePos + 1) {
         setImagePos((prev) => prev + 1);
       }
+      
     } else {
       if (0 < imagePos) {
         setImagePos((prev) => prev - 1);
       }
     }
   }
+
+  const {city, barrio} = getOneCity(apartment.CityId)
   const {
     id,
     bedrooms,
@@ -58,9 +61,9 @@ function Property({ apartment }) {
           </h1>
           <div className="mb-5 text-sm text-secondary">
             <div className="flex">
-              <span className="mr-1">{getOneCity(CityId).city}</span>
+              <span className="mr-1">{city}</span>
               <span>-</span>
-              <span className="ml-1">{getOneCity(CityId).barrio}</span>
+              <span className="ml-1">{barrio}</span>
             </div>
           </div>
           <div className="flex gap-5 items-center my-4">

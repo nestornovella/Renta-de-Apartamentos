@@ -12,7 +12,7 @@ function useGetAllCities() {
     if (city) {
       return city;
     }
-    return {};
+    return {city:null,barrio:null};
   }
   function dispatchCities(){
     setTimeout(()=>{
