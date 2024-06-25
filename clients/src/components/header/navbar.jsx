@@ -37,7 +37,9 @@ function NavBar({ openStatus, main = true }) {
   const dispatch = useDispatch()
 
   useEffect(()=>{
-    dispatch(getExchange())
+    setTimeout(()=>{
+      dispatch(getExchange())
+    },300)
   },[])
 
   function handleSetActive() {}

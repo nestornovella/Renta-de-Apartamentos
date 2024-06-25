@@ -2,10 +2,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userRole } from "../../redux/actions/userActions";
+import axios from "axios";
 
 function useAuth0GetData() {
   const VITE_API_USER = import.meta.env.VITE_API_USER
-  const [controledUser, setControledUser] = useState({}); //logear o regstrar
+  const [controledUser, setControledUser] = useState({email:null}); //logear o regstrar
   const role = useSelector((state) => state.user.role);
   const dispatch = useDispatch()
 
@@ -22,16 +23,12 @@ function useAuth0GetData() {
   } = useAuth0();
 
   function loginOrRegisterUser(user) {
-    fetch(VITE_API_USER, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .then((data) => {dispatch(userRole(data.data[0].role))})
-      .catch((error) => console.error(error));
+    if(!role){
+      axios.post(VITE_API_USER,user)
+        .then((response) => response.data)
+        .then((data) => {dispatch(userRole(data.data[0].role))})
+        .catch((error) => console.error(error));
+    }
   }
 
   useEffect(() => {

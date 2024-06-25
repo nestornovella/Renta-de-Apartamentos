@@ -53,17 +53,16 @@ function App() {
         <Route path="/apartment/:id" element={<CardDetail />} />
 
         <Route path='/admin' element={
-          role == 'admin' || role == 'superAdmin' ? 
-          <>
-
-            <TransitionPage />
-            <Header main={false} />
-            <AdminPanel />
-          </> :
+          role == 'admin' || role == 'superAdmin' ?
             <>
               <TransitionPage />
               <Header main={false} />
-              <UnautorizedAdmin/>
+              <AdminPanel />
+            </> :
+            <>
+              <TransitionPage />
+              <Header main={false} />
+              <UnautorizedAdmin />
             </>
           // <>
 
