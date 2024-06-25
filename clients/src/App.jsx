@@ -14,6 +14,8 @@ import AdminPanel from './components/admin/adminPanel';
 import { useSelector } from 'react-redux';
 import UnautorizedAdmin from './components/admin/unautorizedAdmin';
 import useGetApartments from './hooks/custom/GetApartments';
+import useInitialCharge from './hooks/custom/initialCharge';
+
 
 // Importa el componente de ubicación de manera dinámica usando React.lazy
 const LocationMap = React.lazy(() => import('./components/location/location'));
@@ -21,9 +23,10 @@ const LocationMap = React.lazy(() => import('./components/location/location'));
 function App() {
   const role = useSelector(store => store.user.role)
   const {getApartments} = useGetApartments()
+  const {firstChanrge} = useInitialCharge()
 
   useEffect(()=>{
-    getApartments()
+    firstChanrge()
   },[])
 
   return (
