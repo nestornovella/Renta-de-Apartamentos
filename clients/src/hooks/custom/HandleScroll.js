@@ -4,11 +4,11 @@ function useHandleScroll() {
   const [scrolling, setScrolling] = useState(false);
 
   function handleScroll() {
-    if (window.scrollY >= window.innerHeight - 400) {
+    
+    if (window.scrollY >= 300) {
       setScrolling(true);
-    } else if (window.scrollY < 100) {
-      setScrolling(false);
-    } else {
+    } 
+    else{
       setScrolling(false);
     }
   }

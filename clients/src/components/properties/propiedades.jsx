@@ -23,9 +23,9 @@ function Properties() {
   const role = useSelector(store => store.user.role)
 
 
-  useEffect(() => {
-    getApartments();
-  }, []);
+  // useEffect(() => {
+  //   getApartments();
+  // }, []);
 
   let delayMult = 0
 
@@ -58,7 +58,7 @@ function Properties() {
               delayMult > 7 ? delayMult = 1 : delayMult++
               return (
                 index < counter && (
-                  <div className="shadow-light hover:shadow-xl font-quicksand rounded-2xl transition-all duration-300 ">
+                  <div key={id} className="shadow-light hover:shadow-xl font-quicksand rounded-2xl transition-all duration-300 ">
                     {role == 'admin' &&
                       <span className="mx-2 text-xs text-gray-400 ">
                         {`id: ${id}`}
@@ -66,7 +66,6 @@ function Properties() {
                     }
                     <Link
                       className="cursor-pointer"
-                      key={id}
                       to={`/apartment/${id}`}
                     >
                       <AnimatedBox
@@ -170,7 +169,7 @@ const AnimatedBox = ({
               </div>
               <div className="flex items-center justify-center px-2 my-2 py-1 rounded-lg bg-black">
                 <span className="text-xs font-bold text-white">
-                  {status.includes("sale") ? "Buy" : status}
+                  {status && status.includes("sale") ? "Buy" : status}
                 </span>
               </div>
               <div className="absolute top-0 left-[10px]">

@@ -13,12 +13,19 @@ import CardDetail from './components/Detail/Detail';
 import AdminPanel from './components/admin/adminPanel';
 import { useSelector } from 'react-redux';
 import UnautorizedAdmin from './components/admin/unautorizedAdmin';
+import useGetApartments from './hooks/custom/GetApartments';
 
 // Importa el componente de ubicación de manera dinámica usando React.lazy
 const LocationMap = React.lazy(() => import('./components/location/location'));
 
 function App() {
   const role = useSelector(store => store.user.role)
+  const {getApartments} = useGetApartments()
+
+  useEffect(()=>{
+    getApartments()
+  },[])
+
   return (
     <>
       <Routes>
