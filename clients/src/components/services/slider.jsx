@@ -6,14 +6,16 @@ import 'swiper/css/scrollbar';
 import useGetApartments from '../../hooks/custom/GetApartments';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function Slider() {
-  const { setSlide, sliderData } = useGetApartments();
+  const { setSlide } = useGetApartments();
   
+  const sliderData = useSelector(store => store.apartment.apartments)
 
-  useEffect(() => {
-    setSlide()
-  }, [])
+  // useEffect(() => {
+  //   setSlide()
+  // }, [])
   return (
     <Swiper
       slidesPerView={2.5}

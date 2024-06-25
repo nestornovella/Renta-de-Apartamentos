@@ -18,7 +18,6 @@ export function getApatments() {
     } catch (error) {
       console.error(error)
     }
-
   };
 }
 
