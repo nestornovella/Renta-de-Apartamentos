@@ -80,7 +80,9 @@ function Properties() {
                         ubication={ubication}
                         id={id}
                         role={role}
-                        delay={delayMult * 0.2}
+                        delay={delayMult * 0
+                          
+                        }
                       />
                     </Link>
                   </div>
