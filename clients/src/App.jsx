@@ -24,24 +24,21 @@ const LocationMap = React.lazy(() => import('./components/location/location'));
 function App() {
   const role = useSelector(store => store.user.role)
   const dispatch = useDispatch()
-  // const {getApartments} = useGetApartments()
+  const [chargeFail, setChargeFail]=useState(false)
   const {firstChanrge} = useInitialCharge()
+  const apartments = useSelector((store)=> store.apartment.apartments)
 
-  // useEffect(() => {
-  //   setTimeout(()=>{
-  //     dispatch(getApatments());
-  //   },200)
-  // }, [])
-
-  // useEffect(() => {
-  // setTimeout(()=>{
-  //   dispatch(getAllCties())
-  // },1000)
-  // }, [dispatch]);
 
   useEffect(()=>{
     firstChanrge()
-  },[])
+    setTimeout(()=>{
+      !apartments ?
+      setChargeFail(prev => !prev)
+      :null
+    },1000)
+  },[chargeFail])
+
+
 
   return (
     <>
