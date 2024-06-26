@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Element } from 'react-scroll'; // Importa Element desde react-scroll
 import Header from './components/header/header';
 import Banner from './components/banner/banner';
-import Properties from './components/properties/propiedades';
+//import Properties from './components/properties/propiedades';
 import Services from './components/services/services';
 import About from './components/about/About';
 import TransitionPage from './components/transitionPage/transitionPage';
@@ -17,28 +17,27 @@ import useGetApartments from './hooks/custom/GetApartments';
 import useInitialCharge from './hooks/custom/initialCharge';
 import { getAllCties, getApatments } from './redux/actions/apartmentActions'
 import { delayAction } from './utils/setTime';
+import LoadingApartaments from './components/loadings/loadingApartments';
 
 // Importa el componente de ubicación de manera dinámica usando React.lazy
 const LocationMap = React.lazy(() => import('./components/location/location'));
-
+const Properties = React.lazy(() => import('./components/properties/propiedades'))
 function App() {
   const role = useSelector(store => store.user.role)
   const dispatch = useDispatch()
-  const [chargeFail, setChargeFail]=useState(false)
-  const {firstChanrge} = useInitialCharge()
-  const apartments = useSelector((store)=> store.apartment.apartments)
+  const [chargeFail, setChargeFail] = useState(false)
+  const { firstChanrge } = useInitialCharge()
+  const apartments = useSelector((store) => store.apartment.apartments)
 
+  function reset() {
+    console.log('fallo carga inicial')
+    console.log(apartments)
+    setChargeFail(prev => !prev)
+  }
 
-  useEffect(()=>{
-    firstChanrge()
-    setTimeout(()=>{
-      !apartments ?
-      setChargeFail(prev => !prev)
-      :null
-    },1000)
-  },[chargeFail])
-
-
+  useEffect(() => {
+      firstChanrge()
+  }, [chargeFail])
 
   return (
     <>
@@ -51,9 +50,12 @@ function App() {
                 <TransitionPage />
                 <Header />
                 <Banner />
-                <Element name="apartments">
-                  <Properties />
-                </Element>
+                <Suspense >
+                  <Element name="apartments">
+                    <Properties />
+                  </Element>
+                </Suspense>
+
                 <Element name="services">
                   <Services />
                 </Element>
