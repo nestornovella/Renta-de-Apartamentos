@@ -36,7 +36,7 @@ function useInitialCharge() {
             .then(response => dispatch({type:'GET_ALL_CITIES', payload:response}))
             .then(()=> console.log('carga finalizada'))
             .catch(err => console.error('error en carga inicial: ',err))
-        },2000)
+        },1500)
         
     }
 
