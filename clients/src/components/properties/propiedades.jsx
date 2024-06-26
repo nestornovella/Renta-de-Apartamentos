@@ -149,7 +149,7 @@ const AnimatedBox = ({
           <p className="text-secondary">{ubication}</p>
           <div className="">
             <div className="flex gap-2">
-              <span className="text-[15px] block text-gray-400 text-xs md:text-sm font-semibold mb-2">
+              <span className="text-[15px] block h-[20px] text-gray-400 text-xs md:text-sm font-semibold mb-2">
                 {urbanizacion}
               </span>
               <PiBuildingApartment />
