@@ -31,8 +31,8 @@ function useInitialCharge() {
         setApartments()
         .then(response => dispatch({type:'GET_ALL_APARTMENTS', payload:response}))
         .then(()=> setCities())
-        .then(response => dispatch({type:'GET_ALL_CITIES', payload:{data: response}}))
-        .catch(err => console.error(err))
+        .then(response => dispatch({type:'GET_ALL_CITIES', payload:response}))
+        .catch(err => console.error('error en carga inicial: ',err))
     }
 
     return {

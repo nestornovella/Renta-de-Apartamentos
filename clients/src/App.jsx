@@ -25,19 +25,23 @@ function App() {
   const role = useSelector(store => store.user.role)
   const dispatch = useDispatch()
   // const {getApartments} = useGetApartments()
-  // const {firstChanrge} = useInitialCharge()
+  const {firstChanrge} = useInitialCharge()
 
-  useEffect(() => {
-    setTimeout(()=>{
-      dispatch(getApatments());
-    },200)
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(()=>{
+  //     dispatch(getApatments());
+  //   },200)
+  // }, [])
 
-  useEffect(() => {
-  setTimeout(()=>{
-    dispatch(getAllCties())
-  },1000)
-  }, [dispatch]);
+  // useEffect(() => {
+  // setTimeout(()=>{
+  //   dispatch(getAllCties())
+  // },1000)
+  // }, [dispatch]);
+
+  useEffect(()=>{
+    firstChanrge()
+  },[])
 
   return (
     <>
