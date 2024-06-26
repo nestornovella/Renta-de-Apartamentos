@@ -9,7 +9,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import AdminLink from "./adminLink";
 import { useDispatch, useSelector } from "react-redux";
 import { getExchange } from "../../redux/actions/userActions";
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
 
 const animationNavBar = {
   initial: {
@@ -34,7 +33,6 @@ const animationNavBar = {
 function NavBar({ openStatus, main = true }) {
   const { scrolling } = useHandleScroll();
   const { isAuthenticated, user } = useAuth0();
-  const exchange = useSelector(store => store.user.exchange)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -101,19 +99,12 @@ function NavBar({ openStatus, main = true }) {
                   </div>
                 );
               })}
-              <div className="text-center text-[18px] flex flex-col text-xs justify-center items-center font-quicksand text-gray-500 ">
-                <span>COP-USD: </span>
-                <div className="flex gap-1 ">
-                  <FaMoneyBillTrendUp className="text-gray-700 animate-bounce "/>
-                  <span>{exchange && exchange.value}</span>
-                </div>
-              </div>
+             
             </div>
           )}
         </AnimatePresence>
       }
     </>
-
   );
 }
 

@@ -8,7 +8,7 @@ import {
   LiaBathSolid,
   LiaRulerCombinedSolid,
 } from "react-icons/lia";
-import { parseToColombianMoney } from "../../utils/parseMoney";
+import { parseToColombianMoney, parseToDollarsMoney } from "../../utils/parseMoney";
 import useCounterHouses from "../../redux/actions/counterHauses";
 import { PiBuildingApartmentFill, PiBuildingApartment } from "react-icons/pi";
 import useGetApartments from "../../hooks/custom/GetApartments";
@@ -22,7 +22,7 @@ function Properties() {
   const { counter, handleCounter } = useCounterHouses();
   const { dispatchCities } = useGetAllCities();
   const role = useSelector(store => store.user.role)
-
+  const exchange = useSelector(store => store.user.exchange)
 
   // useEffect(() => {
   //   getApartments();
@@ -82,8 +82,8 @@ function Properties() {
                         ubication={ubication}
                         id={id}
                         role={role}
-                        delay={delayMult * 0
-                        }
+                        delay={delayMult * 0}
+                        exchange={exchange}
                       />
                     </Link>
                   </div>
@@ -121,7 +121,8 @@ const AnimatedBox = ({
   ubication,
   id,
   delay,
-  role
+  role,
+  exchange
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -155,10 +156,13 @@ const AnimatedBox = ({
               <PiBuildingApartment />
             </div>
             <div className="flex gap-2">
-              <p className="font-bold text-sm ">{parseToColombianMoney(price)}</p>
-              <LiaCommentsDollarSolid className="mr-2 text-green-800" />
+              <img className="size-[20px] rounded-[50%]" src="https://icons.iconarchive.com/icons/wikipedia/flags/512/CO-Colombia-Flag-icon.png" alt="" />
+              <p className="font-bold text-sm ">{parseToColombianMoney(price).slice(1)}</p>
             </div>
-
+            <div className="flex gap-3">
+            <img className="size-[20px] rounded-[50%]" src="https://imgs.search.brave.com/IJw-vNjpU-9a8pN4NO2vNJvBuL1fL9bdVhmTVc-woXg/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZs/YXRpY29uLmNvbS81/MTIvNTU1LzU1NTUy/Ni5wbmc" alt="" />
+              <p className="font-bold text-sm "> {parseToDollarsMoney((price/exchange.value).toFixed(2)).slice(1)}</p>
+            </div>
             <div className="gap-1 md:gap-4 xl:gap-2 mt-2 flex flex-wrap flex-col md:flex-row">
               <div className="flex items-center justify-center px-2 my-2 py-1 rounded-lg bg-slate-300/30">
                 <LiaBedSolid />
