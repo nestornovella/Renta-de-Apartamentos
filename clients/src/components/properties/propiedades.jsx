@@ -15,6 +15,7 @@ import useGetApartments from "../../hooks/custom/GetApartments";
 import useGetAllCities from "../../hooks/custom/getAllCities";
 import Transition from "../complements/transition";
 import { useSelector } from "react-redux";
+import LoadingApartaments from "../loadings/loadingApartments";
 
 function Properties() {
   const { apartments, length, getApartments } = useGetApartments();
@@ -31,8 +32,9 @@ function Properties() {
 
   return (
     <Transition className="min-w-[400px] px-4 mb-0 ms:mt-0 mt-[300px] md:mt-20 md:px-10 xl:px-40">
+      {apartments && apartments.length ?
       <section className="grid grid-cols-2 gap-4 md:gap-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
-        {apartments.length > 0 &&
+        {apartments && apartments.length &&
           apartments.map(
             (
               {
@@ -81,7 +83,6 @@ function Properties() {
                         id={id}
                         role={role}
                         delay={delayMult * 0
-                          
                         }
                       />
                     </Link>
@@ -91,6 +92,8 @@ function Properties() {
             }
           )}
       </section>
+      :<LoadingApartaments/>
+      }
       {counter < length && (
         <div className="text-center my-7 rounded-3xl">
           <button
@@ -146,13 +149,13 @@ const AnimatedBox = ({
           <p className="text-secondary">{ubication}</p>
           <div className="">
             <div className="flex gap-2">
-              <span className="text-[15px] block font-semibold mb-2">
+              <span className="text-[15px] block text-gray-400 text-xs md:text-sm font-semibold mb-2">
                 {urbanizacion}
               </span>
               <PiBuildingApartment />
             </div>
             <div className="flex gap-2">
-              <p className="font-bold">{parseToColombianMoney(price)}</p>
+              <p className="font-bold text-sm ">{parseToColombianMoney(price)}</p>
               <LiaCommentsDollarSolid className="mr-2 text-green-800" />
             </div>
 
