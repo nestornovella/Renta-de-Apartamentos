@@ -51,7 +51,7 @@ export function getAllCties() {
       const response = await axios.get(
         VITE_API_USER_CITIES
       );
-      const data = await response.data;
+      const data = await response.data.data;
       dispatch({ type: actionTypes.GET_ALL_CITIES, payload: data });
     } catch (error) {
       console.error(error);

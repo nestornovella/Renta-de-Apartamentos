@@ -15,7 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import UnautorizedAdmin from './components/admin/unautorizedAdmin';
 import useGetApartments from './hooks/custom/GetApartments';
 import useInitialCharge from './hooks/custom/initialCharge';
-import {getApatments} from './redux/actions/apartmentActions'
+import { getAllCties, getApatments } from './redux/actions/apartmentActions'
+import { delayAction } from './utils/setTime';
 
 // Importa el componente de ubicación de manera dinámica usando React.lazy
 const LocationMap = React.lazy(() => import('./components/location/location'));
@@ -26,9 +27,17 @@ function App() {
   // const {getApartments} = useGetApartments()
   // const {firstChanrge} = useInitialCharge()
 
-  useEffect(()=>{
-    dispatch(getApatments())
-  },[])
+  useEffect(() => {
+    setTimeout(()=>{
+      dispatch(getApatments());
+    },200)
+  }, [])
+
+  useEffect(() => {
+  setTimeout(()=>{
+    dispatch(getAllCties())
+  },1000)
+  }, [dispatch]);
 
   return (
     <>
