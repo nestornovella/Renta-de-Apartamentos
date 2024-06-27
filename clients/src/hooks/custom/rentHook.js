@@ -28,7 +28,7 @@ function useGenerateRent(input, errors, validate) {
     console.log("🚀 ~ generateRent ~ parsedInput:", parsedInput)
 
     if (!errors.endDate && !errors.startDate && errors.blocked == false) {
-      fetch(import.meta.env.VITE_API_RENT_GENERATE, {
+      return fetch(import.meta.env.VITE_API_RENT_GENERATE, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,14 +36,26 @@ function useGenerateRent(input, errors, validate) {
         body: JSON.stringify(parsedInput),
       })
         .then((response) => response.json())
-        .then(response => { response.status < 300 ? alert('se ha generado una peticion de renta, sera evaluada en las proximas horas') : alert('la peticion de renta no se pudo realizar pongase en contacto con el administrador') })
+        .then(response => { 
+          response.status < 300 
+          ? 
+          alert('se ha generado una peticion de renta, sera evaluada en las proximas horas')  
+          : 
+          alert('la peticion de renta no se pudo realizar pongase en contacto con el administrador') 
+          return response.data
+        })
         .catch(error => console.error(error));
     } else {
       alert("Please fill out all required fields before submitting your rent");
       validate(input)
+      return
     }
   }
-
+  //falta terminar de hacer
+  function payment (){
+    generateRent()
+    .then(response => fetch(`url/${response.id}`))
+  }
   return {
     generateRent,
     setInputRent,

@@ -1,4 +1,4 @@
-const { Transaction, Apartment, User } = require('../../db');
+const { Transaction, Apartment, User, Rent } = require('../../db');
 const { resSender, HttpStatusCodes, rejectSender } = require('../helpers/resSender.helper');
 
 module.exports = {
@@ -15,7 +15,13 @@ module.exports = {
     const { id } = req.params;
     try {
       const transaction = await Transaction.findOne({where: {id: id},
-        include: [User, Apartment],
+        include: [
+          {model:User}, 
+          {model:Rent,
+            include:[
+              {model:Apartment}
+            ]
+          }],
       })
       if(!transaction) {
         rejectSender("transaction no encontrada", HttpStatusCodes.noEncontrado);
