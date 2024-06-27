@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import {
   LiaStarSolid,
-  LiaCommentsDollarSolid,
   LiaBedSolid,
   LiaBathSolid,
   LiaRulerCombinedSolid,

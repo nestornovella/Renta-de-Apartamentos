@@ -9,5 +9,13 @@ module.exports = {
         } catch (error) {
             next(error)
         }
+    },
+    createExchange: async (req, res, next)=>{
+        try {
+            const exchange = await Exchange.create(req.body)
+            resSender(exchange, HttpStatusCodes.aceptado)
+        } catch (error) {
+            next(error)
+        }
     }
 }

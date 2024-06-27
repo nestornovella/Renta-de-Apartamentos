@@ -30,6 +30,7 @@ module.exports = (sequelize) => {
     User.hasMany(models.Apartment, { foreignKey: 'userId' });
     User.hasMany(models.Rent, { foreignKey: 'userId' });
     User.hasMany(models.Sale, { foreignKey: 'userId' });
+    User.hasMany(models.Transaction, { foreignKey: 'userId' })
   }
   return User;
 }

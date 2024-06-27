@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(cors())
 app.set('trust proxy', true);
 app.use(captureRes);
-app.use(hourLimit100)
+//app.use(hourLimit100)
 app.use("/", router);
 
 //manejo de errores
