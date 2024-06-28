@@ -31,7 +31,13 @@ app.use(cors())
 app.set('trust proxy', true);
 app.use(captureRes);
 //app.use(hourLimit100)
+app.use('/current-date', (req, res, next)=>{
+  const createdDate = new Date()
+  res.json({date:createdDate.getDate(), hour:createdDate.getHours()})
+  next()
+})
 app.use("/", router);
+
 
 //manejo de errores
 app.use((err, req, res, next) => {
