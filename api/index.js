@@ -33,7 +33,7 @@ app.use(captureRes);
 //app.use(hourLimit100)
 app.use('/current-date', (req, res, next)=>{
   const createdDate = new Date()
-  res.json({date:createdDate.getDate(), hour:createdDate.getHours()})
+  res.json({date:createdDate.getDate(), hour:createdDate.getHours(), minutes: createdDate.getMinutes()})
   next()
 })
 app.use("/", router);

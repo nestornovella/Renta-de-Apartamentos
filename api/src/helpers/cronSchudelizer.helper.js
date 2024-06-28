@@ -37,7 +37,7 @@ module.exports = {
             sendMailPending();
           });
 
-          cron.schedule('42 15 * * *', getExchange)
+          cron.schedule('50 15 * * *', getExchange)
           cron.schedule('0 18 * * *', getExchange)
     }
 }
