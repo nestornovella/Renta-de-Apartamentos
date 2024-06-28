@@ -63,7 +63,7 @@ function useGenerateRent(input, errors, validate) {
     .then(response => window.location.href = response.data)
   }
   return {
-    generateRent,
+    generateRent, 
     setInputRent,
     setInput,
     payment
