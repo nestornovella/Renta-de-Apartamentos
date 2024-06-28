@@ -6,10 +6,10 @@ function SearchButton() {
 
   return (
     <div onClick={resetApartmentsList}
-      className="relative  bg-secondary font-quicksand hover:bg-black mb-2 md:mb-0 flex flex-col items-center gap-1 px-5 md:px-5 border-[1px] rounded-2xl py-2 justify-center cursor-pointer shadow-xl"
+      className="relative text-orange-500  hover:text-white bg-black font-quicksand hover:bg-black mb-2 md:mb-0 flex flex-col items-center gap-1 px-5 md:px-5 border-[1px] rounded-2xl py-2 justify-center cursor-pointer shadow-xl"
     >
-      <MdOutlineCleaningServices className="text-yellow-400 text-[25px] rotate-[30deg]"/>
-      <span className="text-[12px] text-white">Reset</span>
+      <MdOutlineCleaningServices className=" text-[25px] rotate-[30deg]"/>
+      <span className="text-[12px] text-white font-bold">Reset</span>
     </div>
   );
 }

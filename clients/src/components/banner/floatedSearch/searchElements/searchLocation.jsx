@@ -31,7 +31,7 @@ function SearchLocation() {
         {cities && cities.map((e, i) => {
           return (
                 
-            <div onClick={() => handleCitySelect(e.id)}  key={i} className="p-1 hover:cursor-pointer text-start w-full  hover:bg-gray-300 text-gray-400 text-[13px] px-2 flex justify-between"> 
+            <div onClick={() => handleCitySelect(e.id)}  key={i} className="p-2 hover:cursor-pointer text-start hover:bg-gray-300 text-gray-400 text-[13px] flex justify-between gap-1"> 
             
               <div
                 key={e.id}

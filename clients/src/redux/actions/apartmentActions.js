@@ -76,8 +76,23 @@ export function getAllRentApartments() {
   return (dispatch) => {
     fetch(VITE_API_RENT)
       .then((response) => response.json())
+      .then(response => response.data)
+      .then(response => response.filter(ap => ap.rentalType.includes('monthly')))
       .then((data) =>
         dispatch({ type: actionTypes.GET_ALL_RENT_APARTMENTS, payload: data })
+      )
+      .catch((error) => console.error(error));
+  };
+}
+
+export function getAllDailyRentApartments() {
+  return (dispatch) => {
+    fetch(VITE_API_RENT)
+      .then((response) => response.json())
+      .then(response => response.data)
+      .then(response => response.filter(ap => ap.rentalType.includes('daily')))
+      .then((data) =>
+        dispatch({ type: actionTypes.GET_ALL_DAILY_RENT_APARTMENTS, payload: data })
       )
       .catch((error) => console.error(error));
   };

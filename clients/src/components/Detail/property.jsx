@@ -141,7 +141,7 @@ function Property({ apartment }) {
             </div>
           </div>
         </div>
-        <Form apartmentId={id} availability={availability} urbanizacion={urbanizacion}/>
+        <Form apartmentId={id} availability={availability} urbanizacion={urbanizacion} rentalType={apartment.rentalType} status={apartment.status}/>
 
       </div>
     </main>

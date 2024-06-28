@@ -4,7 +4,7 @@ const initialState = {
   apartments: [],
   filters: {},
   cities: [],
-  
+
 };
 
 function apartmentReducer(state = initialState, action) {
@@ -24,10 +24,15 @@ function apartmentReducer(state = initialState, action) {
         ...state,
         apartments: action.payload.data
       };
-      case actionTypes.GET_ALL_RENT_APARTMENTS:
+    case actionTypes.GET_ALL_RENT_APARTMENTS:
       return {
         ...state,
-        apartments: action.payload.data,
+        apartments: action.payload,
+      };
+    case actionTypes.GET_ALL_DAILY_RENT_APARTMENTS:
+      return {
+        ...state,
+        apartments: action.payload,
       };
     case actionTypes.GET_ALL_SALE_APARTMENTS:
       return {
