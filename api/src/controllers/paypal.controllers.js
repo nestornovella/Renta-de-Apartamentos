@@ -2,6 +2,7 @@ const { Rent, Sale, Transaction, Exchange, User, Apartment } = require('../../db
 
 const axios = require('axios');
 const { resSender, rejectSender, HttpStatusCodes } = require("../helpers/resSender.helper");
+const {sendMailRentApproval} = require('../sendEmails/sendMailRentApproval ');
 
 module.exports = {
     createOrder: async (req, res, next) => {
@@ -89,6 +90,7 @@ module.exports = {
             if (apartment.availability) {
                 apartment.availability = false
                 apartment.save()
+                await sendMailRentApproval(rent)
                 res.redirect('https://medellinfurnishedapartment.com');
             } else {
                 rejectSender('no se pudo realizar la transaccion (verifica si esta ocupado)', HttpStatusCodes.badRequest)
