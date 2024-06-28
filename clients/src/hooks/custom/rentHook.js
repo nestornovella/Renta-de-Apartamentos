@@ -38,11 +38,13 @@ function useGenerateRent(input, errors, validate) {
         .then((response) => response.json())
         .then(response => { 
           response.status < 300 
-          ? 
-          alert('se ha generado una peticion de renta, sera evaluada en las proximas horas')  
-          : 
-          alert('la peticion de renta no se pudo realizar pongase en contacto con el administrador') 
+          console.log(response.data)
           return response.data
+          // ? 
+          // //alert('se ha generado una peticion de renta, sera evaluada en las proximas horas')  
+          // : 
+          // alert('la peticion de renta no se pudo realizar pongase en contacto con el administrador') 
+          
         })
         .catch(error => console.error(error));
     } else {
@@ -53,13 +55,15 @@ function useGenerateRent(input, errors, validate) {
   }
   //falta terminar de hacer
   function payment (){
-    generateRent()
-    .then(response => fetch(`url/${response.id}`))
+    generateRent() 
+    .then(response => fetch(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
+    .then(response => console.log('->',response))
   }
   return {
     generateRent,
     setInputRent,
-    setInput
+    setInput,
+    payment
   };
 }
 

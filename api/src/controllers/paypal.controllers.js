@@ -55,7 +55,7 @@ module.exports = {
             });
 
             console.log(response.data);
-            res.redirect(response.data.links.find(link => link.rel === 'approve').href);
+            res.send(response.data.links.find(link => link.rel === 'approve').href);
         } catch (error) {
             next(error);
         }
