@@ -18,8 +18,6 @@ module.exports = {
         },
         include: [{ model: User }, { model: Apartment }],
       });
-      console.log("🚀 ~ sendReminderEmails: ~ upcomingRents:", upcomingRents);
-
       const mailPromises = upcomingRents.map((rent) => {
         const user = rent.User;
         const subject = "Recordatorio: Calificación de tu apartamento rentado";

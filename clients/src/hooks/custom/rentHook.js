@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuth0GetData from "./auth0getinData";
 import axios from "axios";
+import useUpdateRentStatus from "../admin/updateRentStatus";
 
 function useGenerateRent(input, errors, validate) {
   //apartmentId, userId, startDate, endDate
@@ -14,6 +15,7 @@ function useGenerateRent(input, errors, validate) {
     id: "" //apartmentId
   })
 
+  const {updateRentStatus} = useUpdateRentStatus()
   function setInput(input) {
     setInputRent(input)
   }
@@ -56,7 +58,7 @@ function useGenerateRent(input, errors, validate) {
   }
   //falta terminar de hacer
   function payment (){
-    generateRent('active') 
+    generateRent() 
     .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
     .then(response => window.location.href = response.data)
   }

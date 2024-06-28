@@ -3,7 +3,10 @@ import { actionTypes } from "../actions/actionTypes";
 const initialState = {
   role: null,
   user:null, // {status: 200, data: [{user}, boolean]} {user: user, registred: boolean}
-  exchange:null
+  exchange:{
+    currency:'COP',
+    value:'1'
+  }
 };
 
 function userReducer(state = initialState, action) {

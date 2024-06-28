@@ -1,4 +1,4 @@
-const { Rent, Sale, Transaction, Exchange, User } = require('../../db')
+const { Rent, Sale, Transaction, Exchange, User, Apartment } = require('../../db')
 
 const axios = require('axios');
 const { resSender, rejectSender, HttpStatusCodes } = require("../helpers/resSender.helper");
@@ -63,30 +63,38 @@ module.exports = {
     captureOrder: async (req, res, next) => {
         const { rentId } = req.params;
         const { PayerID, token } = req.query
-        console.log("🚀 ~ captureOrder: ~ PayerID:", typeof PayerID)
-        
-
 
         try {
             if (!rentId) rejectSender('se requiere el id de la renta', HttpStatusCodes.noEncontrado)
-            const rent = await Rent.findByPk(rentId, { include: [{ model: User }] })
+            const rent = await Rent.findByPk(rentId, { include: [{ model: User }, { model: Apartment }] })
+        if(!rent.Apartment.availability) rejectSender('el apartamento no esta habilitado, comunicate con el administrador', HttpStatusCodes.conflictivo)
             if (!rent) rejectSender('no se encontro la renta', HttpStatusCodes.noEncontrado)
             const user = await User.findByPk(rent.User.email)
             const exchange = await Exchange.findByPk(1)
 
             const transaction = await Transaction.create(
                 {
-                    paypalToken: token, 
+                    paypalToken: token,
                     payerID: PayerID,
                     amount: {
                         COP: { currency: 'COP', amount: ((rent.priceAtRent * 10) / 100).toFixed(2) },
                         USD: { currency: 'USD', amount: (((rent.priceAtRent / exchange.value) * 10) / 100).toFixed(2) }
                     }
                 }) // id,paypalToken,payerID,date,amount,status
+
             await rent.addTransaction(transaction)
             await user.addTransaction(transaction)
 
-            res.redirect('https://medellinfurnishedapartment.com');
+            const apartment = await Apartment.findByPk(rent.Apartment.id)
+            if (apartment.availability) {
+                apartment.availability = false
+                apartment.save()
+                res.redirect('https://medellinfurnishedapartment.com');
+            } else {
+                rejectSender('no se pudo realizar la transaccion (verifica si esta ocupado)', HttpStatusCodes.badRequest)
+            }
+
+
         } catch (error) {
             next(error);
         }
