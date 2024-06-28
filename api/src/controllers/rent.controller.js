@@ -31,7 +31,7 @@ module.exports = {
   },
 
   createRent: async (req, res, next) => {
-    const { apartmentId, userId, startDate, endDate } = req.body // id apart, user id , start D, end D ? precio {consulta} 
+    const { apartmentId, userId, startDate, endDate, status } = req.body // id apart, user id , start D, end D ? precio {consulta} 
     try {
       //validations parametros
       if(!userId || !apartmentId || !startDate || !endDate){
@@ -56,7 +56,8 @@ module.exports = {
       //creacion de renta
       const rent = await Rent.create({
         ...req.body, 
-        priceAtRent: apartment.price // Guardar el precio del apartamento al momento de crear la renta
+        priceAtRent: apartment.price, // Guardar el precio del apartamento al momento de crear la renta
+        status: status ? status : 'pending' 
       }); 
       await user.addRent(rent);
       await apartment.addRent(rent);

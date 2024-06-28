@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useAuth0GetData from "./auth0getinData";
+import axios from "axios";
 
 function useGenerateRent(input, errors, validate) {
   //apartmentId, userId, startDate, endDate
@@ -17,14 +18,14 @@ function useGenerateRent(input, errors, validate) {
     setInputRent(input)
   }
 
-  function generateRent() {
+  function generateRent(status) {
     const parsedInput = {
       apartmentId: input.id,
       userId: input.email,
       startDate: input.startDate,
       endDate: input.endDate
-
     }
+    if(status) parsedInput.status = status
     console.log("🚀 ~ generateRent ~ parsedInput:", parsedInput)
 
     if (!errors.endDate && !errors.startDate && errors.blocked == false) {
@@ -55,9 +56,9 @@ function useGenerateRent(input, errors, validate) {
   }
   //falta terminar de hacer
   function payment (){
-    generateRent() 
-    .then(response => fetch(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
-    .then(response => console.log('->',response))
+    generateRent('active') 
+    .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
+    .then(response => window.location.href = response.data)
   }
   return {
     generateRent,
