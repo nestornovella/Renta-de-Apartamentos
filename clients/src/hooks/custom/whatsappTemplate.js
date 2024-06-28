@@ -10,12 +10,13 @@ function formatDate(date) {
 
 export function useWhatsapp(input) {
   const [link, setLink] = useState(null);
-
+  console.log(input)
   useEffect(() => {
     let template = `::::::RENT-APARTMENTS-MEDELLIN::::::%0A`;
     template += `client: ${input.name}%0A`;
     template += `email: ${input.email}%0A`;
     template += `apartment id: ${input.id}%0A`;
+    template += `urbanizacion: ${input.urbanizacion}%0A`;
     template += `start date: ${
       input.startDate ? formatDate(input.startDate) : ""
     }   end date: ${input.endDate ? formatDate(input.endDate) : ""}%0A`;
@@ -23,7 +24,7 @@ export function useWhatsapp(input) {
     template += `consult:%0A0A ${input.consult}%0A%0A`;
     template += `----------------------%0A`;
     setLink(
-      `https://api.whatsapp.com/send?phone=+573024470241&text=${template}`
+      `${'https://api.whatsapp.com/send?phone='+import.meta.env.VITE_WHATSAPP_PHONE+'&text='}${template}`
     );
   }, [input]);
 

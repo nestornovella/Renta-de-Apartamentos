@@ -5,10 +5,17 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import useGetApartments from '../../hooks/custom/GetApartments';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function Slider() {
-  const { slider } = useGetApartments();
+  const { setSlide } = useGetApartments();
+  
+  const sliderData = useSelector(store => store.apartment.apartments)
 
+  // useEffect(() => {
+  //   setSlide()
+  // }, [])
   return (
     <Swiper
       slidesPerView={2.5}
@@ -22,8 +29,8 @@ function Slider() {
       className="h-[240px] md:h-[380px] w-[380px] md:w-[700px] "
       grabCursor
     >
-      {slider &&
-        slider.map(({ images, id }) => (
+      {sliderData &&
+        sliderData.map(({ images, id }) => (
           <SwiperSlide className='w-100' key={id}>
             <Link to={`/apartment/${id}`} >
               <img src={`${images && images[0]}`} className="w-[100%] h-[90%] rounded-xl bg- bg-center object-cover" alt="furnished, amoblados, apartments, apartamentos, alquiler, rent" />

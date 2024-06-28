@@ -1,13 +1,37 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getApatments, filterSelectedCity, getAllRentApartments } from "../../redux/actions/apartmentActions";
+import axios from "axios";
+import { useState } from "react";
 
 function useGetApartments() {
-  const [apartments, setApartments] = useState([]);
-  const [slider, setSlider] = useState([])
-  const [firstCharge, setFirstCharge] = useState(false)
   const dispatch = useDispatch();
-  const allApartment = useSelector((state) => state.apartment.apartments);
+  const apartments = useSelector((state) => state.apartment.apartments);
+  const [sliderData, setSliderData] = useState([])
+
+
+  async function reIntent(callback, data, setState, intents = 5) {
+    try {
+      const data = await callback()
+      console.log('intento de ejecucion:', intents)
+      setState(data)
+
+      setTimeout(() => {
+        if (!data.length && intents > 0) {
+          reIntent(callback, setState, data, intents - 1)
+        }
+      }, 1000)
+
+    } catch (error) {
+      console.error(error)
+      setTimeout(() => {
+        if (intents > 0) {
+          reIntent(callback, setState, data, intents - 1)
+          console.log('intento de ejecucion:', intents)
+        }
+      }, 1000)
+      
+    }
+  }
 
   function resetApartmentsList() {
     dispatch(getApatments());
@@ -18,31 +42,34 @@ function useGetApartments() {
     dispatch(filterSelectedCity(cityId))
   }
 
-  function filterByRent(){
+  function filterByRent() {
     dispatch(getAllRentApartments())
   }
 
-  function dispatchApartments(){
+  function getApartments() {
     dispatch(getApatments())
   }
 
   //slider
-  useEffect(() => {
-    setApartments(allApartment);
-    if(allApartment.length && !firstCharge){
-      setSlider(allApartment)
-      setFirstCharge(true)
-    }
+  function getapartmentsToSlider() {
+    return axios(import.meta.env.VITE_API_USER_APARTMENT)
+      .then(response => response.data)
+      .then(response => response.status < 300 && response.data)
+  }
 
-  }, [allApartment]);
+  const setSlide =()=> reIntent(getapartmentsToSlider, sliderData, setSliderData)
+
 
   return {
     apartments,
     resetApartmentsList,
     length,
     filterByCity,
-    slider,
-    dispatchApartments
+    getApartments,
+    filterByRent,
+    getapartmentsToSlider,
+    setSlide,
+    sliderData
   };
 }
 

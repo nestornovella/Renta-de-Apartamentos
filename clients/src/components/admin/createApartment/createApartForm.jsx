@@ -8,10 +8,11 @@ import ImageSelector from "./formComponents/imagesSelector";
 import ImagesRenderSection from "./formComponents/imagesRenderSection";
 import Transition from "../../complements/transition";
 import AlertComponent from "./formComponents/alertComponent";
+import useCloudinary from "../../../hooks/custom/cloudinary";
 
 function CreateApartForm({ render }) {
-  const { handleInputs, input, addImages, deleteImage, error, submit } =
-    useHandleInput();
+  const { handleInputs, input, addImages, deleteImage, error, submit,addUrl } = useHandleInput();
+  const {uploadToCloudinary} = useCloudinary(addUrl)
 
   useEffect(() => {
     render({ input: input, submit: submit });
@@ -143,7 +144,7 @@ function CreateApartForm({ render }) {
         </span>
         <div>
           <div className="flex flex-col">
-            <ImageSelector handle={addImages} value="" />
+            <ImageSelector handle={addImages} addFiles={uploadToCloudinary} value="" />
             <AlertComponent property={"images"} errors={error} />
           </div>
           <ImagesRenderSection

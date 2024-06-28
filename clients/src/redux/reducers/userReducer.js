@@ -2,7 +2,11 @@ import { actionTypes } from "../actions/actionTypes";
 
 const initialState = {
   role: null,
-  user:null // {status: 200, data: [{user}, boolean]} {user: user, registred: boolean}
+  user:null, // {status: 200, data: [{user}, boolean]} {user: user, registred: boolean}
+  exchange:{
+    currency:'COP',
+    value:'1'
+  }
 };
 
 function userReducer(state = initialState, action) {
@@ -10,13 +14,18 @@ function userReducer(state = initialState, action) {
       case actionTypes.SET_AN_USER:
       return {
         ...state,
-        users: action.payload,
+        user: action.payload,
       };
     case actionTypes.USER_ROLE:
       return {
         ...state,
         role: action.payload,
       };
+    case actionTypes.SET_EXCHANGE:
+      return {
+        ...state,
+        exchange:action.payload
+      }
     default:
       return { ...state };
   }

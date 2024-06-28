@@ -8,25 +8,36 @@ import Property from "./property";
 import Error404 from "./error404";
 import Footer from "../footer/footer";
 import { scrollTop } from "../../utils/scrollTop";
+import { useSelector } from "react-redux";
 
 function CardDetail() {
   const { id } = useParams();
-  const { apartment, getApartment } = useGetAnApartment(id);
+  const { getApartment } = useGetAnApartment();
+  const [apartment, setApartment] = useState(null)
+  const globalAparts = useSelector(store => store.apartment.apartments)
+ 
   
-  useState(()=>{
+
+  useEffect(() => {
     scrollTop()
-    getApartment()
-  },[])
+    const apart = globalAparts.find(ap => ap.id.includes(id))
+    if(apart){
+      setApartment(apart)
+    }else{
+      getApartment(id)
+      .then(response => setApartment(response))
+    }
+  }, [])
+
   return (
     <>
       <TransitionPage />
-      <Header main={false}/>
+      <Header main={false} />
       <Transition>
-        {apartment.hasOwnProperty("data") ? (
+        {
+          apartment &&
           <Property apartment={apartment} />
-        ) : (
-          <Error404 />
-        )}
+        }
         <Footer />
       </Transition>
     </>

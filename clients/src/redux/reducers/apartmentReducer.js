@@ -2,9 +2,9 @@ import { actionTypes } from "../actions/actionTypes";
 
 const initialState = {
   apartments: [],
-  filters: [],
-  cities: [],
   filters: {},
+  cities: [],
+  
 };
 
 function apartmentReducer(state = initialState, action) {
@@ -17,7 +17,7 @@ function apartmentReducer(state = initialState, action) {
     case actionTypes.GET_ALL_CITIES:
       return {
         ...state,
-        cities: action.payload.data,
+        cities: action.payload,
       };
     case actionTypes.SET_SELECTED_CITY:
       return {

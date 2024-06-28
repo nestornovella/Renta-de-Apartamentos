@@ -2,18 +2,16 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const { connection } = require("./db");
-const router = require("./src/routes/index");
-const cron = require("node-cron");
-const { checkExpiredRents } = require("./src/controllers/rentExpiration");
-const { resSender} = require('./src/helpers/resSender');
-const { captureRes } = require("./src/helpers/midlewareRes");
+const router = require("./src/routes/index.routes.js");
+const { resSender} = require('./src/helpers/resSender.helper.js');
+const { captureRes } = require("./src/helpers/midlewareRes.helper.js");
+const { startCron } = require("./src/helpers/cronSchudelizer.helper.js");
+const {hourLimit100} = require('./src/middleware/rateLimited.js')
 
 const port = process.env.PORT || 3000
 
-cron.schedule("08 13 * * *", () => {
-  console.log("Verifying expired rentals...");
-  checkExpiredRents();
-});
+
+startCron()
 
 const sendResponse = (req, res, next) => {
   res.resSender = resSender
@@ -23,24 +21,23 @@ const sendResponse = (req, res, next) => {
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-}));
+// app.use(cors({
+//   origin: "*",
+//   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204
+// }));
+app.use(cors())
+app.set('trust proxy', true);
 app.use(captureRes);
-
+//app.use(hourLimit100)
+app.use('/current-date', (req, res, next)=>{
+  const createdDate = new Date()
+  res.json({date:createdDate.getDate(), hour:createdDate.getHours(), minutes: createdDate.getMinutes()})
+  next()
+})
 app.use("/", router);
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    welcome: "WELCOME TO MEDELLIN FURNISHED APARTMENTS",
-    apartment: "https://api-rent-appartament.up.railway.app/apartment",
-    user: "https://api-rent-appartament.up.railway.app/user",
-    city: "https://api-rent-appartament.up.railway.app/city",
-  });
-});
 
 //manejo de errores
 app.use((err, req, res, next) => {
@@ -63,3 +60,4 @@ connection
 process.on("unhandledRejection", (reason, promise) => {
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
 });
+

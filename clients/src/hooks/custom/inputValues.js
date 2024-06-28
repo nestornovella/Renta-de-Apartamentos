@@ -93,7 +93,7 @@ function useHandleInput() {
       if (Object.keys(error).length == 1) {
         axios
           .post(
-            "https://api-rent-appartament.up.railway.app/apartment",
+            import.meta.env.VITE_API_USER_APARTMENT,
             parseInput(input)
           )
           .then((response) => {
@@ -121,16 +121,27 @@ function useHandleInput() {
     }
   }
 
+  function addUrl(url){
+    setInput({
+      ...input,
+      images: [...input.images, url],
+    });
+    verifyInputValidation({
+      ...input,
+      images: [...input.images, url],
+    });
+  }
+
   function addImages(e) {
-    if (!input.images.includes(e.current.value)) {
-      if (e.current.value) {
+    if (!input.images.includes(e)) {
+      if (e) {
         setInput({
           ...input,
-          images: [...input.images, e.current.value],
+          images: [...input.images, e],
         });
         verifyInputValidation({
           ...input,
-          images: [...input.images, e.current.value],
+          images: [...input.images, e],
         });
       }
     }
@@ -155,6 +166,7 @@ function useHandleInput() {
     error,
     submit,
     editApartment,
+    addUrl
   };
 }
 
