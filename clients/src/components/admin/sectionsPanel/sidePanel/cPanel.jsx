@@ -1,7 +1,7 @@
 import panelOptions from "./panelOptions.json";
 import { MdApartment } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
-import { FaBuildingUser, FaBuildingFlag, FaBuildingCircleCheck } from "react-icons/fa6";
+import { FaBuildingUser, FaBuildingFlag, FaBuildingCircleCheck, FaMoneyBillTrendUp } from "react-icons/fa6";
 
 
 function CPanel({ handleOption }) {
@@ -16,15 +16,16 @@ function CPanel({ handleOption }) {
               onClick={(e) => handleOption(opt.value)}
               className="flex font-quicksand items-center p-2 bg-white mt-2 rounded-xl border-[1px] min-w-[180px] shadow-light hover:shadow-2xl cursor-pointer hover:border-[2px]"
             >
-              <span></span>
+
               <div className="flex justify-center items-center gap-2">
                 {
                   <>
                     {opt.icon == "MdApartment" && <MdApartment />}
                     {opt.icon == "FaUsers" && <FaUsers />}
-                    {opt.icon == "FaBuildingUser" && <FaBuildingUser />} 
+                    {opt.icon == "FaBuildingUser" && <FaBuildingUser />}
                     {opt.icon == "FaBuildingFlag" && <FaBuildingFlag />}
                     {opt.icon == "FaBuildingCircleCheck" && <FaBuildingCircleCheck />}
+                    {opt.icon == "FaMoneyBillTrendUp" && <FaMoneyBillTrendUp />}
                   </>
                 }
 

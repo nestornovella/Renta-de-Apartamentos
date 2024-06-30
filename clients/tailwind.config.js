@@ -10,8 +10,7 @@ export default {
         secondary: "#727c73"
       },
       backgroundImage:{
-        banner: "url('./assets/imagenPortada1.jpeg')",
-        banner2:"url('./assets/imagenPortada2.jpeg')"
+        banner: "url('./assets/banner2.jpeg')",
       },
       boxShadow:{
         light:"0px 4px 30px rgba(0, 0, 0, 0.08)"

@@ -36,6 +36,13 @@
         "value": "ADMINISTRATE_RENT_PETITIONS",
         "description": "change the apartment status",
         "icon":"FaBuildingCircleCheck"
+    },
+    {
+        "id": 5,
+        "name": "Earnings",
+        "value": "EARNING_DETAILS",
+        "description": "get earning details",
+        "icon":"FaMoneyBillTrendUp"
     }
 
     

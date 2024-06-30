@@ -91,7 +91,7 @@ module.exports = {
                 apartment.availability = false
                 apartment.save()
                 await sendMailRentApproval(rent)
-                res.redirect('https://medellinfurnishedapartment.com');
+                res.redirect('http://localhost:5173/');
             } else {
                 rejectSender('no se pudo realizar la transaccion (verifica si esta ocupado)', HttpStatusCodes.badRequest)
             }
