@@ -1,7 +1,8 @@
 const { Rent, Apartment, User } = require("../../db");
 const { resSender, HttpStatusCodes, rejectSender } = require('../helpers/resSender.helper');
 const { Op } = require('sequelize');
-const {sendMailRentApproval} = require("../sendEmails/sendMailRentApproval ");
+const { sendMailRentApproval } = require("../sendEmails/sendMailRentApproval ");
+const {sendMailAdminNotification} = require("../sendEmails/sendMailAdminNotification");
 
 module.exports = {
   getAllRents: async (req, res, next) => {
@@ -53,18 +54,24 @@ module.exports = {
       if (endDate && startDate && endDate < startDate) {
         rejectSender("la fecha final no puede ser menor a la de inicio", HttpStatusCodes.conflictivo);
       }
+
       //creacion de renta
       const rent = await Rent.create({
         ...req.body, 
         priceAtRent: apartment.price, // Guardar el precio del apartamento al momento de crear la renta
         status: status ? status : 'pending' 
       }); 
+
       await user.addRent(rent);
       await apartment.addRent(rent);
+
       //validar Renta 
       if(!rent){
         rejectSender('no se pudo crear la renta.', HttpStatusCodes.conflictivo)
       }
+
+      // Enviar correo al administrador
+      await sendMailAdminNotification(rent, user, apartment);
       resSender(null, HttpStatusCodes.creado, rent)
     } catch (error) {
       next(error)
@@ -79,42 +86,35 @@ module.exports = {
 
       const rent = await Rent.findByPk(id);
       if (!rent) {
-        rejectSender("Rent not found", HttpStatusCodes.noEncontrado);
+        return rejectSender("Rent not found", HttpStatusCodes.noEncontrado);
       }
 
-      //validar q la fecha inicial sea mayor a la final
       if (endDate && startDate && endDate < startDate) {
-        rejectSender("la fecha final no puede ser menor a la de inicio", HttpStatusCodes.conflictivo);
+        return rejectSender("La fecha final no puede ser menor a la de inicio", HttpStatusCodes.conflictivo);
       }
 
-      if (status === 'active' && rent.status !== 'active') { // q el status d la solicitud sea "active" y q el status actual no sea "active"
-        const apartment = await Apartment.findByPk(rent.apartmentId);
-        if (!apartment) {
-          rejectSender("Apartment not found", HttpStatusCodes.noEncontrado);
-          return;
-        }
+      const user = await User.findByPk(rent.userId);
+      const apartment = await Apartment.findByPk(rent.apartmentId);
+
+      if (!user || !apartment) {
+        return rejectSender("User or Apartment not found", HttpStatusCodes.noEncontrado);
+      }
+
+      if (status === 'active' && rent.status !== 'active') {
         if (!apartment.availability) {
-          rejectSender('el apartamento no está disponible', HttpStatusCodes.noAutorizado);
-          return;
+          return rejectSender('El apartamento no está disponible', HttpStatusCodes.noAutorizado);
         }
 
         apartment.availability = false;
         await apartment.save();
-
+        await sendMailRentApproval(rent); // Enviar correo al usuario confirmando que su solicitud de alquiler fue aprobada
       } else if (status === 'cancelled' && rent.status === 'active') {
-        const apartment = await Apartment.findByPk(rent.apartmentId);
-        if (apartment) {
-          apartment.availability = true;
-          await apartment.save();
-        }
-      }
-
-      if (rent.status === 'pending' && status === 'active') {
-        // Enviar correo al usuario confirmando que su solicitud de alquiler fue aprobada
-        await sendMailRentApproval(rent);
+        apartment.availability = true;
+        await apartment.save();
       }
 
       const updatedRent = await rent.update({ startDate, endDate, status });
+
       resSender(null, HttpStatusCodes.actualizado, updatedRent);
     } catch (error) {
       next(error);
