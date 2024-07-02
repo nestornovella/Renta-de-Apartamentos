@@ -3,6 +3,7 @@ const { resSender, HttpStatusCodes, rejectSender } = require('../helpers/resSend
 const { Op } = require('sequelize');
 const { sendMailRentApproval } = require("../sendEmails/sendMailRentApproval ");
 const {sendMailAdminNotification} = require("../sendEmails/sendMailAdminNotification");
+const { response } = require("express");
 
 module.exports = {
   getAllRents: async (req, res, next) => {
@@ -133,20 +134,27 @@ module.exports = {
   },
 
   getMonthlyEarnings: async (req, res, next) => {
-    const { year, month } = req.query;
+    const { year } = req.query;
 
-    if (!year || !month) {
-      return rejectSender("Year and month are required", HttpStatusCodes.badRequest);
+    if (!year) {
+      return rejectSender("Year are required", HttpStatusCodes.badRequest);
     }
 
     try {
-      const startDate = new Date(year, month - 1, 0);
-      const endDate = new Date(year, month, 0);
+      const startYear = new Date()
+      startYear.setFullYear(year)
+      startYear.setMonth(0)
+      startYear.setDate(1)
+
+      const endYear = new Date()
+      endYear.setMonth(11)
+      endYear.setDate(31)
+      endYear.setFullYear(year)
 
       const rents = await Rent.findAll({
         where: {
           startDate: {
-            [Op.between]: [startDate, endDate],
+            [Op.between]: [startYear, endYear],
           },
           status: {
             [Op.in]: ["active", "expired"]
@@ -157,18 +165,25 @@ module.exports = {
         },
       });
 
-      let totalApartmentPrice = 0;
-      let totalServices = 0;    
+      let monthsAmounts = {'January':0,   // Enero
+        'February':0,  // Febrero
+        'March':0,     // Marzo
+        'April':0,     // Abril
+        'May':0,       // Mayo
+        'June':0,      // Junio
+        'July':0,      // Julio
+        'August':0,    // Agosto
+        'September':0, // Septiembre
+        'October':0,   // Octubre
+        'November':0,  // Noviembre
+        'December':0 }  // Diciembre
+    ;
+    const months = Object.keys(monthsAmounts)
 
-      for (const rent of rents) {
-        const apartment = rent.Apartment;
-        totalApartmentPrice += rent.priceAtRent;
-        totalServices += apartment.services;
-      }
-      
-      let totalEarnings = totalApartmentPrice * 0.1;
-      totalEarnings += totalServices; // agregar el precio del servicio al total de las ganancias
-      resSender(null, HttpStatusCodes.aceptado, { totalEarnings });
+    rents.forEach(re => monthsAmounts[months[re.startDate.getMonth()]] = monthsAmounts[months[re.startDate.getMonth()]] += re.priceAtRent)
+    
+    let response = months.map( month => { return {[month]: monthsAmounts[month]}})
+    resSender(null, HttpStatusCodes.aceptado, {months:Object.keys(monthsAmounts), amounts: Object.values(monthsAmounts)});
     } catch (error) {
       next(error);
     }
