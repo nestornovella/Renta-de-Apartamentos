@@ -1,10 +1,10 @@
 const { sendMail } = require("./mailer");
 
 module.exports = {
-  sendMailAdminNotification: async (rent, user, apartment) => {
+  sendMailAdminNotification: async (rent, user, apartment, reserved=false) => {
     try {
       const subject = "Nueva renta pendiente";
-      const text = `Se ha generado una nueva renta pendiente.
+      const text= `Se ha generado una nueva renta ${!reserved ? '(pendiente)' : '(reservada)'}. :
       Detalles de la renta:
       - Usuario: ${user.name} (${user.email})
       - Apartamento: ${apartment.urbanizacion}
