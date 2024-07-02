@@ -3,7 +3,7 @@ const { Rent, Sale, Transaction, Exchange, User, Apartment } = require('../../db
 const axios = require('axios');
 const { resSender, rejectSender, HttpStatusCodes } = require("../helpers/resSender.helper");
 const {sendMailRentApproval} = require('../sendEmails/sendMailRentApproval ');
-
+const {sendMailAdminNotification} = require('../sendEmails/sendMailAdminNotification');
 module.exports = {
     createOrder: async (req, res, next) => {
         const { rentId, saleId } = req.params;
@@ -91,6 +91,7 @@ module.exports = {
                 apartment.availability = false
                 apartment.save()
                 await sendMailRentApproval(rent)
+                await sendMailAdminNotification(rent, user, apartment)
                 res.redirect('http://localhost:5173/');
             } else {
                 rejectSender('no se pudo realizar la transaccion (verifica si esta ocupado)', HttpStatusCodes.badRequest)
