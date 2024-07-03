@@ -12,7 +12,8 @@ function useInputQuery() {
     startDate: "",
     endDate: "",
     id: "",
-    urbanizacion: ""
+    urbanizacion: "",
+    transport: false
   });
   //const [inputUrbanizacion, setInputUrbanizacion] = useState()
 
@@ -68,6 +69,17 @@ function useInputQuery() {
     );
   }
 
+  function handleTransport(e){
+    const event = e.target;
+    setInput(
+      (prev) =>
+      (prev = {
+        ...input,
+        [event.name]: event.checked,
+      })
+    );
+  }
+
   function submitWap() {
     if (Object.keys(errors).length == 1 && !errors.blocked) {
       alert("You will be redirected to WhatsApp.");
@@ -86,7 +98,8 @@ function useInputQuery() {
     submitWap,
     setId,
     validate,
-    setUrbanizacion
+    setUrbanizacion,
+    handleTransport
   };
 }
 

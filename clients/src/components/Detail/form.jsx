@@ -6,7 +6,7 @@ import RentComponent from "./rent/rentComponent";
 import { GiArchiveRegister } from "react-icons/gi";
 import useGenerateRent from "../../hooks/custom/rentHook";
 import { FaFacebookMessenger } from "react-icons/fa";
-import { FaCalendarCheck, FaCalendarXmark } from "react-icons/fa6";
+import { FaCalendarCheck, FaCalendarXmark, FaCarSide } from "react-icons/fa6";
 import { SlPaypal } from "react-icons/sl";
 
 const url =
@@ -15,7 +15,8 @@ const url =
 function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
 
   const { controledUser, isAuthenticated, role } = useAuth0GetData()
-  const { handleInput, input, errors, link, submitWap, setId, validate, setUrbanizacion } = useInputQuery(apartmentId)
+  const { handleInput, input, errors, link, submitWap, setId, validate, setUrbanizacion, handleTransport } = useInputQuery(apartmentId)
+  console.log("🚀 ~ Form ~ input:", input)
   const { generateRent, setInputRent, payment } = useGenerateRent(input, errors, validate)
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
     setUrbanizacion(urbanizacion)
   }, [apartmentId])
 
-
+  
 
   function checkAvailability() {
     if (availability) {
@@ -31,6 +32,10 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
     } else {
       alert('The apartment is rented, get in touch using the inquiry form to find out availability')
     }
+  }
+
+  function transportHandler(){
+  
   }
 
   function reserveRent() {
@@ -57,22 +62,30 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
             <p className="text-secondary font-semibold ">Viviana</p>
           </div>
         </div>
-        <span className=" text-center text-sm w-full block p-1 rounded-t-lg  bg-secondary text-white mt-10 ">
-          Select date
-        </span>
-        <div className="mb-3 flex flex-col  gap-2 border p-2 rounded-b-lg shadow-2xl">
-          <div className="flex gap-2 ">
-            <GiArchiveRegister className="size-5 text-blue-400" />
-            <p className="text-xs text-gray-400">
-              select the start and the end date to the rent
-            </p>
+        {
+          status && !status.includes('sale') &&
+          <div>
+            <span className=" text-center text-sm w-full block p-1 rounded-t-lg  bg-secondary text-white mt-10 ">
+              Select date
+            </span>
+            <div className="mb-3 flex flex-col  gap-2 border p-2 rounded-b-lg shadow-2xl">
+              <div className="flex gap-2 ">
+                <GiArchiveRegister className="size-5 text-blue-400" />
+                <p className="text-xs text-gray-400">
+                  select the start and the end date to the rent
+                </p>
+              </div>
+
+              {/* componete de fecha */}
+              <RentComponent handleInput={handleInput} input={input} apartmentId={apartmentId} />
+              <div className="flex flex-wrap gap-2">
+                {errors.startDate && <AlertComponent errors={errors} property={'startDate'} />}
+                {errors.endDate && <AlertComponent errors={errors} property={'endDate'} />}
+              </div>
+            </div>
           </div>
-          <RentComponent handleInput={handleInput} input={input} apartmentId={apartmentId} />
-          <div className="flex flex-wrap gap-2">
-            {errors.startDate && <AlertComponent errors={errors} property={'startDate'} />}
-            {errors.endDate && <AlertComponent errors={errors} property={'endDate'} />}
-          </div>
-        </div>
+        }
+
         <div className="my-5">
           {/* Name Section */}
           <div className="mt-2">
@@ -120,7 +133,7 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
               <span className="text-white font-semibold text-[15px]">Query</span>
               <FaFacebookMessenger />
             </div>
-            { 
+            {
               status && status.includes('rent') &&
               <div onClick={checkAvailability} className={`flex text-white gap-2 font-semibold cursor-pointer ${availability ? 'hover:text-green-500' : 'hover:text-red-500'} transition-all delay-200 hover:bg-black  bg-secondary py-2 px-3 hover:black rounded-xl mt-2`}>
                 {availability ? <span className="text-[15px] text-white text-semibold ">Rent</span> : <span className="text-[15px] text-white text-semibold ">Not Availability</span>}
@@ -129,17 +142,26 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
             }
 
           </div>
-          {
-             status && status.includes('rent') &&
-            <div className="shadow-2xl border rounded-lg my-2 p-2">
-            <p className="text-xs text-gray-400 mt-2">Do you want to reserve an apartment now?</p>
-            <div onClick={reserveRent} className={`relative flex text-white gap-2 font-semibold cursor-pointer ${availability ? 'hover:text-blue-500' : 'hover:text-red-500'} transition-all delay-200 hover:bg-black  bg-blue-500 py-2 px-3 hover:black rounded-xl mt-2`}>
-              {availability ? <span className="text-[15px] text-white text-semibold ">Reserve with PayPal</span> : <span className="text-[15px] text-white text-semibold ">Not Availability</span>}
-              {availability ? <SlPaypal className="hover:text-blue-500  border rounded-full text-[25px] p-1 absolute right-[20%] top-[calc(50%-12.5px)]" /> : <FaCalendarXmark />}
+          { status && !status.includes('sale') && 
+          <>  
+            <hr className="mt-2" />
+            <div className="flex gap-1 m-2 ">
+              <input name="transport" onChange={handleTransport} type="checkbox" />
+              <p className="text-xs font-quicksand text-gray-400 w-full flex ">Marca casilla si requiere servicio de transporte -costo adicional <FaCarSide className="text-blue-400 size-[25px]" /></p>
             </div>
-          </div>
+          </>}
+
+          {
+            status && status.includes('rent') &&
+            <div className="shadow-2xl border rounded-lg my-2 p-2">
+              <p className="text-xs text-gray-400 mt-2">Do you want to reserve an apartment now?</p>
+              <div onClick={reserveRent} className={`relative flex text-white gap-2 font-semibold cursor-pointer ${availability ? 'hover:text-blue-500' : 'hover:text-red-500'} transition-all delay-200 hover:bg-black  bg-blue-500 py-2 px-3 hover:black rounded-xl mt-2`}>
+                {availability ? <span className="text-[15px] text-white text-semibold ">Reserve with PayPal</span> : <span className="text-[15px] text-white text-semibold ">Not Availability</span>}
+                {availability ? <SlPaypal className="hover:text-blue-500  border rounded-full text-[25px] p-1 absolute right-[20%] top-[calc(50%-12.5px)]" /> : <FaCalendarXmark />}
+              </div>
+            </div>
           }
-          
+
         </div>
       </div>
     </div>

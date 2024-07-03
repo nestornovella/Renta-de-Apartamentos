@@ -30,7 +30,7 @@ function Properties() {
   let delayMult = 0
 
   return (
-    <Transition className="min-w-[400px] px-4 mb-0 ms:mt-0 mt-[300px] md:mt-20 md:px-10 xl:px-40">
+    <Transition className="min-w-[400px] min-h-[1000px] px-4 mb-0 ms:mt-0 mt-[300px] md:mt-20 md:px-10 xl:px-40">
       {apartments && apartments.length ?
         <section className="grid grid-cols-2 gap-4 md:gap-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
           {apartments && apartments.length &&
@@ -200,9 +200,16 @@ const AnimatedBox = ({
               </div>
               <div className="absolute top-6 left-[10px]">
                 <div className="flex items-center justify-center px-2 my-2 py-1 rounded-lg  text-black bg-gray-200 backdrop-blur-2xl">
-                  <span className="text-[10px] font-bold">
-                    {rentalType[0].toUpperCase() + rentalType.slice(1).toLowerCase() }
-                  </span>
+                  {
+                    status && !status.includes('sale') ?
+                      <span className="text-[10px] font-bold">
+                        {rentalType[0].toUpperCase() + rentalType.slice(1).toLowerCase()}
+                      </span>
+                      :
+                      <span className="text-[10px] font-bold">
+                        {status[0].toUpperCase() + status.slice(1).toLowerCase()}
+                      </span>
+                  }
                 </div>
               </div>
             </div>

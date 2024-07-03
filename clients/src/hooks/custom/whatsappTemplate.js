@@ -20,8 +20,9 @@ export function useWhatsapp(input) {
     template += `start date: ${
       input.startDate ? formatDate(input.startDate) : ""
     }   end date: ${input.endDate ? formatDate(input.endDate) : ""}%0A`;
+    template += `servivio de transporte: ${input.transport ? 'requerido ': 'no requerido'}%0A`
     template += `----------------------%0A`;
-    template += `consult:%0A0A ${input.consult}%0A%0A`;
+    template += `consult:%0A%0A ${input.consult}%0A%0A`;
     template += `----------------------%0A`;
     setLink(
       `${'https://api.whatsapp.com/send?phone='+import.meta.env.VITE_WHATSAPP_PHONE+'&text='}${template}`

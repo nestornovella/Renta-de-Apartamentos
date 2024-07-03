@@ -95,7 +95,7 @@ function Property({ apartment }) {
               {">"}
             </button>
             <div>
-              {availability ? <span className="p-2 absolute rounded-lg top-[10px] left-[10px] bg-green-500 text-white">available</span>: <span className="p-2 absolute rounded-lg font-semibold  top-[10px] left-[10px] bg-yellow-400">not Available</span>}
+              {availability ? <span className="p-2 absolute rounded-lg top-[10px] left-[10px] bg-green-500 text-white font-semibold">Available</span>: <span className="p-2 absolute rounded-lg font-semibold  top-[10px] left-[10px] bg-yellow-400 ">Not Available</span>}
             </div>
           </div>
           <div className="gap-4 lg:flex mt-4">

@@ -28,7 +28,6 @@ function EarningSideTwo() {
             </div>
             {   data &&
                 <>
-                    
                     <div>
                         <CircleGraphic data={data} />
                     </div>

@@ -31,6 +31,7 @@ function Location() {
         className="xl:h-[600px] sm:h-[400px] md:h-[600] h-[400px] w-full rounded-2xl "
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {/* https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png */}
         <MarkerAppartment selectMarker={centerMarket} />
       </MapContainer>
     </Transition>
