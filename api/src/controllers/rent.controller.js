@@ -7,12 +7,21 @@ const { response } = require("express");
 
 module.exports = {
   getAllRents: async (req, res, next) => {
+    const {status} = req.query
     try {
-      const rents = await Rent.findAll({include:[
+      let rents = null
+      if(!status){
+        rents = await Rent.findAll({include:[
         {model:User},
         {model:Apartment}
-      ]});
-
+      ]})
+      }else{
+        rents = await Rent.findAll({where:{status:status},include:[
+          {model:User},
+          {model:Apartment}
+        ]})
+      }
+       
       resSender(null, HttpStatusCodes.aceptado, rents);
     } catch (error) {
       next(error);

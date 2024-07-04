@@ -26,7 +26,7 @@ function EarningSideOne() {
 
     useEffect(() => {
         fetchnYear()
-            .then(response => setData({ mes: response.months, bruto: response.amounts, neto: response.amounts.map(e => e * Math.random()*2) }))
+            .then(response => setData({ mes: response.months, bruto: response.amounts, neto: response.amounts.map(e => e * 0.10 )}))
     }, [])
 
     return (
