@@ -17,16 +17,18 @@ module.exports = {
             const exchange = await Exchange.findByPk(1)
             if (!paymentInfo) rejectSender('no se encontro la renta o venta asignada', HttpStatusCodes.noEncontrado)
             if (!exchange) rejectSender('hubo un problema con la cotizacion', HttpStatusCodes.noEncontrado)
-
-            const amount = (((paymentInfo.priceAtRent / exchange.value) * 10) / 100).toFixed(2)
-            console.log(amount)
+            
+            const servicesAmount = Object.values(paymentInfo.services).reduce((ac, cr) => ac + cr, 0)
+            const amount = (((paymentInfo.priceAtRent / exchange.value) * 10) / 100)
+            const totalAmount =  (+amount + +servicesAmount).toFixed(2)
+           
             const order = {
                 intent: 'CAPTURE',
                 purchase_units: [
                     {
                         amount: {
                             currency_code: 'USD',
-                            value: amount.toString(),
+                            value: totalAmount.toString(),
                         }
 
                     }
@@ -73,6 +75,7 @@ module.exports = {
             const user = await User.findByPk(rent.User.email)
             const exchange = await Exchange.findByPk(1)
 
+            const servicesAmount = Object.values(rent.services).reduce((ac, cr) => ac + cr, 0).toFixed(2)
             const transaction = await Transaction.create(
                 {
                     paypalToken: token,
@@ -80,7 +83,8 @@ module.exports = {
                     amount: {
                         COP: { currency: 'COP', amount: ((rent.priceAtRent * 10) / 100).toFixed(2) },
                         USD: { currency: 'USD', amount: (((rent.priceAtRent / exchange.value) * 10) / 100).toFixed(2) }
-                    }
+                    },
+                    servicesAmount:servicesAmount
                 }) // id,paypalToken,payerID,date,amount,status
 
             await rent.addTransaction(transaction)

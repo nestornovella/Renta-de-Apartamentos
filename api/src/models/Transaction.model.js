@@ -25,7 +25,12 @@ module.exports = (sequelize) => {
     status:{
       type: DataTypes.ENUM('success'),
       defaultValue:'success'
+    },
+    servicesAmount:{
+      type: DataTypes.FLOAT,
+      defaultValue : 0.00
     }
+   
 
   }, { timestamps: false });
   Transaction.associate = (models) => {

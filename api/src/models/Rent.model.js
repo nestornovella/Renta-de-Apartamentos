@@ -22,6 +22,9 @@ module.exports = (sequelize) => {
     priceAtRent: {
       type: DataTypes.FLOAT,
       allowNull: false,
+    }, 
+    services:{
+      type:DataTypes.JSON() // {transport: 10.00, wifi: 20.00} Object.values() => [10.00, 20.00] transacction : 30.00
     }
   }, {timestamps: false});
   Rent.associate = (models) => {
