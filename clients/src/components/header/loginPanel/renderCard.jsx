@@ -44,14 +44,23 @@ function RenderCard() {
           "https://www.instagram.com/amobladosyventas?igsh=Mmtza200djk3OGhl"
         ),
     },
-    { id: 4, title: "Metrics", icon: <FaRankingStar />, status: "admin", cb:()=>{redirectTo('http://localhost:5173/#/admin/?section=EARNING_DETAILS')} },
+    {
+      id: 4,
+      title: "Metrics",
+      icon: <FaRankingStar />,
+      status: "admin",
+      cb: () => {
+        redirectTo("http://localhost:5173/#/admin/?section=EARNING_DETAILS");
+      },
+    },
     //{ id: 5, title: "Proximamente", icon: <MdOutlineEmail />, status: "admin" },
-    { id: 6, title: "Proximamente", icon: <ImCreditCard />, status: "admin" },
+    //{ id: 6, title: "Proximamente", icon: <ImCreditCard />, status: "admin" },
     {
       id: 7,
       title: "Proximamente",
       icon: <LiaFileInvoiceDollarSolid />,
       status: "admin",
+      
     },
     {
       id: 8,
