@@ -31,7 +31,7 @@ function RenderCard() {
       status: "user",
       cb: () =>
         redirectTo(
-          `https://api.whatsapp.com/send?phone=+573024470241&text=${template}`
+          import.meta.env.VITE_WTSAPP + `&text=${template}`
         ),
     },
     {
@@ -41,17 +41,26 @@ function RenderCard() {
       status: "user",
       cb: () =>
         redirectTo(
-          "https://www.instagram.com/amobladosyventas?igsh=Mmtza200djk3OGhl"
+          import.meta.env.VITE_INSTAGRAM
         ),
     },
-    { id: 4, title: "Metrics", icon: <FaRankingStar />, status: "admin", cb:()=>{redirectTo('http://localhost:5173/#/admin/?section=EARNING_DETAILS')} },
+    {
+      id: 4,
+      title: "Metrics",
+      icon: <FaRankingStar />,
+      status: "admin",
+      cb: () => {
+        redirectTo(import.meta.env.VITE_URL + "#/admin/?section=EARNING_DETAILS");
+      },
+    },
     //{ id: 5, title: "Proximamente", icon: <MdOutlineEmail />, status: "admin" },
-    { id: 6, title: "Proximamente", icon: <ImCreditCard />, status: "admin" },
+    //{ id: 6, title: "Proximamente", icon: <ImCreditCard />, status: "admin" },
     {
       id: 7,
       title: "Proximamente",
       icon: <LiaFileInvoiceDollarSolid />,
       status: "admin",
+      
     },
     {
       id: 8,
