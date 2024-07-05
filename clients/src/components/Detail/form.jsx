@@ -129,7 +129,7 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
           </div>
           {/* Buttons Section */}
           <div className="flex justify-around items-center">
-            <div onClick={submitWap} className="flex gap-2 items-center hover:bg-black hover:text-green-500  bg-secondary cursor-pointer transition-all delay-200 py-2 px-3 hover:black text-white rounded-xl mt-2">
+            <div onClick={() => submitWap(status)} className="flex gap-2 items-center hover:bg-black hover:text-green-500  bg-secondary cursor-pointer transition-all delay-200 py-2 px-3 hover:black text-white rounded-xl mt-2">
               <span className="text-white font-semibold text-[15px]">Query</span>
               <FaFacebookMessenger />
             </div>

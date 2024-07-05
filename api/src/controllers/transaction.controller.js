@@ -3,9 +3,17 @@ const { resSender, HttpStatusCodes, rejectSender } = require('../helpers/resSend
 
 module.exports = {
   getAllTransactions: async (req, res, next) => {
+    const {page} = req.query
+    const limit = !page ? 10 : 10 * parseInt(page)
     try {
-      const transactions = await Transaction.findAll();
-      resSender(null, HttpStatusCodes.aceptado, transactions)
+      const transactions = await Transaction.findAll({
+        order:[['date','DESC']],
+        limit: limit,
+        include:[{model:Rent,include:[{model:Apartment}]}, {model:User}]
+      });
+      const link = transactions.length == limit ? `http://localhost:3000/transaction?page=${(parseInt(page) + 1)}`: null
+      res.status(HttpStatusCodes.aceptado).json({status:HttpStatusCodes.aceptado,length:transactions.length , next:link, data: transactions})
+      return 
     } catch (error) {
       next(error);
     }

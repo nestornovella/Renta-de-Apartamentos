@@ -38,11 +38,17 @@
         "icon":"FaBuildingCircleCheck"
     },
     {
-        "id": 5,
+        "id": 6,
         "name": "Earnings",
         "value": "EARNING_DETAILS",
         "description": "get earning details",
         "icon":"FaMoneyBillTrendUp"
+    },{
+        "id": 7,
+        "name": "Transactions",
+        "value": "TRANSACTION_DETAIL",
+        "description": "get all transactions",
+        "icon":"FaFileInvoiceDollar"
     }
 
     

@@ -16,7 +16,7 @@ function useInputQuery() {
     transport: false
   });
   //const [inputUrbanizacion, setInputUrbanizacion] = useState()
-
+  const { isAuthenticated } = useAuth0GetData()
   function setId(id) {
     setInput(prev => {
       return { ...prev, id: id }
@@ -80,12 +80,29 @@ function useInputQuery() {
     );
   }
 
-  function submitWap() {
-    if (Object.keys(errors).length == 1 && !errors.blocked) {
+  function validateURL(url) {
+    try {
+        // Crear un objeto URL para validar
+        const validatedURL = new URL(url);
+        
+        // Opcional: Asegurarse de que el protocolo es seguro (http o https)
+        if (validatedURL.protocol === "http:" || validatedURL.protocol === "https:" && !url.includes('<')&& !url.includes('>')) {
+            return url;
+        } else {
+            return null;
+        }
+    } catch (e) {
+        return null;
+    }
+}
+  function submitWap(status) {
+    if (Object.keys(errors).length == 1 && !errors.blocked  || status == 'sale' && isAuthenticated) {
       alert("You will be redirected to WhatsApp.");
-      window.location.href = link;
+      const escapedHTML = validateURL(link)
+      window.location.href = escapedHTML;
     } else {
-      alert("Please fill out all required fields before submitting your query");
+       
+      alert(isAuthenticated ? "Please fill out all required fields before submitting your query" : "First you need to log in.");
       validate()
     }
   }
