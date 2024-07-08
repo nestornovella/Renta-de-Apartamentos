@@ -5,18 +5,23 @@ import TransactionSideOne from "./transactionsSideOne";
 import useAdminTransaction from "../../../hooks/admin/adminTransaction";
 
 function TransactionSection() {
-    const { getTransactions, transactions, getDetail, detail, resetDetail } = useAdminTransaction()
+  const { getTransactions, transactions, getDetail, detail, resetDetail } = useAdminTransaction();
 
-    useEffect(()=>{
-        getTransactions()
-    },[])
-    return (  
-        <MainSection>
-            <TransactionSideOne getTransactions={transactions} getDetail={getDetail} transactions={transactions}/>
+  useEffect(() => {
+    getTransactions();
+  }, []);
+  
+  return (
+    <MainSection>
+      <TransactionSideOne
+        getTransactions={transactions}
+        getDetail={getDetail}
+        transactions={transactions}
+      />
 
-            <TransactionSideTwo resetDetail={resetDetail} detail={detail} />
-        </MainSection>
-    );
+      <TransactionSideTwo resetDetail={resetDetail} detail={detail} />
+    </MainSection>
+  );
 }
 
 export default TransactionSection;

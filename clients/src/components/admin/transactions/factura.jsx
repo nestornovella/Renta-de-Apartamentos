@@ -1,6 +1,10 @@
+import useAdminTransaction from "../../../hooks/admin/adminTransaction";
 
 
-const factura = ({ transaction, onClose }) => {
+const Factura = ({ transaction, onClose }) => {
+  const { getTransactions } = useAdminTransaction();
+  console.log("🚀 ~ Factura ~ getTransactions:", getTransactions)
+  
   if (!transaction) return null;
 
   return (
@@ -26,4 +30,4 @@ const factura = ({ transaction, onClose }) => {
   );
 };
 
-export default factura;
+export default Factura;

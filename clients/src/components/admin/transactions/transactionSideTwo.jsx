@@ -1,5 +1,5 @@
 import SideSection from "../sideSection";
-import factura from "./factura";
+import Factura from "./factura";
 
 function TransactionSideTwo({ detail, resetDetail }) {
   return (
@@ -9,7 +9,7 @@ function TransactionSideTwo({ detail, resetDetail }) {
       </div>
 
       {detail ? (
-        <TransactionDetail transaction={detail.id} onClose={resetDetail} />
+        <Factura transaction={detail.id} onClose={resetDetail} />
       ) : (
         <h2 className="text-center text-gray-500">No transaction selected</h2>
       )}
