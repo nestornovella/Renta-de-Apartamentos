@@ -13,6 +13,7 @@ function useAdminTransaction() {
     function resetDetail(id){
         setDetail(null)
     }
+    
     // traer las transacciones
     function getTransactions (){
         return axios.get(import.meta.env.VITE_API_GET_TRANSACTION+'?page=1')
