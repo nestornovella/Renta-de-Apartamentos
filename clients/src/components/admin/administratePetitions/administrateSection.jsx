@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useAdminTransaction from "../../../hooks/admin/adminTransacion";
+import useAdminRent from "../../../hooks/admin/adminRent";
 import TransactionPending from "./transactionPending";
 import TransactionActive from "./transactonActive";
 import TransitionActive from "./transactonActive";
@@ -7,7 +7,7 @@ import useAdminGetUser from "../../../hooks/admin/adminUserDetail";
 import useAdminApartments from "../../../hooks/admin/adminApartments";
 
 function AdministrateSection() {
-  const {getTransactions, transactions, deleteTransaction } = useAdminTransaction()
+  const {getTransactions, transactions, deleteTransaction } = useAdminRent()
   
   useEffect(()=>{getTransactions()},[])
 
