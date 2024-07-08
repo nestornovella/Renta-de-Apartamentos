@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import useAdeminApartDetail from "../../../hooks/admin/AdminApartmentDetail";
 import ApartCard from "./apartCard";
-import useAdminTransaction from "../../../hooks/admin/adminTransacion";
+import useAdminRent from "../../../hooks/admin/adminRent";
 
 function GenerateRentSection() {
-  const { getDetail, detail } = useAdeminApartDetail();
+  const { getDetail, detail } = useAdminRent();
   console.log("🚀 ~ GenerateRentSection ~ detail:", detail)
   const {deleteTransaction} = useAdminTransaction()
   const reference = useRef(null);

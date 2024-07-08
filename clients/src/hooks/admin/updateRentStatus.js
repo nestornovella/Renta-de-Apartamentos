@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useAdminTransaction from "./adminTransacion";
 
 function useUpdateRentStatus(reloadTransactions) {
   const [loading, setLoading] = useState(false);

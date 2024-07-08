@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useAdminTransaction() {
+function useAdminRent() {
   const [transactions, setTransactions] = useState({
     pending: [],
     active: [],
@@ -50,4 +50,4 @@ function useAdminTransaction() {
   };
 }
 
-export default useAdminTransaction;
+export default useAdminRent;
