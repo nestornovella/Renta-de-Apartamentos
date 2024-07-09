@@ -1,30 +1,57 @@
-import useAdminTransaction from "../../../hooks/admin/adminTransaction";
 
 
 const Factura = ({ transaction, onClose }) => {
-  const { getTransactions } = useAdminTransaction();
-  console.log("🚀 ~ Factura ~ getTransactions:", getTransactions)
-  
+  console.log("🚀 ~ Factura ~ transaction:", transaction)
   if (!transaction) return null;
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md max-w-2xl mx-auto">
       <button 
         onClick={onClose} 
-        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 mb-4"
       >
         Close
       </button>
-      <h2 className="text-2xl font-semibold mb-4">Transaction Details</h2>
-      <div className="space-y-4">
-        <p><strong>Apartment Name:</strong> {transaction.Rent.Apartment.urbanizacion}</p>
-        <p><strong>Price:</strong> {transaction.amount.price} {transaction.amount.exchange}</p>
-        <p><strong>Start Date:</strong> {new Date(transaction.Rent.startDate).toLocaleDateString()}</p>
-        <p><strong>End Date:</strong> {new Date(transaction.Rent.endDate).toLocaleDateString()}</p>
-        <p><strong>Transport Service:</strong> {transaction.transportService ? 'Yes' : 'No'}</p>
-        {transaction.otherDetails && Object.keys(transaction.otherDetails).map(key => (
-          <p key={key}><strong>{key}:</strong> {transaction.otherDetails[key]}</p>
-        ))}
+      <div className="text-center mb-6">
+        <img 
+          src="https://res.cloudinary.com/dlwjdmlpx/image/upload/q_100/v1693939333/PROYECTO%20PROPIEDADES/logo_rent_yurhr6.png" 
+          alt="Company Logo" 
+          className="mx-auto h-24"
+        />
+        <h2 className="text-2xl font-semibold">Rental Invoice</h2>
+      </div>
+      <div className="mt-6">
+        <h3 className="text-lg font-semibold mb-2">Rent Detail</h3>
+        <table className="w-full text-left border-collapse">
+          <tbody>
+            <tr>
+              <td className="border-b p-2">Apartment Name</td>
+              <td className="border-b p-2">{transaction.Rent.Apartment.urbanizacion}</td>
+            </tr>
+            <tr>
+              <td className="border-b p-2">Price</td>
+              <td className="border-b p-2">{transaction.Rent.Apartment.price}</td>
+            </tr>
+            <tr>
+              <td className="border-b p-2">Start Date</td>
+              <td className="border-b p-2">{new Date(transaction.Rent.startDate).toLocaleDateString()}</td>
+            </tr>
+            <tr>
+              <td className="border-b p-2">End Date</td>
+              <td className="border-b p-2">{new Date(transaction.Rent.endDate).toLocaleDateString()}</td>
+            </tr>
+            <tr>
+              <td className="border-b p-2">Transport Service</td>
+              <td className="border-b p-2">{transaction.transportService ? 'Sí' : 'No'}</td>
+            </tr>
+            {transaction.otherDetails && Object.keys(transaction.otherDetails).map(key => (
+              <tr key={key}>
+                <td className="border-b p-2">{key}</td>
+                <td className="border-b p-2">{transaction.otherDetails[key]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

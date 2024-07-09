@@ -15,12 +15,15 @@ function useAdminTransaction() {
     }
     
     // traer las transacciones
-    function getTransactions (){
-        return axios.get(import.meta.env.VITE_API_GET_TRANSACTION+'?page=1')
-        .then(response => response.data)
-        .then(response => response.status < 300 && response.data)
-        .then(response => setTransactions(response))
-        .catch(err => console.error(err))
+    async function getTransactions (){
+        try {
+            const response = await axios.get(import.meta.env.VITE_API_GET_TRANSACTION + '?page=1');
+            const response_1 = response.data;
+            const response_2 = response_1.status < 300 && response_1.data;
+            return setTransactions(response_2);
+        } catch (err) {
+            return console.error(err);
+        }
     }
     
     return {

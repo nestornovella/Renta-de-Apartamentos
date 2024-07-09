@@ -52,7 +52,7 @@ const startServer = () => {
   });
 
   connection
-    .sync({ alter: true })
+    .sync({ alter: false })
     .then(() => console.info("the postgreSQL Db is connected"))
     .then(() => app.listen(port, console.info(`Server is listening on port ${port}`)))
     .catch((error) => {

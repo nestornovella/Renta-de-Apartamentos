@@ -9,7 +9,7 @@ function TransactionSideTwo({ detail, resetDetail }) {
       </div>
 
       {detail ? (
-        <Factura transaction={detail.id} onClose={resetDetail} />
+        <Factura transaction={detail} onClose={resetDetail} />
       ) : (
         <h2 className="text-center text-gray-500">No transaction selected</h2>
       )}
