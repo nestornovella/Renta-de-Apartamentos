@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { updateRating } from "../../redux/actions/apartmentActions";
 import useGetApartments from "../../hooks/custom/GetApartments";
+import NavBar from "../header/navbar";
+import Header from "../header/header";
 
 
 
@@ -23,10 +25,14 @@ function RaitingPage() {
 
     return ( 
         <div>
-            raiting calificado
+            <Header main={false}/>
             {
                 apartment && 
-                <img src={apartment.images[0]} alt="" />
+                <div className="flex flex-col justify-center items-center">
+                    <h2>GRACIAS POR TU CALIFICACION</h2>
+                    <img className="w-[500px]" src="https://static.vecteezy.com/system/resources/previews/005/991/098/non_2x/5-star-feedback-rate-us-service-satisfaction-rating-five-stars-vector.jpg" alt="" />
+                    <img className="w-[500px] rounded-lg" src={apartment.images[0]} alt="" />
+                </div>
             }
         </div>
      );
