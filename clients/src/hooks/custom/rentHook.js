@@ -23,9 +23,10 @@ function useGenerateRent(input, errors, validate) {
       apartmentId: input.id,
       userId: input.email,
       startDate: input.startDate,
-      endDate: input.endDate
+      endDate: input.endDate,
+      services: input.services
     }
-    
+
     const minDates = new Date(parsedInput.startDate)
     console.log("🚀 ~ generateRent ~ parsedInput.startDate:", parsedInput.startDate)
     console.log("🚀 ~ generateRent ~ minDates:", minDates)
@@ -60,13 +61,14 @@ function useGenerateRent(input, errors, validate) {
         validate(input)
         return
       }
-    }else{
+    } else {
       alert('debe ser mayo a un mes')
     }
   }
   //falta terminar de hacer
   function payment(rentalType) {
     generateRent(rentalType)
+      //.then(response => console.log(response))
       .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
       .then(response => window.location.href = response.data)
   }

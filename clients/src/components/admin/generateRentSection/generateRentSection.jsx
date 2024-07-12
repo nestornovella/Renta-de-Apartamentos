@@ -6,7 +6,7 @@ import useAdminRent from "../../../hooks/admin/adminRent";
 function GenerateRentSection() {
   const { getDetail, detail } = useAdminRent();
   console.log("🚀 ~ GenerateRentSection ~ detail:", detail)
-  const {deleteTransaction} = useAdminTransaction()
+  const {deleteTransaction} = useAdminRent()
   const reference = useRef(null);
 
   return (

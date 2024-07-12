@@ -18,7 +18,6 @@ function TransactionSection() {
         getDetail={getDetail}
         transactions={transactions}
       />
-
       <TransactionSideTwo resetDetail={resetDetail} detail={detail} />
     </MainSection>
   );

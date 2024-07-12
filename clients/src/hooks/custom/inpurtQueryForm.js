@@ -13,7 +13,7 @@ function useInputQuery() {
     endDate: "",
     id: "",
     urbanizacion: "",
-    transport: false
+    services: null
   });
   //const [inputUrbanizacion, setInputUrbanizacion] = useState()
   const { isAuthenticated } = useAuth0GetData()
@@ -75,7 +75,7 @@ function useInputQuery() {
       (prev) =>
       (prev = {
         ...input,
-        [event.name]: event.checked,
+        [event.name]: event.checked ? {transport:50.00}:{transport:0.00},
       })
     );
   }

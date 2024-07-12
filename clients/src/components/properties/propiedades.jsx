@@ -30,7 +30,7 @@ function Properties() {
   let delayMult = 0
 
   return (
-    <Transition className="min-w-[400px] min-h-[1000px] px-4 mb-0 ms:mt-0 mt-[300px] md:mt-20 md:px-10 xl:px-40">
+    <Transition className="min-w-[400px]  px-4 mb-0 ms:mt-0 mt-[300px] md:mt-20 md:px-10 xl:px-40">
       {apartments && apartments.length ?
         <section className="grid grid-cols-2 gap-4 md:gap-4 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
           {apartments && apartments.length &&

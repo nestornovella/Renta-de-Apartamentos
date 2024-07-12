@@ -5,7 +5,7 @@ function TransactionSideOne({ getTransactions, transactions, getDetail }) {
   return (
     <SideSection>
       <div>
-        <p className="text-gray-400 text-center">to check</p>
+        <p className="text-gray-400 text-center mb-2">to check</p>
       </div>
 
       {transactions &&

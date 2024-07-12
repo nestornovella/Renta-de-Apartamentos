@@ -146,7 +146,7 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
           <>  
             <hr className="mt-2" />
             <div className="flex gap-1 m-2 ">
-              <input name="transport" onChange={handleTransport} type="checkbox" />
+              <input name="services" onChange={handleTransport} type="checkbox" />
               <p className="text-xs font-quicksand text-gray-400 w-full flex ">I require transportation service - additional cost <FaCarSide className="text-blue-400 size-[25px]" /></p>
             </div>
           </>}

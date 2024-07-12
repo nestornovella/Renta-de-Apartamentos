@@ -36,7 +36,7 @@ function App() {
   }
 
   useEffect(() => {
-      firstChanrge()
+    firstChanrge()
   }, [chargeFail])
 
   return (
@@ -50,12 +50,12 @@ function App() {
                 <TransitionPage />
                 <Header />
                 <Banner />
-                <Suspense >
-                  <Element name="apartments">
-                    <Properties />
-                  </Element>
-                </Suspense>
 
+                <Element name="apartments">
+                  <div className='min-h-[1000px]'>
+                    <Properties />
+                  </div>
+                </Element>
                 <Element name="services">
                   <Services />
                 </Element>

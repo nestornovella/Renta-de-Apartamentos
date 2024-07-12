@@ -5,17 +5,19 @@ const Factura = ({ transaction, onClose }) => {
   if (!transaction) return null;
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md max-w-2xl mx-auto">
-      <button 
-        onClick={onClose} 
-        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 mb-4"
-      >
-        Close
-      </button>
+    <div className=" bg-white rounded-lg shadow-md w-full min-h-full  mx-auto p-5">
+      <div className=" flex justify-end items-center">
+        <button
+          onClick={onClose}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 mb-4"
+        >
+          Close
+        </button>
+      </div>
       <div className="text-center mb-6">
-        <img 
-          src="https://res.cloudinary.com/dlwjdmlpx/image/upload/q_100/v1693939333/PROYECTO%20PROPIEDADES/logo_rent_yurhr6.png" 
-          alt="Company Logo" 
+        <img
+          src="https://res.cloudinary.com/dlwjdmlpx/image/upload/q_100/v1693939333/PROYECTO%20PROPIEDADES/logo_rent_yurhr6.png"
+          alt="Company Logo"
           className="mx-auto h-24"
         />
         <h2 className="text-2xl font-semibold">Rental Invoice</h2>
