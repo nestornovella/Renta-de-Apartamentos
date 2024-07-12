@@ -31,8 +31,8 @@ module.exports = {
             <p>Queremos recordarte que tu renta finalizará en menos de 24 horas.</p>
             <p>Por favor, toma un momento para calificar el apartamento que rentaste. Tu opinión es muy importante para nosotros y para futuros inquilinos.</p>
             <p style="text-align: center;">
-              [1, 2, 3, 4, 5].map(rating => 
-                <a href="https://www.medellinfurnishedapartment.com/#/apartment/${rent.apartmentId}" 
+              [1, 2, 3, 4, 5].map((r) => 
+                <a href="https://www.medellinfurnishedapartment.com/#/apartment/rating/${rent.apartmentId}/${r}" 
                   style="text-decoration: none; color: #FFD700; font-size: 24px;">
                   &#9733;
                 </a>

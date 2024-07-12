@@ -5,7 +5,7 @@ import TransactionSideOne from "./transactionsSideOne";
 import useAdminTransaction from "../../../hooks/admin/adminTransaction";
 
 function TransactionSection() {
-  const { getTransactions, transactions, getDetail, detail, resetDetail } = useAdminTransaction();
+  const { getTransactions, transactions, getDetail, detail, resetDetail, getTransactioByUrbanization } = useAdminTransaction();
 
   useEffect(() => {
     getTransactions();
@@ -18,7 +18,7 @@ function TransactionSection() {
         getDetail={getDetail}
         transactions={transactions}
       />
-      <TransactionSideTwo resetDetail={resetDetail} detail={detail} />
+      <TransactionSideTwo callBack={getTransactioByUrbanization} resetDetail={resetDetail} detail={detail} />
     </MainSection>
   );
 }

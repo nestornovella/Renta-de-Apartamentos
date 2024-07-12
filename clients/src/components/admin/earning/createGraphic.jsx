@@ -48,7 +48,7 @@ function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[
             {
                 label: 'Bruto',
                 data: data.bruto,
-                borderColor: 'rgba(243, 118, 1, 0.974',
+                borderColor: 'rgba(243, 118, 1, 0.974)',
                 backgroundColor: ['rgba(243, 118, 1, 0.974)'],
                 tension: 0.10, // Optional: set tension for bezier curves
             },
@@ -75,7 +75,7 @@ function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[
         }
     };
     return (
-        <div className='bg-blue-950 rounded-lg'>
+        <div className='bg-black rounded-lg h-[100%] flex items-center justify-center'>
             {
                 type.includes('line') ?
                     <Line data={sendData} options={options} />
@@ -95,13 +95,13 @@ function CircleGraphic({data}) {
                 label: 'Ganancia',
                 data: data.amounts,
                 backgroundColor: [
-                    '#FFCE56', // Amarillo
-                    '#FF6384', // Rosa
                     '#3299dd', // Azul claro
                     '#FFA726', // Naranja
                     '#EF5350', // Rojo
                     '#66BB6A', // Verde claro
                     '#42A5F5', // Azul
+                    'rgba(89, 223, 82, 0.974)', // Amarillo
+                    'rgba(243, 118, 1, 0.974)', // Rosa
                     '#EC407A', // Rosa oscuro
                     '#7E57C2', // Morado
                     '#26A69A', // Verde azulado
@@ -131,8 +131,7 @@ function CircleGraphic({data}) {
 
     }
     return (
-        <div className='bg-blue-950 rounded-lg
-        '>
+        <div className='bg-black rounded-lg h-full flex items-center justify-center'>
             <Pie data={dataSet} />
         </div>
     );

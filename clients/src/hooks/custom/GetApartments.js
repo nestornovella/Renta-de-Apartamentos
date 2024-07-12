@@ -57,6 +57,14 @@ function useGetApartments() {
       .then(response => response.status < 300 && response.data)
   }
 
+  function getAnApartment(id){
+    return axios(import.meta.env.VITE_API_USER_APARTMENT)
+    .then(response => response.data)
+    .then(response => response.status < 300 && response.data)
+    .then(response => response.find(ap => ap.id.includes(id)))
+    .catch(error => console.error(error))
+  }
+
   const setSlide =()=> reIntent(getapartmentsToSlider, sliderData, setSliderData)
 
 
@@ -69,7 +77,8 @@ function useGetApartments() {
     filterByRent,
     getapartmentsToSlider,
     setSlide,
-    sliderData
+    sliderData,
+    getAnApartment
   };
 }
 

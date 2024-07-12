@@ -9,14 +9,23 @@ import ImagesRenderSection from "./formComponents/imagesRenderSection";
 import Transition from "../../complements/transition";
 import AlertComponent from "./formComponents/alertComponent";
 import useCloudinary from "../../../hooks/custom/cloudinary";
+import useCities from "../../../hooks/admin/adminCities";
+import useOpenClose from "../../../hooks/custom/OpenCloseMenu";
 
 function CreateApartForm({ render }) {
-  const { handleInputs, input, addImages, deleteImage, error, submit,addUrl } = useHandleInput();
-  const {uploadToCloudinary} = useCloudinary(addUrl)
+  const { handleInputs, input, addImages, deleteImage, error, submit, addUrl } = useHandleInput();
+  const { uploadToCloudinary } = useCloudinary(addUrl)
+  const cityHook = useCities()
+  const { toogleOpen, openStatus } = useOpenClose()
 
   useEffect(() => {
     render({ input: input, submit: submit });
   }, [input]);
+
+  function submitCity() {
+    cityHook.submitCity()
+      .then(() => alert('ciudad creada con exito'))
+  }
 
   return (
     <Transition className="flex flex-col justify-center  shadow-2xl rounded-lg xl:mx-auto p-1 font-quicksand">
@@ -80,7 +89,25 @@ function CreateApartForm({ render }) {
           label={"status"}
           options={["rent", "sale"]}
         />
+        {/* seccion de creacion de ciudades */}
       </div>
+      <div className="flex relative mb-4">
+        <button className="mt-[20px] w-[100px] mx-auto p-2 text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200" onClick={toogleOpen}>new city</button>
+        <span className="absolute top-[100%] right-[calc(50%-100px)] text-gray-400 text-xs" >(se desplegara menu para crear ciudad)</span>
+      </div>
+      {openStatus &&
+
+        <div className="flex flex-col">
+          <InputTextSection
+            handle={cityHook.handleCity} label={'new city'} name={'city'} value={cityHook.input.city} />
+          <InputTextSection
+            handle={cityHook.handleCity} label={'new urbanization'} name={'barrio'} value={cityHook.input.barrio} />
+
+          <button onClick={submitCity} className="p-2 mx-auto mt-4  text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200">create city</button>
+
+        </div>
+
+      }
       <div>
         <span className="text-xs mx-2 my-2 block text-gray-400 font-extralight">
           Map Location

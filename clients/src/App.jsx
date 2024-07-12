@@ -18,6 +18,7 @@ import useInitialCharge from './hooks/custom/initialCharge';
 import { getAllCties, getApatments } from './redux/actions/apartmentActions'
 import { delayAction } from './utils/setTime';
 import LoadingApartaments from './components/loadings/loadingApartments';
+import RaitingPage from './components/raiting/raintingPage';
 
 // Importa el componente de ubicación de manera dinámica usando React.lazy
 const LocationMap = React.lazy(() => import('./components/location/location'));
@@ -94,6 +95,7 @@ function App() {
           //   <AdminPanel />
           // </>
         } />
+        <Route path='/raiting/:id/:calification' element={<RaitingPage/>}/>
       </Routes>
     </>
   );

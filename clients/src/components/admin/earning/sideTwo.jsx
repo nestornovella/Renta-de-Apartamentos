@@ -18,7 +18,7 @@ function EarningSideTwo({data}) {
             </div>
             {   data &&
                 <>
-                    <div>
+                    <div className=" xl:h-[650px]">
                         <CircleGraphic data={data} />
                     </div>
                 </>

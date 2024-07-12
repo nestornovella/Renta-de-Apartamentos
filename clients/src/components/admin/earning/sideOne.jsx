@@ -24,14 +24,14 @@ function EarningSideOne({data}) {
             </div>
             {
                 data &&
-                <>
-                    <div>
+                <div className="flex flex-col gap-2 xl:h-[650px]">
+                    <div className="xl:h-[50%]">
                         <LineGraphic data={{ mes: data.months, bruto: data.amounts, neto: data.amounts?.map(e => e * 0.10 )}} type="line" />
                     </div>
-                    <div>
+                    <div className="xl:h-[50%]">
                         <LineGraphic data={{ mes: data.months, bruto: data.amounts, neto: data.amounts?.map(e => e * 0.10 )}} />
                     </div>
-                </>
+                </div>
             }
 
         </SideSection>
