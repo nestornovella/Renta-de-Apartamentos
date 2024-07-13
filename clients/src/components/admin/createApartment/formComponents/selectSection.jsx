@@ -14,7 +14,7 @@ function SelectSection({ name, value, label, handle }) {
         onClick={toogleOpen}
         className="cursor-pointer max-w-[170px] relative flex border p-[3px] rounded-md "
       >
-        <span className="text-gray-400 text-[13px]">Select Bario y cuidad</span>
+        <span className="text-gray-400 text-[13px]">Select Barrio y ciudad</span>
         {openStatus ? <GrFormUp /> : <GrFormDown />}
         <div
           className={`${

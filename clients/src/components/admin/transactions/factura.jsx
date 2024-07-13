@@ -1,18 +1,12 @@
-
+import { IoMdCloseCircle } from "react-icons/io";
 
 const Factura = ({ transaction, onClose }) => {
-  console.log("🚀 ~ Factura ~ transaction:", transaction)
   if (!transaction) return null;
 
   return (
     <div className=" bg-white rounded-lg shadow-md w-full min-h-full  mx-auto p-5">
       <div className=" flex justify-end items-center">
-        <button
-          onClick={onClose}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 mb-4"
-        >
-          Close
-        </button>
+        <IoMdCloseCircle onClick={onClose} className="bg-white rounded-full cursor-pointer size-6 hover:bg-red-500 mb-4"/>
       </div>
       <div className="text-center mb-6">
         <img
