@@ -10,7 +10,6 @@ function formatDate(date) {
 
 export function useWhatsapp(input) {
   const [link, setLink] = useState(null);
-  console.log(input)
   useEffect(() => {
     let template = `::::::RENT-APARTMENTS-MEDELLIN::::::%0A`;
     template += `client: ${input.name}%0A`;

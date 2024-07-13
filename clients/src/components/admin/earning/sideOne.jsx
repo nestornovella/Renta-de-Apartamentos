@@ -7,7 +7,6 @@ import axios from 'axios'
 
 
 function EarningSideOne({data}) {
-    console.log("🚀 ~ EarningSideOne ~ data:", data)
     const { LineGraphic } = graphics.default
     
 

@@ -12,7 +12,6 @@ function useGetApartments() {
   async function reIntent(callback, data, setState, intents = 5) {
     try {
       const data = await callback()
-      console.log('intento de ejecucion:', intents)
       setState(data)
 
       setTimeout(() => {
@@ -26,7 +25,6 @@ function useGetApartments() {
       setTimeout(() => {
         if (intents > 0) {
           reIntent(callback, setState, data, intents - 1)
-          console.log('intento de ejecucion:', intents)
         }
       }, 1000)
       

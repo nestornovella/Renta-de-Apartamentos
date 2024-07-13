@@ -5,8 +5,6 @@ import useAnotations from "../../../hooks/admin/adminAnotations";
 function ModalAddAnotations({ openStatus, toogleOpen, detail, resetData }) {
 
     const {handleInputAnotation, submitAnotations, input} = useAnotations()
-    console.log("🚀 ~ ModalAddAnotations ~ input:", input)
-
     function handleSubmit(){
         submitAnotations(detail.id)
         .then(()=> resetData())

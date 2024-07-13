@@ -16,7 +16,6 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
 
   const { controledUser, isAuthenticated, role } = useAuth0GetData()
   const { handleInput, input, errors, link, submitWap, setId, validate, setUrbanizacion, handleTransport } = useInputQuery(apartmentId)
-  console.log("🚀 ~ Form ~ input:", input)
   const { generateRent, setInputRent, payment } = useGenerateRent(input, errors, validate)
 
   useEffect(() => {

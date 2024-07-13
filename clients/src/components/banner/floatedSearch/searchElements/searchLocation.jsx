@@ -8,8 +8,6 @@ function SearchLocation() {
   const { toogleOpen, openStatus } = useOpenClose(true, 8000);
   const {filterByCity} = useGetApartments();
   const {cities} = useGetAllCities();
-  console.log("🚀 ~ SearchLocation ~ cities:", cities)
-
   const handleCitySelect = (cityId) => {
     filterByCity(cityId);
   };

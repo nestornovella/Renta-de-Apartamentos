@@ -28,14 +28,10 @@ function useGenerateRent(input, errors, validate) {
     }
 
     const minDates = new Date(parsedInput.startDate)
-    console.log("🚀 ~ generateRent ~ parsedInput.startDate:", parsedInput.startDate)
-    console.log("🚀 ~ generateRent ~ minDates:", minDates)
     minDates.setMonth(minDates.getMonth() + 1)
 
     if (parsedInput.endDate >= minDates || rentalType == 'daily') {
       if (status) parsedInput.status = status
-      console.log("🚀 ~ generateRent ~ parsedInput:", parsedInput)
-
       if (!errors.endDate && !errors.startDate && errors.blocked == false) {
         return fetch(import.meta.env.VITE_API_RENT_GENERATE, {
           method: "POST",
@@ -47,7 +43,6 @@ function useGenerateRent(input, errors, validate) {
           .then((response) => response.json())
           .then(response => {
             response.status < 300
-            console.log(response.data)
             return response.data
             // ? 
             // //alert('se ha generado una peticion de renta, sera evaluada en las proximas horas')  
@@ -68,7 +63,6 @@ function useGenerateRent(input, errors, validate) {
   //falta terminar de hacer
   function payment(rentalType) {
     generateRent(rentalType)
-      //.then(response => console.log(response))
       .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
       .then(response => window.location.href = response.data)
   }
