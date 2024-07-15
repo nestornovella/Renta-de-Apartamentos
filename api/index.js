@@ -67,7 +67,7 @@ const startServer = () => {
 if (cluster.isMaster) {
   const numCPUs = os.cpus().length;
   for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
+    cluster.fork(); 
   }
 
   cluster.on('exit', (worker, code, signal) => {

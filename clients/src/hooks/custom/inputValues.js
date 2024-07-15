@@ -17,6 +17,7 @@ function useHandleInput() {
     lon: "",
     status: "rent",
     CityId: "",
+    rentalType:""
   });
 
   function editApartment(input) {
@@ -89,12 +90,14 @@ function useHandleInput() {
   }
 
   function submit() {
+    const parsed = parseInput(input)
+    console.log(parsed)
     if (!error.submit) {
       if (Object.keys(error).length == 1) {
         axios
           .post(
             import.meta.env.VITE_API_USER_APARTMENT,
-            parseInput(input)
+            parsed
           )
           .then((response) => {
             alert("se ha creado con exito");
@@ -111,6 +114,7 @@ function useHandleInput() {
               lon: "",
               status: "rent",
               CityId: "",
+              rentalType:""
             });
           })
           .catch((error) => console.error(error));

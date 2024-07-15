@@ -62,7 +62,7 @@ function CreateApartForm({ render }) {
           />
         </div>
       </div>
-      <div className="flex">
+      <div className="grid grid-cols-4">
         <div className="flex flex-col">
           <InputNumberSection
             label={"size"}
@@ -89,11 +89,24 @@ function CreateApartForm({ render }) {
           label={"status"}
           options={["rent", "sale"]}
         />
+        {
+          input.status == 'rent' &&
+          <SelectOptionsSection
+            name={"rentalType"}
+            selectName={"monthly or date"}
+            handle={handleInputs}
+            label={"rent type"}
+            options={["monthly", "daily"]}
+          />
+        }
+
         {/* seccion de creacion de ciudades */}
       </div>
       <div className="flex relative mb-4">
-        <button className="mt-[20px] w-[100px] mx-auto p-2 text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200" onClick={toogleOpen}>new city</button>
-        <span className="absolute top-[100%] right-[calc(50%-100px)] text-gray-400 text-xs" >(display menu)</span>
+        <div className="relative flex justify-center w-full">
+          <button className="mt-[20px] w-[100px] mx-auto p-2 text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200" onClick={toogleOpen}>new city</button>
+          <span className="absolute -bottom-5 text-gray-400 text-xs" >(display menu)</span>
+        </div>
       </div>
       {openStatus &&
 

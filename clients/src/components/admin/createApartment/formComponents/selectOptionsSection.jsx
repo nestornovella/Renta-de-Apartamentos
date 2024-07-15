@@ -13,7 +13,7 @@ function SelectOptionsSection({name, selectName, label, handle, options=[]}) {
     const {city} = useGetAllCities()
 
     return ( 
-        <div className="flex flex-col mx-2 my-2">
+        <div className="flex flex-col mx-2 my-2 relative z-[100]">
             <label className="text-gray-400 text-[13px] mb-1">{label}</label>
             <div onClick={toogleOpen} className="cursor-pointer max-w-[170px] relative flex border-[1px] p-[3px] rounded-md ">
                 <span className="text-gray-400 text-[13px]">{selectName}</span>

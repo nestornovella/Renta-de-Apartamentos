@@ -13,7 +13,7 @@ function useInputQuery() {
     endDate: "",
     id: "",
     urbanizacion: "",
-    services: null
+    services: {transport:0}
   });
   //const [inputUrbanizacion, setInputUrbanizacion] = useState()
   const { isAuthenticated } = useAuth0GetData()
@@ -75,7 +75,17 @@ function useInputQuery() {
       (prev) =>
       (prev = {
         ...input,
-        [event.name]: event.checked ? {transport:50.00}:{transport:0.00},
+        [event.name]: event.checked ? {transport:45.00}:{transport:0.00},
+      })
+    );
+  }
+  function selectService(e){
+    
+    setInput(
+      prev =>
+      (prev = {
+        ...input,
+        services: e.target.checked ? {transport:e.target.value}:{transport:45.00},
       })
     );
   }
@@ -116,7 +126,8 @@ function useInputQuery() {
     setId,
     validate,
     setUrbanizacion,
-    handleTransport
+    handleTransport,
+    selectService
   };
 }
 

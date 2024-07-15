@@ -47,7 +47,6 @@ module.exports = (sequelize) => {
     },
     rentalType: {
       type: DataTypes.ENUM("monthly", "daily"),
-      allowNull: false,
       defaultValue: "monthly"
     },
     services: {

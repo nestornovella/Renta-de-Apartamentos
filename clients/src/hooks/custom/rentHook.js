@@ -26,6 +26,7 @@ function useGenerateRent(input, errors, validate) {
       endDate: input.endDate,
       services: input.services
     }
+    console.log("🚀 ~ generateRent ~ parsedInput:", parsedInput)
 
     const minDates = new Date(parsedInput.startDate)
     minDates.setMonth(minDates.getMonth() + 1)

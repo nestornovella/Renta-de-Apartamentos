@@ -11,24 +11,24 @@ import SelectOptionsSection from "../../createApartment/formComponents/selectOpt
 import SelectSection from "../../createApartment/formComponents/selectSection";
 
 
-function EditApartment({detail, sendInput}) {
+function EditApartment({ detail, sendInput }) {
     const { handleInputs, input, addImages, deleteImage, error, editApartment } = useHandleInput()
-    const {updateApartment} = useAdeminApartDetail()
+    const { updateApartment } = useAdeminApartDetail()
 
 
-
-    useEffect(()=>{
-        if(detail){
-            editApartment(detail)
-        }
-    },[detail])
 
     useEffect(() => {
-        sendInput({input:{...input, id: detail.id}, submit: updateApartment })
-    }, [input])
-   
+        if (detail) {
+            editApartment(detail)
+        }
+    }, [detail])
 
-    return ( 
+    useEffect(() => {
+        sendInput({ input: { ...input, id: detail.id }, submit: updateApartment })
+    }, [input])
+
+
+    return (
         <Transition className="flex flex-col justify-center  shadow-2xl rounded-lg xl:mx-auto p-1 font-quicksand">
             <div>
                 <p className="text-gray-400 text-center">create apartment</p>
@@ -54,6 +54,14 @@ function EditApartment({detail, sendInput}) {
                     <AlertComponent property={'price'} errors={error} />
                 </div>
                 <SelectOptionsSection name={'status'} selectName={"status rent or sale"} handle={handleInputs} label={'status'} options={["rent", "sale"]} />
+                {input.status == 'rent' &&
+                <SelectOptionsSection
+                    name={"rentalType"}
+                    selectName={"monthly or date"}
+                    handle={handleInputs}
+                    label={"rent type"}
+                    options={["monthly", "daily"]}
+                />}
             </div>
             <div>
                 <span className="text-xs mx-2 my-2 block text-gray-400 font-extralight">Map Location</span>
@@ -68,7 +76,7 @@ function EditApartment({detail, sendInput}) {
                             <AlertComponent property={'lon'} errors={error} />
                         </div>
                     </div>
-                
+
                     <div className="flex flex-col">
                         <SelectSection name={'CityId'} handle={handleInputs} label={'city'} />
                         <AlertComponent property={'city'} errors={error} />
@@ -95,7 +103,7 @@ function EditApartment({detail, sendInput}) {
                 </div>
             </div>
         </Transition>
-     );
+    );
 }
 
 export default EditApartment;
