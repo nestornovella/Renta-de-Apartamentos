@@ -2,12 +2,52 @@ const { User, Rent, Apartment } = require("../../db");
 const { sendMail } = require("./mailer");
 const { Op } = require('sequelize');
 
-const linkRating = (rent) => [1, 2, 3, 4, 5].map((r) => 
-  `<a href="https://www.medellinfurnishedapartment.com/#/raiting/${rent.apartmentId}/${r}" 
-    style="text-decoration: none; color: #FFD700; font-size: 24px;">
-    &#9733;
-  </a>`
-)
+function generateStars() {
+  const star = '<span>&#9733</span>'
+  let stars = []
+  for (let i = 0; i <= 5; i++) {
+    let textStar = ''
+    for (let x = 0; x < i; x++) {
+      textStar += star
+    }
+    stars.push(textStar)
+  }
+  return stars
+}
+
+const linkRating = (rent) => {
+
+
+  return `
+<div style="display: flex; flex-direction: column; justify-content: flex-start; align-items: start;">
+  <div style="display: flex; align-items: center;">
+    <h1>1</h1>
+    <a href="https://www.medellinfurnishedapartment.com/#/raiting/${rent.apartmentId}/1" 
+       style="text-decoration: none; color: #FFD700; font-size: 24px; margin-left: 10px;">&#9733;</a>
+  </div>
+  <div style="display: flex; align-items: center;">
+    <h1>2</h1>
+    <a href="https://www.medellinfurnishedapartment.com/#/raiting/${rent.apartmentId}/2" 
+       style="text-decoration: none; color: #FFD700; font-size: 24px; margin-left: 10px;">&#9733; &#9733;</a>
+  </div>
+  <div style="display: flex; align-items: center;">
+    <h1>3</h1>
+    <a href="https://www.medellinfurnishedapartment.com/#/raiting/${rent.apartmentId}/3" 
+       style="text-decoration: none; color: #FFD700; font-size: 24px; margin-left: 10px;">&#9733; &#9733; &#9733;</a>
+  </div>
+  <div style="display: flex; align-items: center;">
+    <h1>4</h1>
+    <a href="https://www.medellinfurnishedapartment.com/#/raiting/${rent.apartmentId}/4" 
+       style="text-decoration: none; color: #FFD700; font-size: 24px; margin-left: 10px;">&#9733; &#9733; &#9733; &#9733;</a>
+  </div>
+  <div style="display: flex; align-items: center;">
+    <h1>5</h1>
+    <a href="https://www.medellinfurnishedapartment.com/#/raiting/${rent.apartmentId}/5" 
+       style="text-decoration: none; color: #FFD700; font-size: 24px; margin-left: 10px;">&#9733; &#9733; &#9733; &#9733; &#9733;</a>
+  </div>
+</div>
+`
+}
 
 module.exports = {
   sendReminderEmails: async () => {
@@ -37,9 +77,7 @@ module.exports = {
             <h2 style="color: #333;">Hola <strong>${user.name}</strong>,</h2>
             <p>Queremos recordarte que tu renta finalizará en menos de 24 horas.</p>
             <p>Por favor, toma un momento para calificar el apartamento que rentaste. Tu opinión es muy importante para nosotros y para futuros inquilinos.</p>
-            <p style="text-align: center;">
               ${linkRating(rent)}
-            </p>
           </div>
           <div style="padding-top: 20px; text-align: center; color: #888;">
             <p>Gracias por elegir Medellin Furnished Apartments.</p>
@@ -55,7 +93,7 @@ module.exports = {
           "Correos electrónicos de recordatorio enviados a los usuarios con rentas próximas a finalizar."
         );
       })
-      
+
     } catch (error) {
       console.error(
         "Error al enviar los correos electrónicos de recordatorio:",

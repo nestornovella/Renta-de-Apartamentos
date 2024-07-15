@@ -9,6 +9,7 @@ const { startCron } = require("./src/helpers/cronSchudelizer.helper.js");
 const { hourLimit100 } = require('./src/middleware/rateLimited.js');
 const cluster = require("cluster");
 const os = require("os");
+const { sendReminderEmails } = require("./src/sendEmails/sendEmails.js");
 
 const port = process.env.PORT || 3000;
 
@@ -27,6 +28,7 @@ const startServer = async () => {
       next();
     };
 
+    sendReminderEmails()
     app.use(morgan("dev"));
     app.use(express.json());
     app.use(cors());

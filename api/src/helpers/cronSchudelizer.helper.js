@@ -26,7 +26,7 @@ module.exports = {
             sendReminderEmails();
           });
           
-          cron.schedule('01 12 * * *', () => {
+          cron.schedule('04 18 * * *', () => {
             console.log('Ejecutando tarea cron para enviar correos electrónicos de recordatorio...');
             sendReminderEmails();
           });
