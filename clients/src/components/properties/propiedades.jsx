@@ -85,6 +85,7 @@ function Properties() {
                           delay={delayMult * 0}
                           exchange={exchange}
                           rentalType={rentalType}
+                          rating={rating}
                         />
                       </Link>
                     </div>
@@ -124,7 +125,8 @@ const AnimatedBox = ({
   delay,
   role,
   exchange,
-  rentalType
+  rentalType,
+  rating
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -141,7 +143,7 @@ const AnimatedBox = ({
       <div className="relative">
         <div className="absolute text-secondary flex items-center px-2 rounded-lg bg-slate-50 top-2 right-2">
           <LiaStarSolid className="text-yellow-400" />
-          <span className="text-sm ml-1 font-semibold py-1">5</span>
+          <span className="text-sm ml-1 font-semibold py-1">{rating.media}</span>
         </div>
         <img
           src={images && images[0]}

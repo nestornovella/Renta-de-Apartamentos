@@ -41,7 +41,8 @@ function Property({ apartment }) {
     size,
     description,
     CityId,
-    availability
+    availability,
+    
   } = apartment;
 
   return (
@@ -72,7 +73,7 @@ function Property({ apartment }) {
             </h2>
             <div className="flex items-center px-2 py-1 rounded-lg bg-secondary top-2 right-2 text-white">
               <LiaStarSolid />
-              <span>5</span>
+              <span>{rating.media}</span>
             </div>
           </div>
           {/* imagen */}

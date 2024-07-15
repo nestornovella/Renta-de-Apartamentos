@@ -44,7 +44,7 @@ function RaitingPage() {
                     </div>
                     <span className="text-gray-500 font-semibold py-2">{`has calificado ${apartment.urbanizacion}`}</span>
                     <div className="border-[7px] border-yellow-400 rounded-2xl h-[348px] relative">
-                            <img className="w-[500px] rounded-lg relative " src={apartment.images[0]} alt="" />
+                            <img className="w-[500px] h-[335px] object-cover rounded-lg relative " src={apartment.images[0]} alt="" />
                         <div  className="w-[103%] h-[104%] border-[2px] p-1  border-black rounded-2xl absolute top-0">
 
                         </div>
