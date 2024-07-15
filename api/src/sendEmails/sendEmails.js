@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 
 const linkRating = (rent) => [1, 2, 3, 4, 5].map((r) => 
   `<a href="https://www.medellinfurnishedapartment.com/#/raiting/${rent.apartmentId}/${r}" 
-    style="text-decoration: none; color: #FFD700; font-size: 24px;>
+    style="text-decoration: none; color: #FFD700; font-size: 24px;">
     &#9733;
   </a>`
 )
