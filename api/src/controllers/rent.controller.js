@@ -123,7 +123,6 @@ module.exports = {
       }
       
       const updatedRent = await rent.update({ startDate, endDate, status });
-      await sendMailAdminNotification(rent, user, apartment); /// Enviar correo al admin de alquileres aprobadas
 
       resSender(null, HttpStatusCodes.actualizado, updatedRent);
     } catch (error) {
