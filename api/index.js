@@ -1,4 +1,3 @@
-
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -13,67 +12,52 @@ const os = require("os");
 
 const port = process.env.PORT || 3000;
 
+// Ensure proper initialization before starting server
+const startServer = async () => {
+  try {
+    const app = express();
 
+    await connection.sync({ alter: false });
+    console.info("the postgreSQL Db is connected");
 
-const startServer = () => {
-  const app = express();
- 
+    startCron();
 
-  startCron();
+    const sendResponse = (req, res, next) => {
+      res.resSender = resSender;
+      next();
+    };
 
-  const sendResponse = (req, res, next) => {
-    res.resSender = resSender;
-    next();
-  };
+    app.use(morgan("dev"));
+    app.use(express.json());
+    app.use(cors());
+    app.set('trust proxy', true);
+    app.use(captureRes);
+    // Enable rate limiting middleware if needed
+    // app.use(hourLimit100);
 
-  app.use(morgan("dev"));
-  app.use(express.json());
-  app.use(cors());
-  app.set('trust proxy', true);
-  app.use(captureRes);
-  // app.use(hourLimit100);
-
-  
-
-  app.use('/current-date', (req, res, next) => {
-    const createdDate = new Date();
-    res.json({ date: createdDate.getDate(), hour: createdDate.getHours(), minutes: createdDate.getMinutes() });
-    next();
-  });
-
-  app.use("/", router);
-
-  // Middleware de manejo de errores
-  app.use((err, req, res, next) => {
-    const status = err.status || 500;
-    const message = err.message || err;
-    res.status(status).json({ status, message });
-    next();
-  });
-
-  connection
-    .sync({ alter: false })
-    .then(() => console.info("the postgreSQL Db is connected"))
-    .then(() => app.listen(port, console.info(`Server is listening on port ${port}`)))
-    .catch((error) => {
-      console.error("Error starting the server:", error);
+    app.use('/current-date', (req, res, next) => {
+      const createdDate = new Date();
+      res.json({ date: createdDate.getDate(), hour: createdDate.getHours(), minutes: createdDate.getMinutes() });
+      next();
     });
 
-  process.on("unhandledRejection", (reason, promise) => {
-    console.error("Unhandled Rejection at:", promise, "reason:", reason);
-  });
+    app.use("/", router);
+
+    // Middleware de manejo de errores (ensure it's always the last app.use())
+    app.use((err, req, res, next) => {
+      const status = err.status || 500;
+      const message = err.message || err;
+      res.status(status).json({ status, message });
+    });
+
+    return app; // Return the app instance for listening in cluster mode
+  } catch (error) {
+    console.error("Error starting the server:", error);
+    process.exit(1); // Exit with an error code if initialization fails
+  }
 };
 
-if (cluster.isMaster) {
-  const numCPUs = os.cpus().length;
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork(); 
-  }
 
-  cluster.on('exit', (worker, code, signal) => {
-    console.error(`Worker ${worker.process.pid} died. Forking a new worker.`);
-    cluster.fork();
-  });
-} else {
-  startServer();
-}
+  startServer()
+    .then(app => app.listen(port, console.info(`Server is listening on port ${port}`)))
+    .catch(error => console.error("Error starting server:", error));
