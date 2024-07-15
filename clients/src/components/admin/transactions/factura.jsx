@@ -44,7 +44,7 @@ const Factura = ({ transaction, onClose }) => {
             </tr>
             <tr>
               <td className="border-b p-2">Transport Service</td>
-              <td className="border-b p-2">{transaction.transportService ? 'Sí' : 'No'}</td>
+              <td className="border-b p-2">{transaction.servicesAmount ? 'Sí' : 'No'}</td>
             </tr>
             {transaction.otherDetails && Object.keys(transaction.otherDetails).map(key => (
               <tr key={key}>
