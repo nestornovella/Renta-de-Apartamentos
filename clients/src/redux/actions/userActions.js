@@ -18,7 +18,6 @@ export function getOneUser(email) {
       fetch(`${import.meta.env.VITE_API_USER}email?email=${email}`)
       .then((response) => response.json())
       .then((data) => dispatch({ type: actionTypes.GET_ONE_USER_DETAIL, payload: data }))
-      .then((info) => console.log(info))
       .catch(error => console.error(error));
   }
 }

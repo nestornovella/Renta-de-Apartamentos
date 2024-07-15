@@ -7,8 +7,6 @@ function Rating({ apartmentId, initialRating }) {
   const [rating, setRating] = useState(initialRating);
   const dispatch = useDispatch();
 
-//console.log(rating)
-
   const handleStarClick = (value) => {
     setRating(value);
     dispatch(updateRating(apartmentId, value));

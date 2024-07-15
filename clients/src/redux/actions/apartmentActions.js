@@ -152,7 +152,6 @@ export function updateRating(id, rating) {
         id,
         rating,
       });
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }

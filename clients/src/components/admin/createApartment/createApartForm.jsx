@@ -30,10 +30,10 @@ function CreateApartForm({ render }) {
   return (
     <Transition className="flex flex-col justify-center  shadow-2xl rounded-lg xl:mx-auto p-1 font-quicksand">
       <div>
-        <p className="text-gray-400 text-center">create apartment</p>
+        <p className="text-gray-400 text-center">Create Apartment</p>
       </div>
       <span className="text-xs mx-2 my-2 block text-gray-400 font-extralight">
-        Cart parameters
+        Card parameters
       </span>
       <div className="flex  flex-col md:flex-row ">
         <div className="flex flex-col">
@@ -93,7 +93,7 @@ function CreateApartForm({ render }) {
       </div>
       <div className="flex relative mb-4">
         <button className="mt-[20px] w-[100px] mx-auto p-2 text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200" onClick={toogleOpen}>new city</button>
-        <span className="absolute top-[100%] right-[calc(50%-100px)] text-gray-400 text-xs" >(se desplegara menu para crear ciudad)</span>
+        <span className="absolute top-[100%] right-[calc(50%-100px)] text-gray-400 text-xs" >(display menu)</span>
       </div>
       {openStatus &&
 
@@ -103,7 +103,7 @@ function CreateApartForm({ render }) {
           <InputTextSection
             handle={cityHook.handleCity} label={'new urbanization'} name={'barrio'} value={cityHook.input.barrio} />
 
-          <button onClick={submitCity} className="p-2 mx-auto mt-4  text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200">create city</button>
+          <button onClick={submitCity} className="p-2 mx-auto mt-4  text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200">add city</button>
 
         </div>
 
