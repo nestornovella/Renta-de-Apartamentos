@@ -3,7 +3,6 @@ const { resSender, HttpStatusCodes, rejectSender } = require('../helpers/resSend
 const { Op } = require('sequelize');
 const { sendMailRentApproval } = require("../sendEmails/sendMailRentApproval ");
 const {sendMailAdminNotification} = require("../sendEmails/sendMailAdminNotification");
-const { response } = require("express");
 
 module.exports = {
   getAllRents: async (req, res, next) => {
@@ -122,8 +121,9 @@ module.exports = {
         apartment.availability = true;
         await apartment.save();
       }
-
+      
       const updatedRent = await rent.update({ startDate, endDate, status });
+      await sendMailAdminNotification(rent, user, apartment); /// Enviar correo al admin de alquileres aprobadas
 
       resSender(null, HttpStatusCodes.actualizado, updatedRent);
     } catch (error) {

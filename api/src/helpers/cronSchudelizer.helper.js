@@ -4,7 +4,6 @@ const axios = require('axios')
 const { checkExpiredRents } = require("../sendEmails/rentExpiration");
 const { sendReminderEmails } = require("../sendEmails/sendEmails");
 const { sendMailPending } = require("../sendEmails/sendMailPending");
-const { defaults } = require("pg");
 const { getExchange } = require("../utilities/getChange");
 
 
@@ -22,7 +21,7 @@ module.exports = {
             checkExpiredRents();
           });
           
-          cron.schedule('01 05 * * *', () => {
+          cron.schedule('07 15 * * *', () => {
             console.log('Ejecutando tarea cron para enviar correos electrónicos de recordatorio...');
             sendReminderEmails();
           });
