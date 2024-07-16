@@ -21,7 +21,7 @@ function RenderCard() {
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   let template = "";
-  template += `hola 👋 necesito informacion %0A${controledUser.email}%0Aconsulta: %0A>`;
+  template += `Hi 👋 I need more information %0A${controledUser.email}%0Aconsult: %0A>`;
   const options = [
     { id: 1, title: "Log out", icon: <TbLogout />, status: "user", cb: logout },
     {
