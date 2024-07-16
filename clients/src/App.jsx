@@ -21,7 +21,6 @@ import LoadingApartaments from './components/loadings/loadingApartments';
 import RaitingPage from './components/raiting/raintingPage';
 import Properties from './components/properties/propiedades';
 
-
 // Importa el componente de ubicación de manera dinámica usando React.lazy
 const LocationMap = React.lazy(() => import('./components/location/location'));
 
@@ -37,6 +36,8 @@ function App() {
     console.log(apartments)
     setChargeFail(prev => !prev)
   }
+
+
 
   useEffect(() => {
     firstChanrge()

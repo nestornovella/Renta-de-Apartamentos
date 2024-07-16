@@ -2,10 +2,12 @@ import { LuAlertCircle } from "react-icons/lu";
 import { GrStatusGood } from "react-icons/gr";
 import { MdCloudDone, MdDeleteForever } from "react-icons/md";
 import useUpdateRentStatus from "../../../hooks/admin/updateRentStatus";
+import useGetAlert from "../../../hooks/custom/getAlert";
+
 
 function TransactionCard({deleteTransaction, transaction, reloadTransactions,  }) {
   const { status, User, Apartment, id } = transaction;
-  
+  const {alertTop} = useGetAlert()
 
   return (
     <div className="flex justify-between w-[500] items-center border p-2 rounded gap-2 font-quicksand md:px-5">
@@ -49,15 +51,15 @@ export default TransactionCard;
 
 function PendingPanel({rentId, reloadTransactions, deleteTransaction, transactionId }) {
   const { updateRentStatus, loading, error } = useUpdateRentStatus(reloadTransactions);
-
+  const {alertTop} = useGetAlert()
   const handleUpdate = () => {
     updateRentStatus(rentId, "active")
       .then(() => {
-        alert("Rent status updated successfully");
+        alertTop("Rent status updated successfully");
       })
       .catch((err) => {
         console.error(err);
-        alert("Failed to update rent status");
+        alertTop("Failed to update rent status", "error");
       });
   };
 

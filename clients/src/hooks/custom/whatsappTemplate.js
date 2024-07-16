@@ -19,7 +19,7 @@ export function useWhatsapp(input) {
     template += `start date: ${
       input.startDate ? formatDate(input.startDate) : ""
     }   end date: ${input.endDate ? formatDate(input.endDate) : ""}%0A`;
-    template += `servivio de transporte: ${input.transport ? 'requerido ': 'no requerido'}%0A`
+    template += `servivio de transporte: ${input.services.transport > 30 && input.services.transport < 60 ? 'from 1 to 3 peoples' : input.services.transport > 60 ? 'from 3 to 6 peoples' : 'not required'}%0A`
     template += `----------------------%0A`;
     template += `consult:%0A%0A ${input.consult}%0A%0A`;
     template += `----------------------%0A`;
@@ -33,4 +33,4 @@ export function useWhatsapp(input) {
   };
 }
 
-export default useWhatsapp;
+export default useWhatsapp; 

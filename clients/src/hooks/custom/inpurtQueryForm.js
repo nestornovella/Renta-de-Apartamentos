@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth0GetData from "./auth0getinData";
 import useWhatsapp from "./whatsappTemplate";
+import useGetAlert from "./getAlert";
 
 function useInputQuery() {
   const { controledUser } = useAuth0GetData()
@@ -15,6 +16,7 @@ function useInputQuery() {
     urbanizacion: "",
     services: {transport:0}
   });
+  const {alertTop, alertTopPaypal} = useGetAlert()
   //const [inputUrbanizacion, setInputUrbanizacion] = useState()
   const { isAuthenticated } = useAuth0GetData()
   function setId(id) {
@@ -107,12 +109,12 @@ function useInputQuery() {
 }
   function submitWap(status) {
     if (Object.keys(errors).length == 1 && !errors.blocked  || status == 'sale' && isAuthenticated) {
-      alert("You will be redirected to WhatsApp.");
+      alertTopPaypal("You will be redirected to WhatsApp.");
       const escapedHTML = validateURL(link)
       window.location.href = escapedHTML;
     } else {
        
-      alert(isAuthenticated ? "Please fill out all required fields before submitting your query" : "First you need to log in.");
+      alertTop(isAuthenticated ? "Please fill out all required fields before submitting your query" : "First you need to log in.", 'warning', 3000);
       validate()
     }
   }

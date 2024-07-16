@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useGetAlert from "../custom/getAlert";
 
 function useUpdateRentStatus(reloadTransactions) {
   const [loading, setLoading] = useState(false);
@@ -9,6 +10,8 @@ function useUpdateRentStatus(reloadTransactions) {
   const updateRentStatus = async (rentId, status) => {
     setLoading(true);
     setError(null);
+
+    const {alertTop} = useGetAlert()
     try {
       const response = await fetch(`${VITE_API_RENT}${rentId}`, {
         method: "PUT",
@@ -37,7 +40,7 @@ function useUpdateRentStatus(reloadTransactions) {
     fetch(`${VITE_API_RENT}${id}`, {
       method: 'DELETE'
     })
-      .then(response => { response.status < 300 ? alert('deleted Rent') : alert('cant delete the rent') })
+      .then(response => { response.status < 300 ? alertTop('deleted Rent') : alert('cant delete the rent') })
       .catch(error => console.error(error))
 
   }

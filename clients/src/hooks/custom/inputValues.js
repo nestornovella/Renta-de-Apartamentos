@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { parseInput } from "../../utils/parseInput";
+import useGetAlert from "./getAlert";
 
 function useHandleInput() {
   const [error, setError] = useState({ submit: true });
@@ -19,6 +20,7 @@ function useHandleInput() {
     CityId: "",
     rentalType:""
   });
+  const {alertTop} = useGetAlert()
 
   function editApartment(input) {
     setInput(input);
@@ -100,7 +102,7 @@ function useHandleInput() {
             parsed
           )
           .then((response) => {
-            alert("se ha creado con exito");
+            alertTop("se ha creado con exito");
             setInput({
               images: [],
               price: 0,
@@ -118,9 +120,12 @@ function useHandleInput() {
             });
           })
           .catch((error) => console.error(error));
+      }else {
+        alertTop("los campos deben esta completos",'warning');
+        verifyInputValidation(input);
       }
     } else {
-      alert("los campos deben esta completos");
+      alertTop("los campos deben esta completos",'warning');
       verifyInputValidation(input);
     }
   }

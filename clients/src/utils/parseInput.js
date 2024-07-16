@@ -5,7 +5,7 @@ export function parseInput(input) {
     bedrooms: +input.bedrooms,
     bathrooms: +input.bathrooms,
     size: +input.size,
-    //rentalType: input.status.includes('sale') ? null : input.rentalType,
+    rentalType: input.status.includes('sale') ? 'monthly' : input.rentalType,
     rating: {
       valorations: [5],
       media: 5,

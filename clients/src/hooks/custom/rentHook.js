@@ -1,10 +1,11 @@
 import { useState } from "react";
 import useAuth0GetData from "./auth0getinData";
 import axios from "axios";
+import useGetAlert from "./getAlert";
 
 function useGenerateRent(input, errors, validate) {
-  //apartmentId, userId, startDate, endDate
   const { controledUser } = useAuth0GetData()
+  const {alertTop} = useGetAlert()
   const [inputRent, setInputRent] = useState({
     name: "",
     email: "",
@@ -13,6 +14,7 @@ function useGenerateRent(input, errors, validate) {
     endDate: "",
     id: "" //apartmentId
   })
+
 
   function setInput(input) {
     setInputRent(input)
@@ -26,7 +28,6 @@ function useGenerateRent(input, errors, validate) {
       endDate: input.endDate,
       services: input.services
     }
-    console.log("🚀 ~ generateRent ~ parsedInput:", parsedInput)
 
     const minDates = new Date(parsedInput.startDate)
     minDates.setMonth(minDates.getMonth() + 1)
@@ -45,20 +46,14 @@ function useGenerateRent(input, errors, validate) {
           .then(response => {
             response.status < 300
             return response.data
-            // ? 
-            // //alert('se ha generado una peticion de renta, sera evaluada en las proximas horas')  
-            // : 
-            // alert('la peticion de renta no se pudo realizar pongase en contacto con el administrador') 
-
           })
-          .catch(error => console.error(error));
       } else {
-        alert("Please fill out all required fields before submitting your rent");
+        alertTop("Please fill out all required fields before submitting your rent", 'warning');
         validate(input)
         return
       }
     } else {
-      alert('debe ser mayo a un mes')
+      alertTop('the rent must be between one and one month', 'warning')
     }
   }
   //falta terminar de hacer

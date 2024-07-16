@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { parseInput } from "../../utils/parseInput";
+import useGetAlert from "../custom/getAlert";
 
 function useAdeminApartDetail() {
   const [detail, setDetail] = useState(null);
+  const {alertTop} = useGetAlert()
 
   const VITE_API_USER_APARTMENT = import.meta.env.VITE_API_USER_APARTMENT
   function getDetail(id) {
@@ -19,9 +21,9 @@ function useAdeminApartDetail() {
       },
     })
       .then(
-        (response) => response.status < 300 && alert("apartamento eliminado")
+        (response) => response.status < 300 && alertTop("apartamento eliminado")
       )
-      .catch((error) => console.error(error));
+      .catch((error) => alertTop('no se pudo eliminar el partamento', 'error'));
   }
 
   function updateApartment(input, id) {
@@ -36,9 +38,9 @@ function useAdeminApartDetail() {
       .then((response) => response.json())
       .then(
         (response) =>
-          response.status < 300 && alert("apartamento actualizado con exito")
+          response.status < 300 && alertTop("apartamento actualizado con exito")
       )
-      .catch((error) => console.error(error));
+      .catch(() => alertTop("no se pudo actualizar el apartamento", 'error'));
   }
 
   function resetDetail() {
