@@ -31,7 +31,7 @@ function useAdminRent() {
 
   function okStatus() {
     getTransactions();
-    alert("deleted rent");
+    alertTop("deleted rent");
   }
 
   function deleteTransaction(id) {
