@@ -121,8 +121,8 @@ module.exports = {
         apartment.availability = true;
         await apartment.save();
       }
-      
-      const updatedRent = await rent.update({ startDate, endDate, status });
+      console.log(status)
+      const updatedRent = await rent.update({ startDate, endDate, status:status });
 
       resSender(null, HttpStatusCodes.actualizado, updatedRent);
     } catch (error) {

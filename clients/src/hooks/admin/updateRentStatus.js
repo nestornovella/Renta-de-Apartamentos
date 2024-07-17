@@ -10,16 +10,13 @@ function useUpdateRentStatus(reloadTransactions) {
   const {alertTop} = useGetAlert()
   
   const updateRentStatus = async (rentId, status) => {
-    console.log("🚀 ~ updateRentStatus ~ rentId:", rentId)
-    console.log("🚀 ~ updateRentStatus ~ status:", status)
     setLoading(true);
     setError(null);
-
+    const url = `${VITE_API_RENT}${rentId}`
     try {
-      const response = await axios.put(`${VITE_API_RENT}${rentId}`, status);
+      const response = await axios.put(url , {status});
      
       const data = await response.data;
-      console.log("🚀 ~ updateRentStatus ~ data:", data)
       setLoading(false);
       // Recargar transacciones después de actualizar el estado
       if (reloadTransactions) {
