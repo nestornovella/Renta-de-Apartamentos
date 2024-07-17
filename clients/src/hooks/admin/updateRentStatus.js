@@ -17,9 +17,7 @@ function useUpdateRentStatus(reloadTransactions) {
 
     try {
       const response = await axios.put(`${VITE_API_RENT}${rentId}`, status);
-      if (!response.ok) {
-        throw new Error("Failed to update rent status");
-      }
+     
       const data = await response.data;
       console.log("🚀 ~ updateRentStatus ~ data:", data)
       setLoading(false);
