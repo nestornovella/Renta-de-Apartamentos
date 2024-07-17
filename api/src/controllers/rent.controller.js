@@ -110,9 +110,7 @@ module.exports = {
       }
 
       if (status === 'active' && rent.status !== 'active') {
-        if (!apartment.availability) {
-          return rejectSender('El apartamento no está disponible', HttpStatusCodes.noAutorizado);
-        }
+        
 
         apartment.availability = false;
         await apartment.save();
