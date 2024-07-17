@@ -7,19 +7,19 @@ import { getApartmentsByPrice } from "../../../../redux/actions/apartmentActions
 import { useDispatch } from "react-redux";
 import { MdPriceChange } from "react-icons/md";
 
-function SearchPricingRange() {
-  const { toogleOpen, openStatus } = useOpenClose(true, 8000);
+function SearchPricingRange({handleSelected, selected}) {
+  
   const dispatch = useDispatch();
 
   const handleRangeClick = (minPrice, maxPrice) => {
-    if (openStatus) {
+    if (selected == 'price') {
       dispatch(getApartmentsByPrice(minPrice, maxPrice));
     }
   };
 
   return (
     <div
-      onClick={toogleOpen}
+      onClick={() => handleSelected(selected == 'price' ? null : 'price')}
       className=" font-quicksand relative mb-2 md:mb-0 flex items-center gap-4 border-[1px] rounded-lg px-3 py-2 justify-between cursor-pointer shadow-xl"
     >
       <MdOutlinePriceChange />
@@ -27,8 +27,8 @@ function SearchPricingRange() {
         <p className="md:text-sm ">Select a price range </p>
         <p className="md:text-[10px] xl:text-xs ">Select a range price</p>
       </div>
-      <div>{openStatus ? <GrFormUp /> : <GrFormDown />}</div>
-      {openStatus && (
+      <div>{selected == 'price' ? <GrFormUp /> : <GrFormDown />}</div>
+      {selected == 'price' && (
         <div className="absolute top-[60px]  bg-white text-secondary shadow-light w-[110%] -left-2 z-[50] ">
           <div className="font- flex  p-2 hover:cursor-pointer text-start hover:bg-gray-300 text-gray-400 text-[13px]">
             <span

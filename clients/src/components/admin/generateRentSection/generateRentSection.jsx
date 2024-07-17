@@ -4,7 +4,7 @@ import ApartCard from "./apartCard";
 import useAdminRent from "../../../hooks/admin/adminRent";
 
 function GenerateRentSection() {
-  const { getDetail, detail } = useAdminRent();
+  const { detail, getDetail } = useAdeminApartDetail();
   const {deleteTransaction} = useAdminRent()
   const reference = useRef(null);
 

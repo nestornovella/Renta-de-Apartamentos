@@ -4,8 +4,7 @@ import useGetApartments from "../../../../hooks/custom/GetApartments";
 import useGetAllCities from "../../../../hooks/custom/getAllCities";
 import { FaMapMarkedAlt } from "react-icons/fa";
 
-function SearchLocation() {
-  const { toogleOpen, openStatus } = useOpenClose(true, 8000);
+function SearchLocation({handleSelected, selected}) {
   const {filterByCity} = useGetApartments();
   const {cities} = useGetAllCities();
   const handleCitySelect = (cityId) => {
@@ -14,7 +13,7 @@ function SearchLocation() {
 
   return (
     <div
-      onClick={toogleOpen}
+      onClick={() => handleSelected(selected == 'location' ? null : 'location')}
       className=" font-quicksand relative mb-2 px-3 py-2 md:mb-0 flex items-center gap-4 border-[1px] rounded-lg   justify-between cursor-pointer shadow-xl"
     >
       <GrLocation />
@@ -24,8 +23,8 @@ function SearchLocation() {
           Select a location in medellin
         </p>
       </div>
-      {openStatus ? <GrFormUp /> : <GrFormDown />}
-      <div className={`${openStatus ? "absolute  z-[110]" : "hidden"}  rounded-sm  bg-white w-full left-0 top-[60px] border `}>
+      {selected == 'location' ? <GrFormUp /> : <GrFormDown />}
+      <div className={`${selected == 'location' ? "absolute  z-[110]" : "hidden"}  rounded-sm  bg-white w-full left-0 top-[60px] border `}>
         {cities && cities.map((e, i) => {
           return (
                 

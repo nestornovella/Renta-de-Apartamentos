@@ -1,5 +1,6 @@
 import useUpdateRentStatus from "../../../hooks/admin/updateRentStatus";
 import { useState } from "react";
+import useGetAlert from "../../../hooks/custom/getAlert";
 
 function NonApartment() {
   return (
@@ -20,20 +21,20 @@ function NonApartment() {
 
 function ApartCard({ apartment, onRentSelect, getDetail }) {
   const { updateRentStatus, loading, error } = useUpdateRentStatus();
-
+  const {alertTop} = useGetAlert()
   const handleCancelRent = () => {  // 808c4b91-c3b1-4a51-ab62-124a46881c9d
     if (apartment.Rents.length) {
       updateRentStatus(apartment.Rents[0].id, "cancelled")
         .then(() => {
-          alert("Rent status updated to cancelled successfully");
+          alertTop("Rent status updated to cancelled successfully");
           getDetail(apartment.id)
         })
         .catch((error) => {
           console.error(error);
-          alert("Failed to update rent status");
+          alertTop("Failed to update rent status");
         });
     } else {
-      alert("No rent ID provided");
+      alertTop("No rent ID provided");
     }
   };
 
@@ -59,13 +60,13 @@ function ApartCard({ apartment, onRentSelect, getDetail }) {
               ? apartment.urbanizacion
               : "inrese id para obtener apartamento"}
           </span>
-          { !apartment.availability ?
+          { !apartment.availability && apartment.id?
             <button
             onClick={handleCancelRent}
             className="bg-yellow-500 p-1 rounded hover:bg-black text-xs text-white hover:text-white cursor-pointer transition-all delay-200"
           >
             cancelar renta
-          </button>: <span className="bg-red-500 p-1 rounded hover:bg-black text-xs text-white delay-200">not rented</span>}
+          </button>:  apartment.id && <span className="bg-red-500 p-1 rounded hover:bg-black text-xs text-white delay-200">not rented</span>}
           {apartment && (
             <div className="absolute top-[0px] -left-6">
               {apartment.availability ? (
@@ -73,7 +74,7 @@ function ApartCard({ apartment, onRentSelect, getDetail }) {
                   Available
                 </span>
               ) : (
-                <span className="bg-blue-500 p-1 rounded block text-white text-xs  transform -rotate-45">
+                apartment.id &&<span className="bg-blue-500 p-1 rounded block text-white text-xs  transform -rotate-45">
                   Not Available
                 </span>
               )}

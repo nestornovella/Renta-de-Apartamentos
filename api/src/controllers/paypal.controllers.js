@@ -38,8 +38,8 @@ module.exports = {
                     brand_name: 'Mi Tienda',
                     landing_page: 'NO_PREFERENCE',
                     user_action: 'PAY_NOW',
-                    return_url: `${process.env.API_DEV_URL}paypal/capture-order/${rentId}`,
-                    cancel_url: `${process.env.API_DEV_URL}paypal/cancel-order`
+                    return_url: `${process.env.API_PROD_URL}paypal/capture-order/${rentId}`,
+                    cancel_url: `${process.env.API_PROD_URL}paypal/cancel-order`
                 }
             };
 
@@ -96,7 +96,7 @@ module.exports = {
                 apartment.save()
                 await sendMailRentApproval(rent)
                 await sendMailAdminNotification(rent, user, apartment, true)
-                res.redirect('http://localhost:5173/');
+                res.redirect(process.env.FRONTED_URL);
             } else {
                 rejectSender('no se pudo realizar la transaccion (verifica si esta ocupado)', HttpStatusCodes.badRequest)
             }
