@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useGetAlert from "../custom/getAlert";
 
 function useAdminRent() {
   const [transactions, setTransactions] = useState({
@@ -7,6 +8,7 @@ function useAdminRent() {
   });
   const [loading, setLoading] = useState(false);
   const VITE_API_RENT = import.meta.env.VITE_API_RENT_GENERATE
+  const {alertTop} = useGetAlert()
   function getTransactions() {
     setLoading(true);
     fetch(VITE_API_RENT, {
@@ -37,7 +39,7 @@ function useAdminRent() {
       method: "DELETE",
     })
       .then((response) => {
-        response.status < 300 ? okStatus() : alert("cant delete the rent");
+        response.status < 300 ? okStatus() : alertTop("cant delete the rent", 'error');
       })
       .catch((error) => console.error(error));
   }
