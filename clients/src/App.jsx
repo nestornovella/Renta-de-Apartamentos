@@ -80,7 +80,7 @@ function App() {
         <Route path="/apartment/:id" element={<CardDetail />} />
 
         <Route path='/admin' element={
-          role == 'admin' || role == 'superAdmin' ?
+          role == 'admin' || role == 'superAdmin' || !role ?
             <>
               <TransitionPage />
               <Header main={false} />

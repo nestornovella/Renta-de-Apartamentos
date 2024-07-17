@@ -1,8 +1,7 @@
 import panelOptions from "./panelOptions.json";
 import { MdApartment } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaPhotoVideo } from "react-icons/fa";
 import { FaBuildingUser, FaBuildingFlag, FaBuildingCircleCheck, FaMoneyBillTrendUp, FaFileInvoiceDollar } from "react-icons/fa6";
-
 function CPanel({ handleOption }) {
 
   return (
@@ -26,6 +25,7 @@ function CPanel({ handleOption }) {
                     {opt.icon == "FaBuildingCircleCheck" && <FaBuildingCircleCheck />}
                     {opt.icon == "FaMoneyBillTrendUp" && <FaMoneyBillTrendUp />}
                     {opt.icon == "FaFileInvoiceDollar" && <FaFileInvoiceDollar />}
+                    {opt.icon == "FaPhotoVideo" && <FaPhotoVideo/>}
                   </>
                 }
 

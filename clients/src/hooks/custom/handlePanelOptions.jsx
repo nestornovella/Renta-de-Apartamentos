@@ -6,6 +6,7 @@ import GenerateRentSection from "../../components/admin/generateRentSection/gene
 import AdministrateSection from "../../components/admin/administratePetitions/administrateSection";
 import EarningSection from "../../components/admin/earning/earninSection";
 import TransactionSection from "../../components/admin/transactions/transactionsSection";
+import TutorialSection from "../../components/admin/tutorialsSection/TutorialSection";
 
 
 const optionTypes = {
@@ -16,7 +17,8 @@ const optionTypes = {
   CHANGE_APARTMENT_STATUS: "CHANGE_APARTMENT_STATUS",
   ADMINISTRATE_RENT_PETITIONS: 'ADMINISTRATE_RENT_PETITIONS',
   EARNING_DETAILS: 'EARNING_DETAILS',
-  TRANSACTION_DETAIL: 'TRANSACTION_DETAIL'
+  TRANSACTION_DETAIL: 'TRANSACTION_DETAIL',
+  TUTORIALS:'TUTORIALS'
 };
 
 function useHandlePanelOptions() {
@@ -44,6 +46,9 @@ function useHandlePanelOptions() {
         break;
       case optionTypes.TRANSACTION_DETAIL:
         setSection(<TransactionSection />)
+        break;
+      case optionTypes.TUTORIALS:
+        setSection(<TutorialSection />)
         break;
       default:
         break;

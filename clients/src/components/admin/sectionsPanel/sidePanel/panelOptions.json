@@ -49,7 +49,11 @@
         "value": "TRANSACTION_DETAIL",
         "description": "get all transactions",
         "icon":"FaFileInvoiceDollar"
+    },{
+        "id": 8,
+        "name": "Tutorial",
+        "value": "TUTORIALS",
+        "description": "get all transactions",
+        "icon":"FaPhotoVideo"
     }
-
-    
 ]
