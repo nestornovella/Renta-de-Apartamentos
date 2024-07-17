@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useGetAlert from "../custom/getAlert";
+import axios from "axios";
 
 function useUpdateRentStatus(reloadTransactions) {
   const [loading, setLoading] = useState(false);
@@ -13,17 +14,11 @@ function useUpdateRentStatus(reloadTransactions) {
 
     const {alertTop} = useGetAlert()
     try {
-      const response = await fetch(`${VITE_API_RENT}${rentId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status }),
-      });
+      const response = await axios.put(`${VITE_API_RENT}${rentId}`, status);
       if (!response.ok) {
         throw new Error("Failed to update rent status");
       }
-      const data = await response.json();
+      const data = await response.data;
       setLoading(false);
       // Recargar transacciones después de actualizar el estado
       if (reloadTransactions) {
@@ -40,7 +35,7 @@ function useUpdateRentStatus(reloadTransactions) {
     fetch(`${VITE_API_RENT}${id}`, {
       method: 'DELETE'
     })
-      .then(response => { response.status < 300 ? alertTop('deleted Rent') : alert('cant delete the rent') })
+      .then(response => { response.status < 300 ? alertTop('deleted Rent') : alertTop('cant delete the rent', 'error') })
       .catch(error => console.error(error))
 
   }
