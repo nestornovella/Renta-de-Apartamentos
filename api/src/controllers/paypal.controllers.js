@@ -75,7 +75,7 @@ module.exports = {
             if (!rent) rejectSender('no se encontro la renta', HttpStatusCodes.noEncontrado)
             const user = await User.findByPk(rent.User.email)
             const exchange = await Exchange.findByPk(1)
-            const servicesAmount = Object.values(rent.services).reduce((ac, cr) => ac + cr, 0).toFixed(2)
+            const servicesAmount = Object.values(rent.services).reduce((ac, cr) => ac + cr, 0)
             const transaction = await Transaction.create(
                 {
                     paypalToken: token,
