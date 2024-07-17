@@ -55,6 +55,7 @@ module.exports = {
       }
       await apartment.addTransaction(transaction);
       await user.addTransaction(transaction);
+      await Rent.addTransaction(transaction)
       resSender(null, HttpStatusCodes.creado, transaction);
     } catch (error) {
       next(error);
