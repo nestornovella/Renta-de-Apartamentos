@@ -114,7 +114,7 @@ function CreateApartForm({ render }) {
           <InputTextSection
             handle={cityHook.handleCity} label={'new city'} name={'city'} value={cityHook.input.city} />
           <InputTextSection
-            handle={cityHook.handleCity} label={'new urbanization'} name={'barrio'} value={cityHook.input.barrio} />
+            handle={cityHook.handleCity} label={'ciudad'} name={'barrio'} value={cityHook.input.barrio} />
 
           <button onClick={submitCity} className="p-2 mx-auto mt-4  text-white font-semibold bg-secondary cursor-pointer hover:bg-black rounded-lg transition-all delay-200">add city</button>
 
