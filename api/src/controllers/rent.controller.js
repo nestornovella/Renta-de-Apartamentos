@@ -186,7 +186,7 @@ module.exports = {
     ;
     const months = Object.keys(monthsAmounts)
 
-    rents.forEach(re => monthsAmounts[months[re.startDate.getMonth()]] = monthsAmounts[months[re.startDate.getMonth()]] += re.priceAtRent)
+    rents.forEach(re => monthsAmounts[months[re.startDate.getMonth()]] = monthsAmounts[months[re.startDate.getMonth()]] += (re.priceAtRent + re.services.transport))
     
     let response = months.map( month => { return {[month]: monthsAmounts[month]}})
     resSender(null, HttpStatusCodes.aceptado, {months:Object.keys(monthsAmounts), amounts: Object.values(monthsAmounts)});
