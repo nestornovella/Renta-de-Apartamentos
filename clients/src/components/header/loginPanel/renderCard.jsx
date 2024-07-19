@@ -55,13 +55,13 @@ function RenderCard() {
     },
     //{ id: 5, title: "Proximamente", icon: <MdOutlineEmail />, status: "admin" },
     //{ id: 6, title: "Proximamente", icon: <ImCreditCard />, status: "admin" },
-    {
+    /* {
       id: 7,
-      title: "Proximamente",
+      title: "earnings",
       icon: <LiaFileInvoiceDollarSolid />,
       status: "admin",
       
-    },
+    }, */
     {
       id: 8,
       title: "Amin panel",
