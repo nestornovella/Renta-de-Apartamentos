@@ -48,9 +48,6 @@ module.exports = (sequelize) => {
     rentalType: {
       type: DataTypes.ENUM("monthly", "daily"),
       defaultValue: "monthly"
-    },
-    services: {
-      type: DataTypes.FLOAT
     }
   },{timestamps: false});
   Apartment.associate = (models) => {
