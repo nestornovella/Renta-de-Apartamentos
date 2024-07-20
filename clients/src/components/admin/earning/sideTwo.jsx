@@ -19,7 +19,7 @@ function EarningSideTwo({data}) {
             {   data &&
                 <>
                     <div className=" xl:h-[650px]">
-                        <CircleGraphic data={data} />
+                        <CircleGraphic data={{ mes: data.months,services:data.amounts?.map(e => e.service) ,bruto: data.amounts?.map(e => e.amount), neto: data.amounts?.map(e => e.amount * 0.10 )}} />
                     </div>
                 </>
             }

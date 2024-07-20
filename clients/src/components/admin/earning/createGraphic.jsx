@@ -13,6 +13,7 @@ import {
     Legend,
     Filler
 } from 'chart.js';
+import { useSelector } from 'react-redux';
 
 // Register chart elements and scales with Chart.js
 ChartJs.register(
@@ -35,7 +36,10 @@ ChartJs.register(
 
 
 function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[valores netos], brutos:[valores bruto], gastos:[gastos]}
-    const neto = data.neto?.map((e, i) => e + data.services[i])
+    const exchange = useSelector(store => store.user.exchange)
+    const neto = data.neto?.map((e, i) => e + (data.services[i] * exchange.value))
+    const bruto =data.bruto?.map((e, i) => e + (data.services[i] * exchange.value))
+    console.log(data)
     const sendData = {
         labels: data.mes,
         datasets: [
@@ -48,7 +52,7 @@ function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[
             },
             {
                 label: 'Bruto',
-                data: data.bruto,
+                data: bruto,
                 borderColor: 'rgba(243, 118, 1, 0.974)',
                 backgroundColor: ['rgba(243, 118, 1, 0.974)'],
                 tension: 0.10, // Optional: set tension for bezier curves
@@ -89,12 +93,15 @@ function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[
 }
 
 function CircleGraphic({data}) {
+    const exchange = useSelector(store => store.user.exchange)
+
+    const neto = data.neto?.map((e, i) => e + (data.services[i] * exchange.value))
     let dataSet = {
-        labels: data.months,
+        labels: data.mes,
         datasets: [
             {
                 label: 'Ganancia',
-                data: data.amounts,
+                data: neto,
                 backgroundColor: [
                     '#3299dd', // Azul claro
                     '#FFA726', // Naranja
