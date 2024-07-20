@@ -82,13 +82,11 @@ function useInputQuery() {
     );
   }
   function selectService(e){
-    
     setInput(
-      prev =>
-      (prev = {
+      (prev) => prev = {
         ...input,
-        services: e.target.checked ? {transport:e.target.value}:{transport:45.00},
-      })
+        services: e.target.checked ? {transport:parseInt(e.target.value)}:{transport:45.00},  
+      }
     );
   }
 

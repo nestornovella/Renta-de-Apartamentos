@@ -7,6 +7,7 @@ import axios from 'axios'
 
 
 function EarningSideOne({data}) {
+    console.log("🚀 ~ EarningSideOne ~ data:", data)
     const { LineGraphic } = graphics.default
     
 
@@ -25,10 +26,10 @@ function EarningSideOne({data}) {
                 data &&
                 <div className="flex flex-col gap-2 xl:h-[650px]">
                     <div className="xl:h-[50%]">
-                        <LineGraphic data={{ mes: data.months, bruto: data.amounts, neto: data.amounts?.map(e => e * 0.10 )}} type="line" />
+                        <LineGraphic data={{ mes: data.months,services:data.amounts?.map(e => e.service) ,bruto: data.amounts?.map(e => e.amount), neto: data.amounts?.map(e => e.amount * 0.10 )}} type="line"  />
                     </div>
                     <div className="xl:h-[50%]">
-                        <LineGraphic data={{ mes: data.months, bruto: data.amounts, neto: data.amounts?.map(e => e * 0.10 )}} />
+                        <LineGraphic data={{ mes: data.months,services:data.amounts?.map(e => e.service),bruto: data.amounts?.map(e => e.amount), neto: data.amounts?.map(e => e.amount * 0.10 )}} />
                     </div>
                 </div>
             }
