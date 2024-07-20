@@ -2,25 +2,29 @@ const { Rent, Apartment, User } = require("../../db");
 const { resSender, HttpStatusCodes, rejectSender } = require('../helpers/resSender.helper');
 const { Op } = require('sequelize');
 const { sendMailRentApproval } = require("../sendEmails/sendMailRentApproval ");
-const {sendMailAdminNotification} = require("../sendEmails/sendMailAdminNotification");
+const { sendMailAdminNotification } = require("../sendEmails/sendMailAdminNotification");
 
 module.exports = {
   getAllRents: async (req, res, next) => {
-    const {status} = req.query
+    const { status } = req.query
     try {
       let rents = null
-      if(!status){
-        rents = await Rent.findAll({include:[
-        {model:User},
-        {model:Apartment}
-      ]})
-      }else{
-        rents = await Rent.findAll({where:{status:status},include:[
-          {model:User},
-          {model:Apartment}
-        ]})
+      if (!status) {
+        rents = await Rent.findAll({
+          include: [
+            { model: User },
+            { model: Apartment }
+          ]
+        })
+      } else {
+        rents = await Rent.findAll({
+          where: { status: status }, include: [
+            { model: User },
+            { model: Apartment }
+          ]
+        })
       }
-       
+
       resSender(null, HttpStatusCodes.aceptado, rents);
     } catch (error) {
       next(error);
@@ -41,22 +45,24 @@ module.exports = {
   },
 
   createRent: async (req, res, next) => {
-    const { apartmentId, userId, startDate, endDate, status } = req.body // id apart, user id , start D, end D ? precio {consulta} 
+    const { apartmentId, userId, startDate, endDate, status, services } = req.body
+    console.log("🚀 ~ createRent: ~ body:", req.body)
+    // id apart, user id , start D, end D ? precio {consulta} 
     try {
       //validations parametros
-      if(!userId || !apartmentId || !startDate || !endDate){
+      if (!userId || !apartmentId || !startDate || !endDate) {
         rejectSender(`faltan parametros recuerda que los parametros requeridos son -> apartmentId:${apartmentId}, userId:${userId}, startDate:${startDate}, endDate:${endDate}`, HttpStatusCodes.badRequest)
       }
       //requerir entidades
       const user = await User.findByPk(userId)
       const apartment = await Apartment.findByPk(apartmentId)
 
-      if(!user || !apartment){
-        rejectSender(`no se encontraron las entidades user: ${user} apartment: ${apartment}` , HttpStatusCodes.badRequest)
+      if (!user || !apartment) {
+        rejectSender(`no se encontraron las entidades user: ${user} apartment: ${apartment}`, HttpStatusCodes.badRequest)
       }
 
       //validando disponibilidad del apartamento
-      if(!apartment.availability){
+      if (!apartment.availability) {
         rejectSender('el apartamento que se intenta rentar no se encuentra disponible.', HttpStatusCodes.noAutorizado)
       }
       //validar que la fecha inicial sea mayor a la final
@@ -66,16 +72,19 @@ module.exports = {
 
       //creacion de renta
       const rent = await Rent.create({
-        ...req.body, 
+        ...req.body,
         priceAtRent: apartment.price, // Guardar el precio del apartamento al momento de crear la renta
-        status: status ? status : 'pending' 
-      }); 
+        status: status ? status : 'pending',
+        
+      });
+      console.log("🚀 ~ createRent: ~ rent:", rent)
+
 
       await user.addRent(rent);
       await apartment.addRent(rent);
 
       //validar Renta 
-      if(!rent){
+      if (!rent) {
         rejectSender('no se pudo crear la renta.', HttpStatusCodes.conflictivo)
       }
 
@@ -90,7 +99,7 @@ module.exports = {
   updateRent: async (req, res, next) => {
     const { id } = req.params;
     const { startDate, endDate, status } = req.body;
-    
+
     try {
 
       const rent = await Rent.findByPk(id);
@@ -110,7 +119,7 @@ module.exports = {
       }
 
       if (status === 'active' && rent.status !== 'active') {
-        
+
 
         apartment.availability = false;
         await apartment.save();
@@ -120,7 +129,7 @@ module.exports = {
         await apartment.save();
       }
       console.log(status)
-      const updatedRent = await rent.update({ startDate, endDate, status:status });
+      const updatedRent = await rent.update({ startDate, endDate, status: status });
 
       resSender(null, HttpStatusCodes.actualizado, updatedRent);
     } catch (error) {
@@ -129,10 +138,15 @@ module.exports = {
   },
 
   deleteRent: async (req, res, next) => {
+    const { destroy } = req.query
     const { id } = req.params;
     try {
       const rent = await Rent.findByPk(id);
-      await rent.destroy();
+      if (destroy == 'true') {
+        await Rent.destroy({truncate:true});
+      } else {
+        await rent.destroy();
+      }
       resSender("rent deleted", HttpStatusCodes.eliminado, null);
     } catch (error) {
       next(error);
@@ -171,25 +185,27 @@ module.exports = {
         },
       });
 
-      let monthsAmounts = {'January':0,   // Enero
-        'February':0,  // Febrero
-        'March':0,     // Marzo
-        'April':0,     // Abril
-        'May':0,       // Mayo
-        'June':0,      // Junio
-        'July':0,      // Julio
-        'August':0,    // Agosto
-        'September':0, // Septiembre
-        'October':0,   // Octubre
-        'November':0,  // Noviembre
-        'December':0 }  // Diciembre
-    ;
-    const months = Object.keys(monthsAmounts)
+      let monthsAmounts = {
+        'January': 0,   // Enero
+        'February': { amount: 0, service: 0 },  // Febrero
+        'March': { amount: 0, service: 0 },     // Marzo
+        'April': { amount: 0, service: 0 },     // Abril
+        'May': { amount: 0, service: 0 },       // Mayo
+        'June': { amount: 0, service: 0 },      // Junio
+        'July': { amount: 0, service: 0 },      // Julio
+        'August': { amount: 0, service: 0 },    // Agosto
+        'September': { amount: 0, service: 0 }, // Septiembre
+        'October': { amount: 0, service: 0 },   // Octubre
+        'November': { amount: 0, service: 0 },  // Noviembre
+        'December': { amount: 0, service: 0 }
+      }  // Diciembre
+        ;
+      const months = Object.keys(monthsAmounts)
 
-    rents.forEach(re => monthsAmounts[months[re.startDate.getMonth()]] = monthsAmounts[months[re.startDate.getMonth()]] += re.priceAtRent)
-    
-    let response = months.map( month => { return {[month]: monthsAmounts[month]}})
-    resSender(null, HttpStatusCodes.aceptado, {months:Object.keys(monthsAmounts), amounts: Object.values(monthsAmounts)});
+      rents.forEach(re => monthsAmounts[months[re.startDate.getMonth()]].amount = monthsAmounts[months[re.startDate.getMonth()]].amount += (re.priceAtRent))
+      rents.forEach(re => monthsAmounts[months[re.startDate.getMonth()]].service = monthsAmounts[months[re.startDate.getMonth()]].service += (re.services.transport))
+      let response = months.map(month => { return { [month]: monthsAmounts[month] } })
+      resSender(null, HttpStatusCodes.aceptado, { months: Object.keys(monthsAmounts), amounts: Object.values(monthsAmounts) });
     } catch (error) {
       next(error);
     }

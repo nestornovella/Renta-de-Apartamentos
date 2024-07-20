@@ -1,0 +1,18 @@
+VITE_API_USER= https://renta-de-apartamentos-production.up.railway.app/user/
+VITE_API_USER_CITIES= https://renta-de-apartamentos-production.up.railway.app/city/
+VITE_API_USER_APARTMENT= https://renta-de-apartamentos-production.up.railway.app/apartment/
+VITE_API_APARTMENT_ANOTATIONS=https://renta-de-apartamentos-production.up.railway.app/anotations/
+VITE_API_RENT = https://renta-de-apartamentos-production.up.railway.app/apartment/rent/
+VITE_API_CREATE_ORDER= https://renta-de-apartamentos-production.up.railway.app/paypal/create-order/
+VITE_API_RENT_GENERATE = https://renta-de-apartamentos-production.up.railway.app/rent/
+VITE_URL=http://localhost:5173/
+VITE_API_EXCHANGE= https://renta-de-apartamentos-production.up.railway.app/exchange
+VITE_API_GET_TRANSACTION= https://renta-de-apartamentos-production.up.railway.app/transaction  # modificar
+# CLOUDINARY
+VITE_CLOUDINARY_URL = https://api.cloudinary.com/v1_1/dg7galjwj/image/upload/
+VITE_CLOUDINARY_PRESET = j3wpntjr
+# WHATSAPP
+VITE_WTSAPP=https://api.whatsapp.com/send?phone=+573024470241
+VITE_WHATSAPP_PHONE= +540111525063297
+# REDES
+VITE_INSTAGRAM=https://www.instagram.com/amobladosyventas?igsh=Mmtza200djk3OGhl

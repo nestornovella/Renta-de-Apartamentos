@@ -35,12 +35,13 @@ ChartJs.register(
 
 
 function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[valores netos], brutos:[valores bruto], gastos:[gastos]}
+    const neto = data.neto?.map((e, i) => e + data.services[i])
     const sendData = {
         labels: data.mes,
         datasets: [
             {
                 label: 'Neto',
-                data: data.neto,
+                data: neto,
                 borderColor: 'rgba(10, 246, 18, 0.974)',
                 backgroundColor: ['rgba(89, 223, 82, 0.974)'],
                 tension: 0.10, // Optional: set tension for bezier curves
