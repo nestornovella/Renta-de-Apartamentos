@@ -44,7 +44,7 @@ function RenderCard() {
           import.meta.env.VITE_INSTAGRAM
         ),
     },
-    {
+    /* {
       id: 4,
       title: "Metrics",
       icon: <FaRankingStar />,
@@ -52,7 +52,7 @@ function RenderCard() {
       cb: () => {
         redirectTo(import.meta.env.VITE_URL + "#/admin/?section=EARNING_DETAILS");
       },
-    },
+    }, */
     //{ id: 5, title: "Proximamente", icon: <MdOutlineEmail />, status: "admin" },
     //{ id: 6, title: "Proximamente", icon: <ImCreditCard />, status: "admin" },
     /* {
