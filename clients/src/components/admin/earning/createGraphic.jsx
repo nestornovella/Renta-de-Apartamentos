@@ -37,14 +37,22 @@ ChartJs.register(
 
 function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[valores netos], brutos:[valores bruto], gastos:[gastos]}
     const exchange = useSelector(store => store.user.exchange)
-    const neto = data.neto?.map((e, i) => e + (data.services[i] * exchange.value))
+    const neto = data.neto?.map((e, i) => e)
     const bruto =data.bruto?.map((e, i) => e + (data.services[i] * exchange.value))
+    const services = data.services?.map(e => parseFloat((e * exchange.value).toFixed(2)) )
     console.log(data)
     const sendData = {
         labels: data.mes,
         datasets: [
             {
-                label: 'Neto',
+                label: 'Services',
+                data: services,
+                borderColor: 'rgba(1, 243, 203, 0.974)',
+                backgroundColor: ['rgba(1, 243, 227, 0.974)'],
+                tension: 0.10, // Optional: set tension for bezier curves
+            },
+            {
+                label: 'Neto Rentas',
                 data: neto,
                 borderColor: 'rgba(10, 246, 18, 0.974)',
                 backgroundColor: ['rgba(89, 223, 82, 0.974)'],
@@ -57,6 +65,7 @@ function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[
                 backgroundColor: ['rgba(243, 118, 1, 0.974)'],
                 tension: 0.10, // Optional: set tension for bezier curves
             },
+           
 
         ]
     };

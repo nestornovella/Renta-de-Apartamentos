@@ -19,7 +19,7 @@ function EarningSideOne({data}) {
 
 
             <div>
-                <p className="text-gray-400 text-center">section one</p>
+                <p className="text-gray-400 text-center">Ganancia, Neto y Servicios</p>
             </div>
             {
                 data &&

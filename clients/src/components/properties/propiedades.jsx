@@ -165,7 +165,7 @@ const AnimatedBox = ({
             </div>
             <div className="flex gap-3">
               <img className="size-[20px] rounded-[50%]" src="https://imgs.search.brave.com/IJw-vNjpU-9a8pN4NO2vNJvBuL1fL9bdVhmTVc-woXg/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZs/YXRpY29uLmNvbS81/MTIvNTU1LzU1NTUy/Ni5wbmc" alt="" />
-              <p className="font-bold text-sm "> {parseToDollarsMoney((price / exchange.value).toFixed(2)).slice(1)}</p>
+              <p className="font-bold text-sm "> {exchange.value && parseToDollarsMoney((price / exchange.value).toFixed(2)).slice(1)}</p>
             </div>
             <div className="gap-1 md:gap-4 xl:gap-2 mt-2 flex flex-wrap flex-col md:flex-row">
               <div className="flex items-center justify-center px-2 my-2 py-1 rounded-lg bg-slate-300/30">

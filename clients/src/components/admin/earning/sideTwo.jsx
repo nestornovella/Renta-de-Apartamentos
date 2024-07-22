@@ -14,7 +14,7 @@ function EarningSideTwo({data}) {
     return (
         <SideSection>
             <div>
-                <p className="text-gray-400 text-center">section two</p>
+                <p className="text-gray-400 text-center">Ganancia de Rentas</p>
             </div>
             {   data &&
                 <>

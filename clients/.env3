@@ -1,0 +1,18 @@
+VITE_API_USER= http://localhost:3000/user/
+VITE_API_USER_CITIES= http://localhost:3000/city/
+VITE_API_USER_APARTMENT= http://localhost:3000/apartment/
+VITE_API_APARTMENT_ANOTATIONS=http://localhost:3000/anotations/
+VITE_API_RENT = http://localhost:3000/apartment/rent/
+VITE_API_CREATE_ORDER= http://localhost:3000/paypal/create-order/
+VITE_API_RENT_GENERATE = http://localhost:3000/rent/
+VITE_URL=http://localhost:5173/
+VITE_API_EXCHANGE= http://localhost:3000/exchange
+VITE_API_GET_TRANSACTION=http://localhost:3000/transaction  # modificar
+# CLOUDINARY
+VITE_CLOUDINARY_URL = https://api.cloudinary.com/v1_1/dg7galjwj/image/upload/
+VITE_CLOUDINARY_PRESET = j3wpntjr
+# WHATSAPP
+VITE_WTSAPP=https://api.whatsapp.com/send?phone=+573024470241
+VITE_WHATSAPP_PHONE= +540111525063297
+# REDES
+VITE_INSTAGRAM=https://www.instagram.com/amobladosyventas?igsh=Mmtza200djk3OGhl
