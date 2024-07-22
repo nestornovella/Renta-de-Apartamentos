@@ -93,7 +93,6 @@ function useHandleInput() {
 
   function submit() {
     const parsed = parseInput(input)
-    console.log(parsed)
     if (!error.submit) {
       if (Object.keys(error).length == 1) {
         axios

@@ -177,7 +177,7 @@ module.exports = {
             [Op.between]: [startYear, endYear],
           },
           status: {
-            [Op.in]: ["active", "expired"]
+            [Op.in]: ["active", "expired", "cancelled"]
           }
         },
         include: {
