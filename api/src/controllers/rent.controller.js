@@ -46,6 +46,7 @@ module.exports = {
 
   createRent: async (req, res, next) => {
     const { apartmentId, userId, startDate, endDate, status, services } = req.body
+    console.log("🚀 ~ createRent: ~ status:", status)
     console.log("🚀 ~ createRent: ~ body:", req.body)
     // id apart, user id , start D, end D ? precio {consulta} 
     try {

@@ -3,6 +3,7 @@ import { GrStatusGood } from "react-icons/gr";
 import { MdCloudDone, MdDeleteForever } from "react-icons/md";
 import useUpdateRentStatus from "../../../hooks/admin/updateRentStatus";
 import useGetAlert from "../../../hooks/custom/getAlert";
+import { FaCcPaypal } from "react-icons/fa";
 
 
 function TransactionCard({deleteTransaction, transaction, reloadTransactions,  }) {
@@ -42,7 +43,7 @@ function TransactionCard({deleteTransaction, transaction, reloadTransactions,  }
         />
         <span className="text-xs text-center text-gray-400">{Apartment.urbanizacion}</span>
       </div>
-     {status.includes('pending') ||status.includes('pendingPayPal') && <PendingPanel status={status} rentId={transaction.id} transactionId={id} deleteTransaction={deleteTransaction} reloadTransactions={reloadTransactions}/>}
+     {status.includes('pending')  && <PendingPanel status={status} rentId={transaction.id} transactionId={id} deleteTransaction={deleteTransaction} reloadTransactions={reloadTransactions}/>}
     </div>
   );
 }
@@ -71,13 +72,19 @@ function PendingPanel({rentId, reloadTransactions, deleteTransaction, transactio
         }
       </button>
       {
-        status.includes('pending') ?
+        status == 'pending' ?
         <button onClick={()=> {deleteTransaction(transactionId)}}>
         {
           <MdDeleteForever className="text-[30px] text-black hover:text-red-500 transition-all delay-200 cursor-pointer hover:scale-125" />
         }
-      </button>:
-      <h2>P</h2>
+      </button>
+      :
+      <button onClick={()=> alertTop('!Esta peticion es de paypal, si se quiere eliminar debe ser aceptada y eliminada desde Set apartment status, El reintegro de dinero debe ser en forma manual!', 'warning', 10000)}>
+        {
+          <FaCcPaypal className="text-[30px] text-blue-600 hover:text-black transition-all delay-200 cursor-pointer hover:scale-125" />
+        }
+      </button>
+        
       }
       
       {error && <div className="text-red-500">{error}</div>}
