@@ -20,7 +20,7 @@ function useAdminRent() {
       .then((response) => response.json())
       .then((response) =>
         setTransactions({
-          pending: response.data.filter((tr) => tr.status.includes("pending")),
+          pending: response.data.filter((tr) => tr.status.includes("pending") || tr.status.includes("pendingPayPal")),
           active: response.data.filter((tr) => tr.status.includes("active")),
         })
       )

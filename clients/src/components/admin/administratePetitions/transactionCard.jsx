@@ -42,14 +42,14 @@ function TransactionCard({deleteTransaction, transaction, reloadTransactions,  }
         />
         <span className="text-xs text-center text-gray-400">{Apartment.urbanizacion}</span>
       </div>
-     {status.includes('pending') && <PendingPanel rentId={transaction.id} transactionId={id} deleteTransaction={deleteTransaction} reloadTransactions={reloadTransactions}/>}
+     {status.includes('pending') ||status.includes('pendingPayPal') && <PendingPanel status={status} rentId={transaction.id} transactionId={id} deleteTransaction={deleteTransaction} reloadTransactions={reloadTransactions}/>}
     </div>
   );
 }
 
 export default TransactionCard;
 
-function PendingPanel({rentId, reloadTransactions, deleteTransaction, transactionId }) {
+function PendingPanel({rentId, reloadTransactions, deleteTransaction, transactionId, status }) {
   const { updateRentStatus, loading, error } = useUpdateRentStatus(reloadTransactions);
   const {alertTop} = useGetAlert()
   const handleUpdate = () => {
@@ -70,11 +70,16 @@ function PendingPanel({rentId, reloadTransactions, deleteTransaction, transactio
           <MdCloudDone className="text-[30px] text-black hover:text-green-500 transition-all delay-200 cursor-pointer hover:scale-125" />
         }
       </button>
-      <button onClick={()=> {deleteTransaction(transactionId)}}>
+      {
+        status.includes('pending') ?
+        <button onClick={()=> {deleteTransaction(transactionId)}}>
         {
           <MdDeleteForever className="text-[30px] text-black hover:text-red-500 transition-all delay-200 cursor-pointer hover:scale-125" />
         }
-      </button>
+      </button>:
+      <h2>P</h2>
+      }
+      
       {error && <div className="text-red-500">{error}</div>}
     </div>
   );

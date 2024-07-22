@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM('pending', 'active', 'expired', 'cancelled'),
+      type: DataTypes.ENUM('pending', 'active', 'expired', 'cancelled', 'pendingPayPal'),
       defaultValue: 'pending'
     },
     priceAtRent: {

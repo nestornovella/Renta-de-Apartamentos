@@ -58,7 +58,7 @@ function useGenerateRent(input, errors, validate) {
   }
   //falta terminar de hacer
   function payment(rentalType) {
-    generateRent(rentalType)
+    generateRent(rentalType, 'pendingPayPal')
       .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
       .then(response => window.location.href = response.data)
   }
