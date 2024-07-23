@@ -19,6 +19,7 @@ module.exports = {
           <p><strong>Usuario:</strong> ${user.name} (${user.email})</p>
           <p><strong>Apartamento:</strong> ${apartment.urbanizacion}</p>
           <p><strong>Precio:</strong> ${apartment.price}</p>
+          <li><strong>Servicios:</strong> ${rent.services.transport ? rent.services.transport: "no services selected"}</li>
           <p><strong>Fecha de inicio:</strong> ${new Date(rent.startDate).toLocaleDateString()}</p>
           <p><strong>Fecha de finalización:</strong> ${new Date(rent.endDate).toLocaleDateString()}</p>
         </div>`;
