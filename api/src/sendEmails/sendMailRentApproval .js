@@ -26,7 +26,7 @@ module.exports = {
               <li><strong>Fecha de Inicio:</strong> ${new Date(rent.startDate).toLocaleDateString()}</li>
               <li><strong>Fecha de Fin:</strong> ${new Date(rent.endDate).toLocaleDateString()}</li>
               <li><strong>Precio:</strong> ${rent.priceAtRent}</li>
-              <li><strong>Servicios:</strong> ${rent.servicesAtRent ? rent.servicesAtRent : "no services selected"}</li>
+              <li><strong>Servicios:</strong> ${rent.services ? rent.services: "no services selected"}</li>
             </ul>
             <p>Gracias por elegirnos.</p>
           </div>
