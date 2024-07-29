@@ -2,7 +2,6 @@ const { sendMail } = require("./mailer");
 
 module.exports = {
   sendMailAdminNotification: async (rent, user, apartment, reserved) => {
-    console.log("🚀 ~ sendMailAdminNotification: ~ reserved:", reserved)
     try {
       const subject = `Nueva renta ${!reserved ? '(pendiente)' : '(reservada)'}`;
       const text= `Se ha generado una nueva renta ${!reserved ? '(pendiente)' : '(reservada)'}. :
@@ -25,7 +24,7 @@ module.exports = {
         </div>`;
   
       // Configura la dirección de correo del administrador
-      const adminEmail = "javiergarciaplata69@gmail.com";
+      const adminEmail = "bienesraicesyamoblados2019@gmail.com";
   
       await sendMail(adminEmail, subject, text, html);
     } catch (error) {
