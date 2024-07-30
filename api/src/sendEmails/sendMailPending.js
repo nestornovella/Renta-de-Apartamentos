@@ -20,7 +20,7 @@ module.exports = {
         console.log("no hay anotaciones pendientes");
       } else {
         // Enviar correo al administrador con las anotaciones pendientes
-        const adminEmail = 'javiergarciaplata69@gmail.com'; 
+        const adminEmail = 'bienesraicesyamoblados2019@gmail.com'; 
         const subject = 'Anotaciones Pendientes';
         const html = `Aquí están las anotaciones pendientes: ${JSON.stringify(anotations)}`;
         await sendMail(adminEmail, subject, html);
