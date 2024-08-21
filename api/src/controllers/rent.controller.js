@@ -187,7 +187,7 @@ module.exports = {
       });
 
       let monthsAmounts = {
-        'January': 0,   // Enero
+        'January': { amount: 0, service: 0 },   // Enero
         'February': { amount: 0, service: 0 },  // Febrero
         'March': { amount: 0, service: 0 },     // Marzo
         'April': { amount: 0, service: 0 },     // Abril

@@ -33,8 +33,9 @@ module.exports = (sequelize) => {
   Rent.associate = (models) => {
     Rent.belongsTo(models.User, { foreignKey: 'userId' });
     Rent.belongsTo(models.Apartment, { foreignKey: 'apartmentId' });
-    Rent.hasMany(models.Transaction)
+    Rent.hasMany(models.Transaction, { onDelete: 'CASCADE' })
     Rent.belongsToMany(models.Exchange,{through: 'rent-exchange'}) 
   }
+  
   return Rent;
 };
