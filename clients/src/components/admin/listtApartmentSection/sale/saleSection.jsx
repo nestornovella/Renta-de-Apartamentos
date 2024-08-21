@@ -2,7 +2,7 @@ import useGetApartments from "../../../../hooks/custom/GetApartments";
 import Transition from "../../../complements/transition";
 import CardApartAdmin from "../cardApartmentAdmin";
 
-function SaleSection({ apartments, getDetail, deleteApartment, resetData }) {
+function SaleSection({ apartments, getDetail, deleteApartment, resetData, setEdit }) {
 
   return (
     <Transition className="h-full">
@@ -20,6 +20,7 @@ function SaleSection({ apartments, getDetail, deleteApartment, resetData }) {
                 deleteApartment={deleteApartment}
                 getDetail={getDetail}
                 apartment={ap}
+                setEdit={setEdit}
               />
             );
           })}
