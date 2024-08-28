@@ -40,7 +40,6 @@ function LineGraphic({ type = 'bar', data }) { //data -> {meses:[meses], netos:[
     const neto = data.neto?.map((e, i) => e)
     const bruto =data.bruto?.map((e, i) => e + (data.services[i] * exchange.value))
     const services = data.services?.map(e => parseFloat((e * exchange.value).toFixed(2)) )
-    console.log(data)
     const sendData = {
         labels: data.mes,
         datasets: [
