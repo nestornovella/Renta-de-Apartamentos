@@ -162,10 +162,10 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
             status && status.includes('rent') &&
             <div className="shadow-2xl border rounded-lg my-2 p-2">
               <p className="text-xs text-gray-400 mt-2">Do you want to reserve an apartment now?</p>
-              <div onClick={reserveRent} className={`relative flex text-white gap-2 font-semibold cursor-pointer ${availability ? 'hover:text-blue-500' : 'hover:text-red-500'} transition-all delay-200 hover:bg-black  bg-blue-500 py-2 px-3 hover:black rounded-xl mt-2`}>
+              {/* <div onClick={reserveRent} className={`relative flex text-white gap-2 font-semibold cursor-pointer ${availability ? 'hover:text-blue-500' : 'hover:text-red-500'} transition-all delay-200 hover:bg-black  bg-blue-500 py-2 px-3 hover:black rounded-xl mt-2`}>
                 {availability ? <span className="text-[15px] text-white text-semibold ">Reserve with PayPal</span> : <span className="text-[15px] text-white text-semibold ">Not Availability</span>}
                 {availability ? <SlPaypal className="hover:text-blue-500  border rounded-full text-[25px] p-1 absolute right-[20%] top-[calc(50%-12.5px)]" /> : <FaCalendarXmark />}
-              </div>
+              </div> */}
             </div>
           }
 
