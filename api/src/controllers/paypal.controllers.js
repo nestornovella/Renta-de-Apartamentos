@@ -45,7 +45,7 @@ module.exports = {
 
             const params = new URLSearchParams();
             params.append('grant_type', 'client_credentials');
-            const { data: { access_token } } = await axios.post(`${process.env.PAYPAL_SANDBOX_URL}v1/oauth2/token`, params, {
+            const { data: { access_token } } = await axios.post(`${process.env.PAYPAL_URL}v1/oauth2/token`, params, {
                 auth: {
                     username: process.env.PAYPAL_CLIENT_ID,
                     password: process.env.PAYPAL_SECRET_KEY
@@ -53,7 +53,7 @@ module.exports = {
             });
             
             console.log(access_token)
-            const response = await axios.post(`${process.env.PAYPAL_SANDBOX_URL}v2/checkout/orders`, order, {
+            const response = await axios.post(`${process.env.PAYPAL_URL}v2/checkout/orders`, order, {
                 headers: {
                     Authorization: `Bearer ${access_token}`
                 }

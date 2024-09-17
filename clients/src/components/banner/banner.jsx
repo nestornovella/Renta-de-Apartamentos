@@ -1,6 +1,5 @@
 import { scrollTop } from "../../utils/scrollTop";
 import FlotedSearch from "./floatedSearch/flotedSearch";
-
 function Banner() {
   
   return (
