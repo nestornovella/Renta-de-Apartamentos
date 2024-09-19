@@ -46,8 +46,6 @@ module.exports = {
 
   createRent: async (req, res, next) => {
     const { apartmentId, userId, startDate, endDate, status, services } = req.body
-    console.log("🚀 ~ createRent: ~ status:", status)
-    console.log("🚀 ~ createRent: ~ body:", req.body)
     // id apart, user id , start D, end D ? precio {consulta} 
     try {
       //validations parametros
@@ -78,8 +76,6 @@ module.exports = {
         status: status ? status : 'pending',
         
       });
-      console.log("🚀 ~ createRent: ~ rent:", rent)
-
 
       await user.addRent(rent);
       await apartment.addRent(rent);
@@ -129,7 +125,6 @@ module.exports = {
         apartment.availability = true;
         await apartment.save();
       }
-      console.log(status)
       const updatedRent = await rent.update({ startDate, endDate, status: status });
 
       resSender(null, HttpStatusCodes.actualizado, updatedRent);

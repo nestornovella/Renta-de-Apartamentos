@@ -70,7 +70,7 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
           />
           <div>
             <p>Commercial Advisor</p>
-            <p className="text-secondary font-semibold ">Viviana</p>
+            <p className="text-secondary font-semibold ">Henry Tabares</p>
           </div>
         </div>
         {
