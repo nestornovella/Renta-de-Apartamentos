@@ -158,7 +158,7 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
             <ServicePanel handler={handleTransport} selectService={selectService}/>
           </>}
 
-          {
+          {/* {
             status && status.includes('rent') &&
             <div className="shadow-2xl border rounded-lg my-2 p-2">
               <p className="text-xs text-gray-400 mt-2">Do you want to reserve an apartment now?</p>
@@ -167,7 +167,7 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
                 {availability ? <SlPaypal className="hover:text-blue-500  border rounded-full text-[25px] p-1 absolute right-[20%] top-[calc(50%-12.5px)]" /> : <FaCalendarXmark />}
               </div>
             </div>
-          }
+          } */}
 
         </div>
       </div>
