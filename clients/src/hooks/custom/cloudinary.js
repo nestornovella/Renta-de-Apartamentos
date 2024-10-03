@@ -9,9 +9,9 @@ function useCloudinary(addUrl) {
   const CLOUDINARY_PRESET = import.meta.env.VITE_CLOUDINARY_PRESET
   
 
-  function addFiles(file) {
+  /* function addFiles(file) {
     setFiles(file)
-  }
+  } */
 
   function uploadToCloudinary(file) {
     const formData = new FormData()
