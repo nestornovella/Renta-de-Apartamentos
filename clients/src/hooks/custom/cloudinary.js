@@ -23,6 +23,7 @@ function useCloudinary(addUrl) {
           'Content-Type': 'multipart/form-data'
         }
       })
+      //.then(response => {console.log(response.data); return response})
         .then(response => addUrl(response.data.url))
         .catch(err => console.log(err))
         
@@ -30,7 +31,7 @@ function useCloudinary(addUrl) {
   }
 
   return {
-    addFiles,
+    //addFiles,
     uploadToCloudinary
   }
 

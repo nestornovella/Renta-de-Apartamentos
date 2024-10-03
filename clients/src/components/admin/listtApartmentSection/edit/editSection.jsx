@@ -9,11 +9,13 @@ import InputNumberSection from "../../createApartment/formComponents/inputNumber
 import InputTextSection from "../../createApartment/formComponents/inputTextSection";
 import SelectOptionsSection from "../../createApartment/formComponents/selectOptionsSection";
 import SelectSection from "../../createApartment/formComponents/selectSection";
+import useCloudinary from "../../../../hooks/custom/cloudinary";
 
 function EditApartment({ detail, sendInput }) {
-  const { handleInputs, input, addImages, deleteImage, error, editApartment } =
+  const { handleInputs, input, addImages, addUrl, deleteImage, error, editApartment } =
     useHandleInput();
   const { updateApartment } = useAdeminApartDetail();
+  const{ uploadToCloudinary } = useCloudinary(addUrl);
 
   useEffect(() => {
     if (detail) {
@@ -160,7 +162,7 @@ function EditApartment({ detail, sendInput }) {
         </span>
         <div>
           <div className="flex flex-col">
-            <ImageSelector handle={addImages} value="" />
+            <ImageSelector handle={addImages} value="" addFiles={uploadToCloudinary} />
             <AlertComponent property={"images"} errors={error} />
           </div>
           <ImagesRenderSection
