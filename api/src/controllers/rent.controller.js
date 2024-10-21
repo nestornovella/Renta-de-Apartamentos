@@ -193,8 +193,8 @@ module.exports = {
         'September': { amount: 0, service: 0 }, // Septiembre
         'October': { amount: 0, service: 0 },   // Octubre
         'November': { amount: 0, service: 0 },  // Noviembre
-        'December': { amount: 0, service: 0 }
-      }  // Diciembre
+        'December': { amount: 0, service: 0 }   // Diciembre
+      }  
         ;
       const months = Object.keys(monthsAmounts)
 
@@ -202,6 +202,43 @@ module.exports = {
       rents.forEach(re => monthsAmounts[months[re.startDate.getMonth()]].service = monthsAmounts[months[re.startDate.getMonth()]].service += (re.services.transport))
       let response = months.map(month => { return { [month]: monthsAmounts[month] } })
       resSender(null, HttpStatusCodes.aceptado, { months: Object.keys(monthsAmounts), amounts: Object.values(monthsAmounts) });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  deleteEarningsByMonth: async (req, res, next) => {
+    const { year, month } = req.query;
+
+    try {
+      if (!year || !month) {
+        return rejectSender("Year and month are required", HttpStatusCodes.badRequest);
+      }
+
+      // Validar que el mes esté entre 1 y 12
+      if (month < 1 || month > 12) {
+        return rejectSender("Month must be between 1 and 12", HttpStatusCodes.badRequest);
+      }
+
+      const startMonth = new Date(year, month - 1, 1);
+      const endMonth = new Date(year, month, 0);
+
+      const result = await Rent.destroy({
+        where: {
+          startDate: {
+            [Op.between]: [startMonth, endMonth],
+          },
+          status: {
+            [Op.in]: ["active", "expired", "cancelled", "pendingPayPal"],
+          },
+        },
+      });
+
+      if (result === 0) {
+        return rejectSender("No earnings found for the specified month", HttpStatusCodes.noEncontrado);
+      }
+
+      resSender(`Earnings for year ${year} and month ${month} deleted successfully`, HttpStatusCodes.eliminado, null);
     } catch (error) {
       next(error);
     }
