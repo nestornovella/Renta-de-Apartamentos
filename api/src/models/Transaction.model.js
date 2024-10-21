@@ -15,11 +15,11 @@ module.exports = (sequelize) => {
     payerID:{
       type: DataTypes.STRING,
     },
-    date: { //fecha en la que se genera la transaccion!
+    date: { 
       type: DataTypes.DATEONLY,
       defaultValue: date
     },
-    amount: { //monto de la transaccion
+    amount: { 
       type: DataTypes.JSON()
     },
     status:{
@@ -31,7 +31,6 @@ module.exports = (sequelize) => {
       defaultValue : 0.00
     }
    
-
   }, { timestamps: false });
   Transaction.associate = (models) => {
     Transaction.belongsTo(models.Rent)

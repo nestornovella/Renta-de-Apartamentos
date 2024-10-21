@@ -100,6 +100,7 @@ function App() {
         } />
         <Route path='/raiting/:id/:calification' element={<RaitingPage/>}/>
       </Routes>
+      
     </>
   );
 }

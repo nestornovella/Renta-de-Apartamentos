@@ -62,6 +62,7 @@ function useGenerateRent(input, errors, validate) {
       .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
       .then(response => window.location.href = response.data)
   }
+  
   return {
     generateRent,
     setInputRent,

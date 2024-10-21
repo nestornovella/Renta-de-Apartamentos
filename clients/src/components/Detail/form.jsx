@@ -26,13 +26,11 @@ function Form({ apartmentId, availability, urbanizacion, status, rentalType }) {
     setUrbanizacion(urbanizacion)
   }, [apartmentId])
 
-  
-
-  
   function handleQuery(){
     submitWap(status)
     alertTopPaypal('you will be redirected to whatsapp platform', null, 10000 )
   }
+  
   function checkAvailability() {
     if (availability) {
       generateRent(rentalType)
