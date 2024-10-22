@@ -18,7 +18,7 @@ const startServer = async () => {
   try {
     const app = express();
 
-    await connection.sync({ alter: false });
+    await connection.sync({ alter: true });
     console.info("the postgreSQL Db is connected");
 
     startCron();
