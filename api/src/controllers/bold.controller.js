@@ -39,7 +39,7 @@ module.exports = {
       const boldData = await axios.post("https://integrations.api.bold.co/online/link/v1", data, {
 
         headers: {
-          Authorization: "x-api-key kbPVgEUxf4Z1hkXv_h816p0XNMFTY4uq_qmd1aVqW08"
+          Authorization: process.env.IDENTITY_KEY_BOLD
         }
       });
 
@@ -62,14 +62,15 @@ module.exports = {
           status: 'pendingBold',
         }
       })
-      rentLinks = rents.map(rent => axios.get(`https://integrations.api.bold.co/online/link/v1/${rent.boldLink}`, { //[promise, promise, promise]
+     
+      rentLinks = rents.map(rent => axios.get(`${process.env.BOLD_BASE_URL}${rent.boldLink}`, { //[promise, promise, promise]
         headers: {
-          Authorization: "x-api-key kbPVgEUxf4Z1hkXv_h816p0XNMFTY4uq_qmd1aVqW08"
+          Authorization: process.env.IDENTITY_KEY_BOLD
         }
       }))
       const responses = await Promise.all(rentLinks) // [{status:'PAYED'}, {status:'ACTIVE'}, {status:'REJECT'}]
       const verify = responses.map(rs => rs.data.status == 'SALE_APPROVED') //[false, true, false]
-                                                                    //   0       1      2
+       console.log(verify)                                                             //   0       1      2
 
       for(let i =0; i< verify.length; i++){
 
