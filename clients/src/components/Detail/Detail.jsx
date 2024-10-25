@@ -5,7 +5,6 @@ import Transition from "../complements/transition";
 import TransitionPage from "../transitionPage/transitionPage";
 import Header from "../header/header";
 import Property from "./property";
-import Error404 from "./error404";
 import Footer from "../footer/footer";
 import { scrollTop } from "../../utils/scrollTop";
 import { useSelector } from "react-redux";
@@ -15,17 +14,20 @@ function CardDetail() {
   const { getApartment } = useGetAnApartment();
   const [apartment, setApartment] = useState(null)
   const globalAparts = useSelector(store => store.apartment.apartments)
- 
-  
+
+
 
   useEffect(() => {
     scrollTop()
     const apart = globalAparts.find(ap => ap.id.includes(id))
-    if(apart){
+    if (apart) {
       setApartment(apart)
-    }else{
-      getApartment(id)
-      .then(response => setApartment(response))
+    } else {
+      setTimeout(() => {
+        getApartment(id)
+          .then(response =>  setApartment(response))
+      }, 800)
+
     }
   }, [])
 
