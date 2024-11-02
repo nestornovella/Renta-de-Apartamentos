@@ -15,8 +15,11 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
+    boldLink:{
+      type: DataTypes.STRING,
+    },
     status: {
-      type: DataTypes.ENUM('pending', 'active', 'expired', 'cancelled', 'pendingPayPal'),
+      type: DataTypes.ENUM('pending', 'active', 'expired', 'cancelled', 'pendingPayPal', 'pendingBold'),
       defaultValue: 'pending'
     },
     priceAtRent: {

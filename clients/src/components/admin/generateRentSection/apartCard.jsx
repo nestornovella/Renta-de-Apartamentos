@@ -24,7 +24,8 @@ function ApartCard({ apartment, onRentSelect, getDetail }) {
   const {alertTop} = useGetAlert()
   const handleCancelRent = () => {  // 808c4b91-c3b1-4a51-ab62-124a46881c9d
     if (apartment.Rents.length) {
-      updateRentStatus(apartment.Rents[0].id, "cancelled")
+      const rent = apartment.Rents.find(rent => rent.status == 'active')
+      updateRentStatus(rent.id, "cancelled")
         .then(() => {
           alertTop("Rent status updated to cancelled successfully");
           getDetail(apartment.id)

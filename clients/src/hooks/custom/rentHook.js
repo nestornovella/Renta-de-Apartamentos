@@ -57,10 +57,23 @@ function useGenerateRent(input, errors, validate) {
     }
   }
   //falta terminar de hacer
+  // function payment(rentalType) {
+  //   generateRent(rentalType, 'pendingPayPal')
+  //     .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
+  //     .then(response => window.location.href = response.data)
+  // }
   function payment(rentalType) {
-    generateRent(rentalType, 'pendingPayPal')
-      .then(response => axios(`${import.meta.env.VITE_API_CREATE_ORDER}${response.id}`))
-      .then(response => window.location.href = response.data)
+    generateRent(rentalType, 'pending')
+      .then(response => {
+        console.log(response.id)
+        return response
+      })
+      .then(response => axios.post(`${import.meta.env.VITE_API_RENT_GENERATE}boldlink`,{rentId: response.id}))
+      .then(response => {
+        console.log(response)
+        return response
+      })
+      .then(response => window.location.href = response.data.data)
   }
   
   return {

@@ -24,8 +24,8 @@ function SearchPricingRange({handleSelected, selected}) {
     >
       <MdOutlinePriceChange />
       <div>
-        <p className="md:text-sm ">Select a price range </p>
-        <p className="md:text-[10px] xl:text-xs ">Select a range price</p>
+        <p className="md:text-sm ">Price Range </p>
+        <p className="md:text-[10px] xl:text-xs ">Select your price range</p>
       </div>
       <div>{selected == 'price' ? <GrFormUp /> : <GrFormDown />}</div>
       {selected == 'price' && (

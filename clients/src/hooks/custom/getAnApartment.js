@@ -12,7 +12,8 @@ function useGetAnApartment() {
 
   
 
-  function getApartment(id) {
+  function getApartment(id) { 
+    
     return fetch(`${import.meta.env.VITE_API_USER_APARTMENT}${id}`)
     .then(response => response.json())
     .then(response => response.data)
