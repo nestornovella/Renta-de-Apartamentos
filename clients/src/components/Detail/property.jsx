@@ -84,14 +84,14 @@ function Property({ apartment }) {
             <button
               onClick={handleImagePos}
               name="prev"
-              className="absolute text-white font-bold top-[50%] -translate-y-[50%] bg-gray-400/40 rounded-full backdrop:blur z-[1] left-10 px-4 py-3"
+              className="absolute text-green-500 text-xl font-extrabold top-[50%] -translate-y-[50%] bg-gray-700/50 rounded-full backdrop:blur z-[1] left-10 px-4 py-3"
             >
               {"<"}
             </button>
             <button
               onClick={handleImagePos}
               name="next"
-              className="absolute text-white font-bold top-[50%] right-10  -translate-y-[50%] bg-gray-400/40 rounded-full px-4 py-3 "
+              className="absolute text-green-500 text-xl font-extrabold top-[50%] right-10  -translate-y-[50%] bg-gray-700/50 rounded-full px-4 py-3 "
             >
               {">"}
             </button>
